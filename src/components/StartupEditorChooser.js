@@ -14,11 +14,11 @@ const styles = {
 	container: {
 		display: 'flex',
 		backgroundColor: lightGrayBackground,
-		height: grid('s'),
+		height: grid('xxxl + xxxl'),
 		justifyContent: 'center',
 	},
-	containerBig: {
-		height: grid('xxxl + xxxl'),
+	containerHide: {
+		display: 'none',
 	},
 	anchor: {
 		position: 'absolute',
@@ -54,7 +54,7 @@ const StartupEditorChooser = ({ sheet: { classes }, ...props }) => (
 	<div
 		className={classNames({
 			[classes.container]: true,
-			[classes.containerBig]: props.choice },
+			[classes.containerHide]: !props.choice },
 		)}
 	>
 		<div className={classes.figureWrapper}>
