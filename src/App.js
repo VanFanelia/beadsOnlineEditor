@@ -1,4 +1,9 @@
 import React from 'react';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+
+import beadsOnlineEditorApp from './reducers/index';
+
 import injectSheet from './utils/injectSheet';
 import globalStyles from './style/globalStyle';
 import SimpleNavigation from './components/Navigation';
@@ -11,13 +16,17 @@ const styles = {
 	},
 };
 
+const store = createStore(beadsOnlineEditorApp);
+
 const App = ({ sheet: { classes }, children }) => (
-	<div>
-		<SimpleNavigation />
-		<div className={classes.content}>
-			{children}
+	<Provider store={store}>
+		<div>
+			<SimpleNavigation />
+			<div className={classes.content}>
+				{children}
+			</div>
 		</div>
-	</div>
+	</Provider>
 );
 
 App.propTypes = {
