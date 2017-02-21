@@ -7,8 +7,8 @@ import grid from '../utils/grid';
 import translate from '../utils/translate';
 
 import { lightGrayBackground } from '../style/colors';
-import { jssSheet, jssClasses } from '../utils/propTypes';
 import { textRatioFontSize, textRatioLineHeight } from '../utils/fontRatio';
+import { jssSheet } from '../utils/propTypes';
 
 const styles = {
 	container: {
@@ -50,55 +50,36 @@ const styles = {
 	},
 };
 
-class StartupEditorChooser extends React.Component {
-
-	constructor(props) {
-		super(props);
-		this.sheet = props.sheet;
-		this.classes = props.classes;
-	}
-
-	initEmptyEditor() {
-		this.foo = 'bar';
-	}
-
-	initPictureChoice() {
-		this.bar = 'foo';
-	}
-
-	render() {
-		return (
-			<div
-				className={classNames({
-					[this.classes.container]: true,
-					[this.classes.containerBig]: this.props.choice },
-					)}
-			>
-				<div className={this.classes.figureWrapper}>
-					<button className={this.classes.figure} onClick={this.initEmptyEditor}>
-						<img className={this.classes.icon} src={iconEmptyFile} alt="" />
-						<h3 className={this.classes.headline}>
-							{ translate('START_EMPTY_EDITOR') }
-						</h3>
-					</button>
-				</div>
-				<div className={this.classes.figureWrapper}>
-					<button className={this.classes.figure} onClick={this.initPictureChoice} >
-						<img className={this.classes.icon} src={iconImage} alt="" />
-						<h3 className={this.classes.headline}>
-							{ translate('START_WITH_PICTURE') }
-						</h3>
-					</button>
-				</div>
-			</div>
-		);
-	}
-}
+const StartupEditorChooser = ({ sheet: { classes }, ...props }) => (
+	<div
+		className={classNames({
+			[classes.container]: true,
+			[classes.containerBig]: props.choice },
+		)}
+	>
+		<div className={classes.figureWrapper}>
+			<button className={classes.figure} onClick={props.onCreateCanvasClick}>
+				<img className={classes.icon} src={iconEmptyFile} alt="" />
+				<h3 className={classes.headline}>
+					{ translate('START_EMPTY_EDITOR') }
+				</h3>
+			</button>
+		</div>
+		<div className={classes.figureWrapper}>
+			<button className={classes.figure} onClick={props.onCreateCanvasClick} >
+				<img className={classes.icon} src={iconImage} alt="" />
+				<h3 className={classes.headline}>
+					{ translate('START_WITH_PICTURE') }
+				</h3>
+			</button>
+		</div>
+	</div>
+);
 
 StartupEditorChooser.propTypes = {
 	choice: React.PropTypes.bool,
+	onCreateCanvasClick: React.PropTypes.func,
 	sheet: jssSheet,
-	classes: jssClasses,
 };
 
 export default injectSheet(styles)(StartupEditorChooser);
