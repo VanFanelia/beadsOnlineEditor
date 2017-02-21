@@ -20,6 +20,14 @@ const styles = {
 	containerBig: {
 		height: grid('xxxl + xxxl'),
 	},
+	anchor: {
+		position: 'absolute',
+		top: 0,
+		left: 0,
+		right: 0,
+		bottom: 0,
+		margin: 0,
+	},
 	figureWrapper: {
 		padding: grid('s'),
 		width: '33%',
@@ -29,13 +37,12 @@ const styles = {
 		height: '100%',
 		padding: grid('s'),
 		border: '1px solid black',
+		position: 'relative',
+		textAlign: 'center',
 	},
 	icon: {
 		height: grid('l'),
 		width: grid('l'),
-	},
-	caption: {
-		textAlign: 'center',
 	},
 	headline: {
 		fontSize: textRatioFontSize('s'),
@@ -68,26 +75,20 @@ class StartupEditorChooser extends React.Component {
 					)}
 			>
 				<div className={this.classes.figureWrapper}>
-					<figure className={this.classes.figure}>
+					<button className={this.classes.figure} onClick={this.initEmptyEditor}>
 						<img className={this.classes.icon} src={iconEmptyFile} alt="" />
-						<figcaption className={this.classes.caption}>
-							<h3 className={this.classes.headline}>
-								{ translate('START_EMPTY_EDITOR') }
-							</h3>
-						</figcaption>
-					</figure>
-					<a href="" onClick={this.initEmptyEditor} >&nbsp;</a>
+						<h3 className={this.classes.headline}>
+							{ translate('START_EMPTY_EDITOR') }
+						</h3>
+					</button>
 				</div>
 				<div className={this.classes.figureWrapper}>
-					<figure className={this.classes.figure}>
+					<button className={this.classes.figure} onClick={this.initPictureChoice} >
 						<img className={this.classes.icon} src={iconImage} alt="" />
-						<figcaption className={this.classes.caption}>
-							<h3 className={this.classes.headline}>
-								{ translate('START_WITH_PICTURE') }
-							</h3>
-						</figcaption>
-					</figure>
-					<a href="" onClick={this.initPictureChoice} >&nbsp;</a>
+						<h3 className={this.classes.headline}>
+							{ translate('START_WITH_PICTURE') }
+						</h3>
+					</button>
 				</div>
 			</div>
 		);

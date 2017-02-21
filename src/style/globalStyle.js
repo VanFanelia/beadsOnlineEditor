@@ -2,6 +2,7 @@ import Normalize from 'normalize.jss';
 import animations from './animations';
 import { darkFontColor } from './colors';
 import { textRatioFontSize, textRatioLineHeight, headlineRatioLineHeight, headlineRatioFontSize } from '../utils/fontRatio';
+import transition from './transition';
 
 export default {
 	'@global': {
@@ -17,6 +18,15 @@ export default {
 		...Normalize,
 		figure: {
 			margin: 0,
+		},
+		button: {
+			backgroundColor: 'transparent',
+			cursor: 'pointer',
+			'&:hover': {
+				boxShadow: '0 8px 8px rgba(0,31,73,.15)',
+				transform: 'translateY(-4px)',
+				transition: transition(),
+			},
 		},
 		'*': {
 			boxSizing: 'border-box',
