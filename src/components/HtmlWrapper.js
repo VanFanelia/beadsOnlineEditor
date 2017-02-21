@@ -7,22 +7,22 @@ const HtmlWrapper = (props) => {
 
 	return (
 		<html lang="en" {...htmlAttributes}>
-		<head>
-			<meta charSet="utf-8" />
-			<meta name="viewport" content="width=device-width, initial-scale=1" />
-			{props.head.title.toComponent()}
-			{props.head.meta.toComponent()}
-			{props.head.link.toComponent()}
-			<style id={props.appStyleId} type="text/css">
-				{props.appStyle}
-			</style>
-		</head>
-		<body>
-		<div id="root">
-			{ content }
-		</div>
-		<script src={`/static/js/main.${props.buildHash}.js`} type="text/javascript" charSet="utf-8" />
-		</body>
+			<head>
+				<meta charSet="utf-8" />
+				<meta name="viewport" content="width=device-width, initial-scale=1" />
+				{props.head.title.toComponent()}
+				{props.head.meta.toComponent()}
+				{props.head.link.toComponent()}
+				<style id={props.appStyleId} type="text/css">
+					{props.appStyle}
+				</style>
+			</head>
+			<body>
+				<div id="root">
+					{ content }
+				</div>
+				<script src={`/static/js/main.${props.buildHash}.js`} type="text/javascript" charSet="utf-8" />
+			</body>
 		</html>
 	);
 };

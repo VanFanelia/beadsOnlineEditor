@@ -53,12 +53,10 @@ class StartupEditorChooser extends React.Component {
 
 	initEmptyEditor() {
 		this.foo = 'bar';
-		console.log('foo');
 	}
 
 	initPictureChoice() {
 		this.bar = 'foo';
-		console.log('bar');
 	}
 
 	render() {
@@ -78,7 +76,7 @@ class StartupEditorChooser extends React.Component {
 							</h3>
 						</figcaption>
 					</figure>
-					<a onClick={this.initEmptyEditor} />
+					<a href="" onClick={this.initEmptyEditor} >&nbsp;</a>
 				</div>
 				<div className={this.classes.figureWrapper}>
 					<figure className={this.classes.figure}>
@@ -89,7 +87,7 @@ class StartupEditorChooser extends React.Component {
 							</h3>
 						</figcaption>
 					</figure>
-					<a onClick={this.initPictureChoice()} />
+					<a href="" onClick={this.initPictureChoice} >&nbsp;</a>
 				</div>
 			</div>
 		);

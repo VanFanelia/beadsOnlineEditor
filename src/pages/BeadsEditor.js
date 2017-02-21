@@ -2,8 +2,6 @@ import React from 'react';
 import SimpleIntro from '../components/SimpleIntro';
 import StartupEditorChooser from '../components/StartupEditorChooser';
 
-
-
 class BeadsEditor extends React.Component {
 
 	constructor(props) {
