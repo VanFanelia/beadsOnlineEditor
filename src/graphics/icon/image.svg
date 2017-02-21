@@ -1,0 +1,9 @@
+<svg version="1.1" height="320" width="320" style="background-color: transparent" xmlns="http://www.w3.org/2000/svg">
+	<polygon points="80,80 240,80 240,240 80,240" style="stroke:#000000; fill:transparent; stroke-width: 8px;"/>
+	<line x1="90" y1="200" x2="230" y2="200" style="stroke-width: 4px; stroke:#000000"/>
+	<polygon points="100,200 140,150 180,200" style="fill:#000000; stroke-width: 4px"/>
+	<g transform="translate(40,0)">
+		<polygon points="100,200 140,130 180,200" style="fill:#000000; stroke-width: 4px"/>
+	</g>
+	<ellipse cx="110" cy="110" rx="10" ry="10" />
+</svg>
