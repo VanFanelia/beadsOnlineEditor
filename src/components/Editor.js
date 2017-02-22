@@ -4,6 +4,7 @@ import { jssSheet } from '../utils/propTypes';
 
 import SimpleIntro from '../components/SimpleIntro';
 import StartupEditorChooser from '../components/StartupEditorChooser';
+import MenuBar from '../components/MenuBar';
 
 const styles = {
 	wrapper: {
@@ -13,7 +14,13 @@ const styles = {
 
 const Editor = ({ sheet: { classes }, ...props }) => (
 	<div>
-		<StartupEditorChooser choice={props.currentCanvasMode === 'init'} onCreateCanvasClick={props.onCreateCanvasClick} />
+		<StartupEditorChooser visible={props.currentCanvasMode === 'init'} onCreateCanvasClick={props.onCreateCanvasClick} />
+		<MenuBar
+			tabletSizeX={props.tabletSizeX}
+			tabletSizeY={props.tabletSizeY}
+			visible={props.currentCanvasMode === 'editor'}
+			onChange={props.onChangeTabletSize}
+		/>
 		<SimpleIntro className={classes.wrapper}>
 			<p>React Components make creating websites finally feel clean and productive.</p>
 			<p>
@@ -36,6 +43,9 @@ Editor.propTypes = {
 	sheet: jssSheet,
 	currentCanvasMode: React.PropTypes.string,
 	onCreateCanvasClick: React.PropTypes.func,
+	onChangeTabletSize: React.PropTypes.func,
+	tabletSizeX: React.PropTypes.number,
+	tabletSizeY: React.PropTypes.number,
 };
 
 export default injectSheet(styles)(Editor);

@@ -54,7 +54,7 @@ const StartupEditorChooser = ({ sheet: { classes }, ...props }) => (
 	<div
 		className={classNames({
 			[classes.container]: true,
-			[classes.containerHide]: !props.choice },
+			[classes.containerHide]: !props.visible },
 		)}
 	>
 		<div className={classes.figureWrapper}>
@@ -77,7 +77,7 @@ const StartupEditorChooser = ({ sheet: { classes }, ...props }) => (
 );
 
 StartupEditorChooser.propTypes = {
-	choice: React.PropTypes.bool,
+	visible: React.PropTypes.bool,
 	onCreateCanvasClick: React.PropTypes.func,
 	sheet: jssSheet,
 };

@@ -55,6 +55,14 @@ export default {
 			fontSize: headlineRatioFontSize('s'),
 			lineHeight: headlineRatioLineHeight('s'),
 		},
+		p: {
+			fontSize: textRatioFontSize('s'),
+			lineHeight: textRatioLineHeight('s'),
+		},
+		label: {
+			fontSize: textRatioFontSize('s'),
+			lineHeight: textRatioLineHeight('s'),
+		},
 	},
 	...animations,
 };
