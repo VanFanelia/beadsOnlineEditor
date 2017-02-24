@@ -9,15 +9,10 @@ import HtmlWrapper from './components/HtmlWrapper';
 
 const serverSideStylesId = 'server-side-styles';
 
-
 if (typeof document !== 'undefined') {
 	render(
 		<Router history={browserHistory} routes={routes} />,
 		document.getElementById('root'),
-		() => {
-			const serverSideStyles = document.getElementById(serverSideStylesId);
-			serverSideStyles.parentNode.removeChild(serverSideStyles);
-		},
 	);
 }
 
