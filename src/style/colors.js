@@ -5,3 +5,5 @@ export const darkGrayBackground = '#222222';
 
 export const lightFontColor = '#eaeaea';
 export const darkFontColor = '#333344';
+
+export const errorRed = '#cc0000';

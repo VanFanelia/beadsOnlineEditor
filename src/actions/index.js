@@ -13,3 +13,10 @@ export const changeCanvasName = name => ({
 	type: 'CHANGE_CANVAS_NAME',
 	currentCanvasName: name,
 });
+
+export const changeTabletSize = (x, y) => ({
+	type: 'CHANGE_TABLET_SIZE',
+	tabletSizeX: x,
+	tabletSizeY: y,
+});
+

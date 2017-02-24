@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { createNewBeadsCanvas } from '../../actions/index';
+import { createNewBeadsCanvas, changeTabletSize } from '../../actions/index';
 
 import Editor from '../Editor';
 
@@ -14,6 +14,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
 	onCreateCanvasClick: () => {
 		dispatch(createNewBeadsCanvas());
+	},
+	onChangeTabletSize: () => {
+		dispatch(changeTabletSize());
 	},
 });
 

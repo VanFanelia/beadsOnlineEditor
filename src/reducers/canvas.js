@@ -9,17 +9,23 @@ export const defaultCanvasState = {
 const canvas = (state = defaultCanvasState, action) => {
 	switch (action.type) {
 	case 'CREATE_NEW_BEADS_CANVAS':
-		return {
+		return Object.assign({}, state, {
 			tabletSizeX: action.tabletSizeX,
 			tabletSizeY: action.tabletSizeY,
 			currentCanvasPictureData: action.currentCanvasPictureData,
 			currentCanvasName: action.currentCanvasName,
 			currentCanvasMode: 'editor',
-		};
+		});
 
 	case 'CHANGE_CANVAS_NAME':
 		return Object.assign({}, state, {
 			currentCanvasName: action.currentCanvasName,
+		});
+
+	case 'CHANGE_TABLET_SIZE':
+		return Object.assign({}, state, {
+			tabletSizeX: action.tabletSizeX,
+			tabletSizeY: action.tabletSizeY,
 		});
 
 	default:
