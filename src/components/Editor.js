@@ -6,8 +6,22 @@ import grid from '../utils/grid';
 import Bead from '../components/Bead';
 import StartupEditorChooser from '../components/StartupEditorChooser';
 import MenuBar from '../components/MenuBar';
+import ColorBar from '../components/ColorBar';
 
 const styles = {
+	container: {
+		textAlign: 'center',
+		position: 'absolute',
+		left: 0,
+		top: 0,
+		width: '100%',
+		height: `calc(100% - ${grid('xl')})`,
+		marginTop: grid('xl'),
+	},
+	canvasContainer: {
+		position: 'relative',
+		height: '100%',
+	},
 	row: {
 		height: grid('xs'),
 		width: `${(29 * grid('xs', false))}px`,
@@ -39,38 +53,42 @@ const buildBeadsForEditor = (tableSizeX, tableSizeY) => {
 			}
 		}
 	}
-	console.log(blocks);
 	return blocks;
 };
 
 const Editor = ({ sheet: { classes }, ...props }) => (
-	<div>
+	<div className={classes.container}>
 		<StartupEditorChooser visible={props.currentCanvasMode === 'init'} onCreateCanvasClick={props.onCreateCanvasClick} />
-		<MenuBar
-			tabletSizeX={props.tabletSizeX}
-			tabletSizeY={props.tabletSizeY}
-			visible={props.currentCanvasMode === 'editor'}
-			onChange={props.onChangeTabletSize}
-		/>
-		<div className={classes.canvas} >
-			{
-				buildBeadsForEditor(props.tabletSizeX, props.tabletSizeY)
-				.map((blockRow, blockRowCounter) => (
-					<div className={classes.blockRow} key={`blockRow${blockRowCounter}`}>
-						{ blockRow.map((block, blockCounter) => (
-							<div className={classes.block} key={`blockCounter${blockCounter}`}>
-								{ block.map((row, rowCounter) => (
-									<div className={classes.row} key={`row${rowCounter}`}>
-										{row.map(bead => (
-											<Bead beadId={bead.key} x={bead.x} y={bead.y} key={bead.key} />
-										))}
-									</div>
-								))}
-							</div>
-						))}
-					</div>
-				))
-			}
+
+		<div className={classes.canvasContainer} >
+			<MenuBar
+				tabletSizeX={props.tabletSizeX}
+				tabletSizeY={props.tabletSizeY}
+				visible={props.currentCanvasMode === 'editor'}
+				onChange={props.onChangeTabletSize}
+			/>
+
+			<ColorBar />
+			<div className={classes.canvas} >
+				{
+					buildBeadsForEditor(props.tabletSizeX, props.tabletSizeY)
+					.map((blockRow, blockRowCounter) => (
+						<div className={classes.blockRow} key={`blockRow${blockRowCounter}`}>
+							{ blockRow.map((block, blockCounter) => (
+								<div className={classes.block} key={`blockCounter${blockCounter}`}>
+									{ block.map((row, rowCounter) => (
+										<div className={classes.row} key={`row${rowCounter}`}>
+											{row.map(bead => (
+												<Bead beadId={bead.key} x={bead.x} y={bead.y} key={bead.key} />
+											))}
+										</div>
+									))}
+								</div>
+							))}
+						</div>
+					))
+				}
+			</div>
 		</div>
 	</div>
 );
