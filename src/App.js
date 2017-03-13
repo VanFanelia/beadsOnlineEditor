@@ -19,7 +19,7 @@ const styles = {
 /* eslint-disable no-underscore-dangle */
 const store = createStore(
 	beadsOnlineEditorApp,
-	window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+	window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
 );
 /* eslint-enable */
 

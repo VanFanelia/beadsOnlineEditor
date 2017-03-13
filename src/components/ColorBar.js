@@ -1,15 +1,16 @@
 import React from 'react';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
-import { changeTabletSize } from '../actions/index';
 import injectSheet from '../utils/injectSheet';
 
-import { black, lightGrayBackground, errorRed } from '../style/colors';
-import { jssSheet, jssClasses } from '../utils/propTypes';
+import { black, white, lightGrayBackground, filterRed } from '../style/colors';
+import { jssSheet } from '../utils/propTypes';
 
 import grid from '../utils/grid';
-import ColorFilter from './ColorFilter';
+import { textRatioLineHeight, textRatioFontSize } from '../utils/fontRatio';
 import translate from '../utils/translate';
+import ColorFilter from './ColorFilter';
+import ColorBeadPanel from './ColorBeadPanel';
 
 const styles = {
 	colorBar: {
@@ -19,7 +20,7 @@ const styles = {
 		padding: grid('xs'),
 		paddingTop: grid('l'),
 		color: black,
-		width: grid('xxxl + l'),
+		width: grid('xxxl + xxl'),
 		right: 0,
 		top: 0,
 	},
@@ -27,8 +28,12 @@ const styles = {
 		width: grid('xs'),
 	},
 	input: {
-		width: grid('xxxl'),
+		width: grid('xxxl + xl'),
 		display: 'block',
+		height: grid('s'),
+		lineHeight: textRatioLineHeight('s'),
+		fontSize: textRatioFontSize('s'),
+		margin: `0 0 ${grid('xs')} 0`,
 	},
 	colorList: {
 		padding: 0,
@@ -38,32 +43,23 @@ const styles = {
 	colorFilter: {
 		display: 'inline-block',
 	},
-	colorContainer: {
-		foo: 'bar',
-	}
 };
 
-const ColorBar = ({ dispatch, sheet: { classes }, ...props }) => {
-	return (
-		<div className={classNames({ [classes.colorBar]: true })}>
-			<ColorFilter />
-			<input className={classes.input} type="text" value={''} placeholder="search..." />
-			<ul className={classes.colorList}>
-				<li className={classes.colorContainer}>
-					{'bar'}
-				</li>
-			</ul>
-		</div>
-	);
-};
+const ColorBar = ({ sheet: { classes } }) =>
+(
+	<div className={classNames({ [classes.colorBar]: true })}>
+		<ColorFilter />
+		<input className={classes.input} type="text" value={''} placeholder={translate('SEARCH_PLACEHOLDER')} />
+		<ul className={classes.colorList}>
+			<ColorBeadPanel backgroundColor={black} colorName={translate('COLOR_BLACK')} textColor={white} />
+			<ColorBeadPanel backgroundColor={white} colorName={translate('COLOR_WHITE')} textColor={black} />
+			<ColorBeadPanel backgroundColor={filterRed} colorName={translate('COLOR_RED')} textColor={black} />
+		</ul>
+	</div>
+);
 
 ColorBar.propTypes = {
-	tabletSizeX: React.PropTypes.number,
-	tabletSizeY: React.PropTypes.number,
-	visible: React.PropTypes.bool,
-	classes: jssClasses,
 	sheet: jssSheet,
-	dispatch: React.PropTypes.func,
 };
 
 ColorBar.defaultProps = {

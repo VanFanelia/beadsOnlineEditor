@@ -22,6 +22,10 @@ const styles = {
 		position: 'relative',
 		height: '100%',
 	},
+	canvas: {
+		paddingRight: grid('xxxl + xxl'),
+		paddingTop: grid('s'),
+	},
 	row: {
 		height: grid('xs'),
 		width: `${(29 * grid('xs', false))}px`,

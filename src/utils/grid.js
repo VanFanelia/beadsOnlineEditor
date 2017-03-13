@@ -1,4 +1,5 @@
 const gridSize = {
+	xxs: '6.5',
 	xs: '13',
 	s: '26',
 	m: '39',
