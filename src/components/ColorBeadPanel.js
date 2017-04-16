@@ -69,8 +69,7 @@ class ColorBeadPanel extends React.Component {
 
 	componentDidMount() {
 		const img = new Image();
-		const xml = getBeadPreviewImageSrc('#5DBF48');
-		console.log(xml);
+		const xml = getBeadPreviewImageSrc(`${this.props.backgroundColor}`);
 		img.src = `data:image/svg+xml;charset=utf-8,${xml}`;
 		img.onload = () => this.props.connectDragPreview(img, { dropEffect: 'copy', anchorX: 1, anchorY: 0 });
 	}
