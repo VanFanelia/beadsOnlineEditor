@@ -1,4 +1,6 @@
 import { connect } from 'react-redux';
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 import { createNewBeadsCanvas, changeTabletSize, changeZoom } from '../../actions/index';
 
 import Editor from '../Editor';
@@ -24,9 +26,11 @@ const mapDispatchToProps = dispatch => ({
 	},
 });
 
-const BeadsEditor = connect(
-	mapStateToProps,
-	mapDispatchToProps,
-)(Editor);
+const BeadsEditor =
+	DragDropContext(HTML5Backend)(
+		connect(
+			mapStateToProps,
+			mapDispatchToProps,
+		)(Editor));
 
 export default BeadsEditor;

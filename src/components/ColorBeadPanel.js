@@ -1,10 +1,27 @@
 import React from 'react';
+import { DragSource } from 'react-dnd';
 
 import injectSheet from '../utils/injectSheet';
 import grid from '../utils/grid';
+import ItemTypes from '../utils/dnd/ItemTypes';
+
 import { black } from '../style/colors';
 import { textRatioLineHeight, textRatioFontSize } from '../utils/fontRatio';
 import { jssSheet } from '../utils/propTypes';
+
+const beadSource = {
+	beginDrag(props) {
+		console.log(props);
+		return {};
+	},
+};
+
+function collect(connect, monitor) {
+	return {
+		connectDragSource: connect.dragSource(),
+		isDragging: monitor.isDragging(),
+	};
+}
 
 const styles = {
 	colorContainer: {
@@ -14,7 +31,7 @@ const styles = {
 		lineHeight: textRatioLineHeight('s'),
 		fontSize: textRatioFontSize('s'),
 	},
-	colorButton: {
+	colorField: {
 		height: grid('s'),
 		width: grid('s'),
 		float: 'left',
@@ -27,15 +44,22 @@ const styles = {
 };
 
 const ColorBeadPanel = ({ sheet: { classes }, ...props }) => (
-	<li className={classes.colorContainer}>
-		<button
-			className={classes.colorButton}
-			style={{ backgroundColor: props.backgroundColor, color: props.textColor }}
+	props.connectDragSource(
+		<li
+			className={classes.colorContainer}
+			style={{
+				opacity: props.isDragging ? 0.5 : 1,
+				cursor: 'move',
+			}}
 		>
-			...
-		</button>
-		<span className={classes.colorDescription}>{props.colorName}</span>
-	</li>
+			<span
+				className={classes.colorField}
+				style={{ backgroundColor: props.backgroundColor, color: props.textColor }}
+			>
+				...
+			</span>
+			<span className={classes.colorDescription}>{props.colorName}</span>
+		</li>)
 );
 
 ColorBeadPanel.propTypes = {
@@ -43,9 +67,14 @@ ColorBeadPanel.propTypes = {
 	textColor: React.PropTypes.string.isRequired,
 	colorName: React.PropTypes.string.isRequired,
 	sheet: jssSheet,
+	connectDragSource: React.PropTypes.func.isRequired,
+	isDragging: React.PropTypes.bool.isRequired,
 };
 
 ColorBeadPanel.defaultProps = {
 };
 
-export default injectSheet(styles)(ColorBeadPanel);
+export default DragSource(
+	ItemTypes.BEAD,
+	beadSource,
+	collect)(injectSheet(styles)(ColorBeadPanel));
