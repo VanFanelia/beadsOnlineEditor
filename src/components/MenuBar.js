@@ -17,9 +17,6 @@ const styles = {
 		padding: grid('xs'),
 		color: black,
 	},
-	hidden: {
-		display: 'none',
-	},
 	input: {
 		marginLeft: grid('s'),
 		width: grid('m'),
@@ -63,7 +60,7 @@ const MenuBar = ({ dispatch, sheet: { classes }, ...props }) => {
 	};
 
 	return (
-		<div className={classNames({ [classes.menuBar]: true, [classes.hidden]: !props.visible })}>
+		<div className={classNames({ [classes.menuBar]: true })}>
 			<label htmlFor="tabletSizeX">{translate('NUMBER_OF_TABLES_LABEL')}</label>
 			<input
 				ref={(node) => { inputX = node; }}
@@ -89,7 +86,6 @@ const MenuBar = ({ dispatch, sheet: { classes }, ...props }) => {
 MenuBar.propTypes = {
 	tabletSizeX: React.PropTypes.number,
 	tabletSizeY: React.PropTypes.number,
-	visible: React.PropTypes.bool,
 	classes: jssClasses,
 	sheet: jssSheet,
 	dispatch: React.PropTypes.func,
@@ -98,7 +94,6 @@ MenuBar.propTypes = {
 MenuBar.defaultProps = {
 	tabletSizeX: 1,
 	tabletSizeY: 1,
-	visible: false,
 };
 
 export default connect()(injectSheet(styles)(MenuBar));
