@@ -1,7 +1,7 @@
 export const defaultCanvasState = {
 	tabletSizeX: 1,
 	tabletSizeY: 1,
-	currentCanvasPictureData: {},
+	currentCanvasPictureData: { pixels: [] },
 	currentCanvasName: 'Untitled',
 	currentCanvasMode: 'init',
 	zoom: 100,
@@ -33,6 +33,23 @@ const canvas = (state = defaultCanvasState, action) => {
 		return Object.assign({}, state, {
 			zoom: action.zoom,
 		});
+
+	case 'SET_BEAD': {
+		const data = state.currentCanvasPictureData.pixels;
+		const index = data.findIndex(element => (
+			element.x === action.x && element.y === action.y
+		));
+		if (index > -1) {
+			data[index] = { x: action.x, y: action.y, beadId: action.beadId };
+		} else {
+			data.push({ x: action.x, y: action.y, beadId: action.beadId });
+		}
+		console.log(data);
+
+		return Object.assign({}, state, {
+			currentCanvasPictureData: { pixels: data },
+		});
+	}
 
 	default:
 		return state;

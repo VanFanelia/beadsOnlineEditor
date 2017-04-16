@@ -25,3 +25,10 @@ export const changeZoom = z => ({
 	zoom: z,
 });
 
+export const setBead = (x, y, beadId) => ({
+	type: 'SET_BEAD',
+	x,
+	y,
+	beadId,
+});
+

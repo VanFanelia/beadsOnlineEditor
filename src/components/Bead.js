@@ -1,30 +1,28 @@
 import React from 'react';
 import classNames from 'classnames';
 import { DropTarget } from 'react-dnd';
+import { connect } from 'react-redux';
 
 import injectSheet from '../utils/injectSheet';
 import blankBead from '../graphics/BlankBead.svg';
 import ItemTypes from '../utils/dnd/ItemTypes';
 import grid from '../utils/grid';
 
-import { jssSheet } from '../utils/propTypes';
+import { jssSheet, jssClasses } from '../utils/propTypes';
 import { transparent } from '../style/colors';
 
-
-const beadTarget = {
-	drop(props, monitor) {
-		console.log(props);
-		console.log(monitor.getItem());
-		// setBead();
-	},
-};
-
-function collect(connect, monitor) {
+function collectDrops(con, monitor) {
 	return {
-		connectDropTarget: connect.dropTarget(),
+		connectDropTarget: con.dropTarget(),
 		isOver: monitor.isOver(),
 	};
 }
+
+const beadTarget = {
+	drop(props, monitor) {
+		props.setBead(props.x, props.y, monitor.getItem().beadId);
+	},
+};
 
 const styles = {
 	bead: {
@@ -49,17 +47,28 @@ const styles = {
 	},
 };
 
-const Bead = ({ sheet: { classes }, ...props }) => (
-	props.connectDropTarget(
-		<span
-			id={props.beadId}
-			className={classNames({
-				[classes.bead]: true,
-				[classes.empty]: props.empty },
-			)}
-		>
-			{props.empty ? (<img className={classes.icon} src={blankBead} alt="" />) : 'foo'}
-			{props.isOver &&
+class Bead extends React.Component {
+
+	constructor(props) {
+		super(props);
+		this.sheet = props.sheet;
+		this.classes = props.classes;
+		this.x = props.x;
+		this.y = props.y;
+		this.setBead = props.setBead;
+	}
+
+	render() {
+		const bead = (
+			<span
+				id={this.props.beadId}
+				className={classNames({
+					[this.classes.bead]: true,
+					[this.classes.empty]: this.props.empty,
+				})}
+			>
+				{this.props.empty ? (<img className={this.classes.icon} src={blankBead} alt="" />) : 'foo'}
+				{this.props.isOver &&
 				<div
 					style={{
 						position: 'absolute',
@@ -72,22 +81,30 @@ const Bead = ({ sheet: { classes }, ...props }) => (
 						backgroundColor: 'green',
 					}}
 				/>
-			}
-		</span>)
-);
+				}
+			</span>);
+		return this.props.connectDropTarget(bead);
+	}
+}
 
 Bead.propTypes = {
 	x: React.PropTypes.number,
 	y: React.PropTypes.number,
 	beadId: React.PropTypes.string,
 	empty: React.PropTypes.bool,
-	bead: React.PropTypes.func,
-	sheet: jssSheet,
 	isOver: React.PropTypes.bool.isRequired,
+	sheet: jssSheet,
+	classes: jssClasses,
+	setBead: React.PropTypes.func,
+	connectDropTarget: React.PropTypes.func,
 };
 
 Bead.defaultProps = {
 	empty: true,
 };
 
-export default DropTarget(ItemTypes.BEAD, beadTarget, collect)(injectSheet(styles)(Bead));
+export default DropTarget(
+	ItemTypes.BEAD,
+	beadTarget,
+	collectDrops,
+)(connect()(injectSheet(styles)(Bead)));

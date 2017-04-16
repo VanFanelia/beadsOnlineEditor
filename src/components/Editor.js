@@ -29,6 +29,7 @@ const Editor = ({ sheet: { classes }, ...props }) => (
 			zoom={props.zoom}
 			onChangeTabletSize={props.onChangeTabletSize}
 			onChangeZoom={props.onChangeZoom}
+			setBead={props.setBead}
 		/>
 	</div>
 );
@@ -39,6 +40,7 @@ Editor.propTypes = {
 	onCreateCanvasClick: React.PropTypes.func,
 	onChangeTabletSize: React.PropTypes.func,
 	onChangeZoom: React.PropTypes.func,
+	setBead: React.PropTypes.func,
 	tabletSizeX: React.PropTypes.number,
 	tabletSizeY: React.PropTypes.number,
 	zoom: React.PropTypes.number,

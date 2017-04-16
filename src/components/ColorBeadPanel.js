@@ -10,21 +10,6 @@ import { black, white, beadShadowGray } from '../style/colors';
 import { textRatioLineHeight, textRatioFontSize } from '../utils/fontRatio';
 import { jssSheet, jssClasses } from '../utils/propTypes';
 
-const beadSource = {
-	beginDrag(props) {
-		console.log(props);
-		return {};
-	},
-};
-
-function collect(connect, monitor) {
-	return {
-		connectDragSource: connect.dragSource(),
-		connectDragPreview: connect.dragPreview(),
-		isDragging: monitor.isDragging(),
-	};
-}
-
 function getBeadPreviewImageSrc(color) {
 	return jsxToString((
 		<svg version="1.1" height="60" width="40" xmlns="http://www.w3.org/2000/svg">
@@ -77,6 +62,7 @@ class ColorBeadPanel extends React.Component {
 	render() {
 		return this.props.connectDragSource(
 			<li
+				id={this.props.beadId}
 				className={this.classes.colorContainer}
 				style={{
 					opacity: this.props.isDragging ? 0.5 : 1,
@@ -94,8 +80,22 @@ class ColorBeadPanel extends React.Component {
 	}
 }
 
+const beadSource = {
+	beginDrag(props) {
+		return { beadId: props.beadId };
+	},
+};
+
+function collect(connect, monitor) {
+	return {
+		connectDragSource: connect.dragSource(),
+		connectDragPreview: connect.dragPreview(),
+		isDragging: monitor.isDragging(),
+	};
+}
 
 ColorBeadPanel.propTypes = {
+	beadId: React.PropTypes.string.isRequired,
 	backgroundColor: React.PropTypes.string.isRequired,
 	textColor: React.PropTypes.string.isRequired,
 	colorName: React.PropTypes.string.isRequired,

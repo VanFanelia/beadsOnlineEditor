@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
-import { createNewBeadsCanvas, changeTabletSize, changeZoom } from '../../actions/index';
+import { createNewBeadsCanvas, setBead } from '../../actions/index';
 
 import Editor from '../Editor';
 
@@ -18,11 +18,8 @@ const mapDispatchToProps = dispatch => ({
 	onCreateCanvasClick: () => {
 		dispatch(createNewBeadsCanvas());
 	},
-	onChangeTabletSize: () => {
-		dispatch(changeTabletSize());
-	},
-	onChangeZoom: () => {
-		dispatch(changeZoom());
+	setBead: (x, y, beadId) => {
+		dispatch(setBead(x, y, beadId));
 	},
 });
 

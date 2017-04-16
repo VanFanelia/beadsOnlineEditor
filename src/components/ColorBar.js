@@ -51,9 +51,9 @@ const ColorBar = ({ sheet: { classes } }) =>
 		<ColorFilter />
 		<input className={classes.input} type="text" value={''} placeholder={translate('SEARCH_PLACEHOLDER')} />
 		<ul className={classes.colorList}>
-			<ColorBeadPanel backgroundColor={black} colorName={translate('COLOR_BLACK')} textColor={white} />
-			<ColorBeadPanel backgroundColor={white} colorName={translate('COLOR_WHITE')} textColor={black} />
-			<ColorBeadPanel backgroundColor={filterRed} colorName={translate('COLOR_RED')} textColor={black} />
+			<ColorBeadPanel beadId={'H01'} backgroundColor={black} colorName={translate('COLOR_BLACK')} textColor={white} />
+			<ColorBeadPanel beadId={'H02'} backgroundColor={white} colorName={translate('COLOR_WHITE')} textColor={black} />
+			<ColorBeadPanel beadId={'H03'} backgroundColor={filterRed} colorName={translate('COLOR_RED')} textColor={black} />
 		</ul>
 	</div>
 );

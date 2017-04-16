@@ -93,7 +93,13 @@ const CanvasContainer = ({ sheet: { classes }, ...props }) => (
 									{ block.map((row, rowCounter) => (
 										<div className={classes.row} key={`row${rowCounter}`}>
 											{row.map(bead => (
-												<Bead beadId={bead.key} x={bead.x} y={bead.y} key={bead.key} />
+												<Bead
+													beadId={bead.key}
+													x={bead.x}
+													y={bead.y}
+													key={bead.key}
+													setBead={props.setBead}
+												/>
 											))}
 										</div>
 									))}
@@ -110,6 +116,7 @@ const CanvasContainer = ({ sheet: { classes }, ...props }) => (
 CanvasContainer.propTypes = {
 	sheet: jssSheet,
 	onChangeTabletSize: React.PropTypes.func,
+	setBead: React.PropTypes.func,
 	tabletSizeX: React.PropTypes.number,
 	tabletSizeY: React.PropTypes.number,
 	visible: React.PropTypes.bool,
