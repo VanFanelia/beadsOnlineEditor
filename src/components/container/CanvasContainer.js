@@ -21,8 +21,10 @@ const styles = {
 		display: 'block',
 	},
 	canvas: {
-		paddingRight: grid('xxxl + xxl'),
-		paddingTop: grid('s'),
+		marginRight: grid('xxxl + xxl'),
+		marginTop: grid('s'),
+		overflow: 'scroll',
+		maxHeight: `calc(100% - ${grid('xxl')} )`,
 	},
 	row: {
 		height: grid('xs'),
@@ -32,10 +34,19 @@ const styles = {
 		border: '3px solid black',
 		borderRadius: '10px',
 		padding: '0 5px 5px 5px',
+		margin: `0 ${grid('xs')} 0 0 `,
 		display: 'inline-block',
+		'&:last-child': {
+			margin: 0,
+		},
 	},
 	blockRow: {
 		backgroundColor: 'transparent',
+		whiteSpace: 'noWrap',
+		margin: `0 0 ${grid('xs')} 0`,
+		'&:last-child': {
+			margin: 0,
+		},
 	},
 };
 
