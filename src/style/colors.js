@@ -10,6 +10,7 @@ export const darkFontColor = '#333344';
 
 export const errorRed = '#cc0000';
 
+export const beadShadowGray = '#B1B2B9';
 
 export const filterGray = 'gray';
 export const filterYellow = 'yellow';
