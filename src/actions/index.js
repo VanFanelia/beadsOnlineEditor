@@ -20,3 +20,8 @@ export const changeTabletSize = (x, y) => ({
 	tabletSizeY: y,
 });
 
+export const changeZoom = z => ({
+	type: 'CHANGE_ZOOM',
+	zoom: z,
+});
+

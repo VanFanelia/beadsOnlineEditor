@@ -4,6 +4,7 @@ export const defaultCanvasState = {
 	currentCanvasPictureData: {},
 	currentCanvasName: 'Untitled',
 	currentCanvasMode: 'init',
+	zoom: 100,
 };
 
 const canvas = (state = defaultCanvasState, action) => {
@@ -26,6 +27,11 @@ const canvas = (state = defaultCanvasState, action) => {
 		return Object.assign({}, state, {
 			tabletSizeX: action.tabletSizeX,
 			tabletSizeY: action.tabletSizeY,
+		});
+
+	case 'CHANGE_ZOOM':
+		return Object.assign({}, state, {
+			zoom: action.zoom,
 		});
 
 	default:

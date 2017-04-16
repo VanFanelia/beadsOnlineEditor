@@ -26,7 +26,9 @@ const Editor = ({ sheet: { classes }, ...props }) => (
 			visible={props.currentCanvasMode === 'editor'}
 			tabletSizeX={props.tabletSizeX}
 			tabletSizeY={props.tabletSizeY}
+			zoom={props.zoom}
 			onChangeTabletSize={props.onChangeTabletSize}
+			onChangeZoom={props.onChangeZoom}
 		/>
 	</div>
 );
@@ -36,8 +38,10 @@ Editor.propTypes = {
 	currentCanvasMode: React.PropTypes.string,
 	onCreateCanvasClick: React.PropTypes.func,
 	onChangeTabletSize: React.PropTypes.func,
+	onChangeZoom: React.PropTypes.func,
 	tabletSizeX: React.PropTypes.number,
 	tabletSizeY: React.PropTypes.number,
+	zoom: React.PropTypes.number,
 };
 
 export default injectSheet(styles)(Editor);

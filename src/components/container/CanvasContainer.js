@@ -77,29 +77,32 @@ const CanvasContainer = ({ sheet: { classes }, ...props }) => (
 		<MenuBar
 			tabletSizeX={props.tabletSizeX}
 			tabletSizeY={props.tabletSizeY}
+			zoom={props.zoom}
 			onChange={props.onChangeTabletSize}
 		/>
 
 		<ColorBar />
 		<div className={classes.canvas} >
-			{
-				buildBeadsForEditor(props.tabletSizeX, props.tabletSizeY)
-				.map((blockRow, blockRowCounter) => (
-					<div className={classes.blockRow} key={`blockRow${blockRowCounter}`}>
-						{ blockRow.map((block, blockCounter) => (
-							<div className={classes.block} key={`blockCounter${blockCounter}`}>
-								{ block.map((row, rowCounter) => (
-									<div className={classes.row} key={`row${rowCounter}`}>
-										{row.map(bead => (
-											<Bead beadId={bead.key} x={bead.x} y={bead.y} key={bead.key} />
-										))}
-									</div>
-								))}
-							</div>
-						))}
-					</div>
-				))
-			}
+			<div style={{ zoom: `${props.zoom / 100}` }} >
+				{
+					buildBeadsForEditor(props.tabletSizeX, props.tabletSizeY)
+					.map((blockRow, blockRowCounter) => (
+						<div className={classes.blockRow} key={`blockRow${blockRowCounter}`}>
+							{ blockRow.map((block, blockCounter) => (
+								<div className={classes.block} key={`blockCounter${blockCounter}`}>
+									{ block.map((row, rowCounter) => (
+										<div className={classes.row} key={`row${rowCounter}`}>
+											{row.map(bead => (
+												<Bead beadId={bead.key} x={bead.x} y={bead.y} key={bead.key} />
+											))}
+										</div>
+									))}
+								</div>
+							))}
+						</div>
+					))
+				}
+			</div>
 		</div>
 	</div>
 );
@@ -110,6 +113,7 @@ CanvasContainer.propTypes = {
 	tabletSizeX: React.PropTypes.number,
 	tabletSizeY: React.PropTypes.number,
 	visible: React.PropTypes.bool,
+	zoom: React.PropTypes.number,
 };
 
 CanvasContainer.defaultProps = {

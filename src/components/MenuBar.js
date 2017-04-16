@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
-import { changeTabletSize } from '../actions/index';
+import { changeTabletSize, changeZoom } from '../actions/index';
 import injectSheet from '../utils/injectSheet';
 
 import { black, lightGrayBackground, errorRed } from '../style/colors';
@@ -30,11 +30,16 @@ const styles = {
 	cross: {
 		marginLeft: grid('s'),
 	},
+	zoom: {
+		width: grid('l'),
+		marginLeft: grid('s'),
+	},
 };
 
 const MenuBar = ({ dispatch, sheet: { classes }, ...props }) => {
 	let inputX;
 	let inputY;
+	let inputZoom;
 
 	const checkInput = () => {
 		const x = Number(inputX.value);
@@ -59,6 +64,14 @@ const MenuBar = ({ dispatch, sheet: { classes }, ...props }) => {
 		dispatch(changeTabletSize(x, y));
 	};
 
+	const checkZoomFactor = () => {
+		const z = Number(inputZoom.value);
+		if (!Number.isInteger(z) || z < 0) {
+			return;
+		}
+		dispatch(changeZoom(z));
+	};
+
 	return (
 		<div className={classNames({ [classes.menuBar]: true })}>
 			<label htmlFor="tabletSizeX">{translate('NUMBER_OF_TABLES_LABEL')}</label>
@@ -79,6 +92,15 @@ const MenuBar = ({ dispatch, sheet: { classes }, ...props }) => {
 				value={props.tabletSizeY}
 				onChange={checkInput}
 			/>
+			<input
+				ref={(node) => { inputZoom = node; }}
+				className={classes.zoom}
+				type="number"
+				name="zoom"
+				value={props.zoom}
+				onChange={checkZoomFactor}
+			/>
+			<label htmlFor="zoom">{translate('ZOOM')}</label>
 		</div>
 	);
 };
@@ -89,11 +111,13 @@ MenuBar.propTypes = {
 	classes: jssClasses,
 	sheet: jssSheet,
 	dispatch: React.PropTypes.func,
+	zoom: React.PropTypes.number,
 };
 
 MenuBar.defaultProps = {
 	tabletSizeX: 1,
 	tabletSizeY: 1,
+	zoom: 100,
 };
 
 export default connect()(injectSheet(styles)(MenuBar));
