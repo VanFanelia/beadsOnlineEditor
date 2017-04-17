@@ -7,6 +7,8 @@ export const defaultCanvasState = {
 	zoom: 100,
 };
 
+
+// TODO: Split / put currentCanvasPictureData beside
 const canvas = (state = defaultCanvasState, action) => {
 	switch (action.type) {
 	case 'CREATE_NEW_BEADS_CANVAS':
@@ -35,16 +37,16 @@ const canvas = (state = defaultCanvasState, action) => {
 		});
 
 	case 'SET_BEAD': {
-		const data = state.currentCanvasPictureData.pixels;
+		let data = state.currentCanvasPictureData.pixels;
 		const index = data.findIndex(element => (
 			element.x === action.x && element.y === action.y
 		));
 		if (index > -1) {
+			data = [...data];
 			data[index] = { x: action.x, y: action.y, beadId: action.beadId };
 		} else {
-			data.push({ x: action.x, y: action.y, beadId: action.beadId });
+			data = [...data, { x: action.x, y: action.y, beadId: action.beadId }];
 		}
-		console.log(data);
 
 		return Object.assign({}, state, {
 			currentCanvasPictureData: { pixels: data },
