@@ -50,7 +50,7 @@ const styles = {
 	},
 };
 
-const buildBeadsForEditor = (tableSizeX, tableSizeY) => {
+const buildBeadsForEditor = (tableSizeX, tableSizeY, pixels) => {
 	const blocks = [];
 	for (let blockX = 0; blockX < tableSizeX; blockX += 1) {
 		blocks[blockX] = blocks[blockX] === undefined ? [] : blocks[blockX];
@@ -61,7 +61,16 @@ const buildBeadsForEditor = (tableSizeX, tableSizeY) => {
 					if (blocks[blockX][blockY][y] === undefined) {
 						blocks[blockX][blockY][y] = [];
 					}
-					blocks[blockX][blockY][y].push({ key: `x${x}y${y}`, x, y });
+					const xAbsolute = (29 * blockX) + x;
+					const yAbsolute = (29 * blockY) + y;
+					let beadData = {};
+					const index = pixels.findIndex(element => (
+						element.x === xAbsolute && element.y === yAbsolute
+					));
+					if (index > -1) {
+						beadData = pixels[index];
+					}
+					blocks[blockX][blockY][y].push({ key: `x${xAbsolute}y${yAbsolute}`, x: xAbsolute, y: yAbsolute, beadData });
 				}
 			}
 		}
@@ -85,7 +94,10 @@ const CanvasContainer = ({ sheet: { classes }, ...props }) => (
 		<div className={classes.canvas} >
 			<div style={{ zoom: `${props.zoom / 100}` }} >
 				{
-					buildBeadsForEditor(props.tabletSizeX, props.tabletSizeY)
+					buildBeadsForEditor(
+						props.tabletSizeX,
+						props.tabletSizeY,
+						props.currentCanvasPictureData.pixels)
 					.map((blockRow, blockRowCounter) => (
 						<div className={classes.blockRow} key={`blockRow${blockRowCounter}`}>
 							{ blockRow.map((block, blockCounter) => (
@@ -99,6 +111,7 @@ const CanvasContainer = ({ sheet: { classes }, ...props }) => (
 													y={bead.y}
 													key={bead.key}
 													setBead={props.setBead}
+													beadData={bead.beadData}
 												/>
 											))}
 										</div>
@@ -121,6 +134,7 @@ CanvasContainer.propTypes = {
 	tabletSizeY: React.PropTypes.number,
 	visible: React.PropTypes.bool,
 	zoom: React.PropTypes.number,
+	currentCanvasPictureData: React.PropTypes.objectOf(React.PropTypes.any),
 };
 
 CanvasContainer.defaultProps = {

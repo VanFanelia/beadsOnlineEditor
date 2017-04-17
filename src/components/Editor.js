@@ -6,7 +6,6 @@ import grid from '../utils/grid';
 import StartupEditorChooser from '../components/StartupEditorChooser';
 import CanvasContainer from '../components/container/CanvasContainer';
 
-
 const styles = {
 	container: {
 		textAlign: 'center',
@@ -30,6 +29,7 @@ const Editor = ({ sheet: { classes }, ...props }) => (
 			onChangeTabletSize={props.onChangeTabletSize}
 			onChangeZoom={props.onChangeZoom}
 			setBead={props.setBead}
+			currentCanvasPictureData={props.currentCanvasPictureData}
 		/>
 	</div>
 );
@@ -37,6 +37,7 @@ const Editor = ({ sheet: { classes }, ...props }) => (
 Editor.propTypes = {
 	sheet: jssSheet,
 	currentCanvasMode: React.PropTypes.string,
+	currentCanvasPictureData: React.PropTypes.objectOf(React.PropTypes.any),
 	onCreateCanvasClick: React.PropTypes.func,
 	onChangeTabletSize: React.PropTypes.func,
 	onChangeZoom: React.PropTypes.func,

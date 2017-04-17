@@ -2,10 +2,12 @@ import React from 'react';
 import classNames from 'classnames';
 import { DropTarget } from 'react-dnd';
 import { connect } from 'react-redux';
+import jsxToString from 'jsx-to-string';
 
 import injectSheet from '../utils/injectSheet';
 import blankBead from '../graphics/BlankBead.svg';
 import ItemTypes from '../utils/dnd/ItemTypes';
+import beadColors from '../utils/beadColors';
 import grid from '../utils/grid';
 
 import { jssSheet, jssClasses } from '../utils/propTypes';
@@ -38,14 +40,30 @@ const styles = {
 	empty: {
 		backgroundColor: transparent,
 	},
+	iconBlank: {
+		backgroundColor: transparent,
+		height: '11px',
+		width: '9px',
+		margin: '2px auto auto auto',
+		display: 'block',
+	},
 	icon: {
 		backgroundColor: transparent,
-		height: '7px',
-		width: '5px',
-		margin: '6px auto auto auto',
+		height: '11px',
+		width: '11px',
+		margin: '2px auto auto auto',
 		display: 'block',
 	},
 };
+
+function getColoredBeadIcon(color) {
+	const xml = jsxToString((
+		<svg version="1.1" height="40" width="40" xmlns="http://www.w3.org/2000/svg">
+			<ellipse cx="20" cy="20" rx="20" ry="20" style={`fill: ${color}`} />
+		</svg>
+	));
+	return `data:image/svg+xml;charset=utf-8,${xml}`;
+}
 
 class Bead extends React.Component {
 
@@ -59,6 +77,13 @@ class Bead extends React.Component {
 	}
 
 	render() {
+		let beadIcon = blankBead;
+		let isBlank = true;
+		if (Object.keys(this.props.beadData).length !== 0) {
+			beadIcon = getColoredBeadIcon(beadColors(this.props.beadData.beadId).color);
+			isBlank = false;
+		}
+
 		const bead = (
 			<span
 				id={this.props.beadId}
@@ -67,7 +92,13 @@ class Bead extends React.Component {
 					[this.classes.empty]: this.props.empty,
 				})}
 			>
-				{this.props.empty ? (<img className={this.classes.icon} src={blankBead} alt="" />) : 'foo'}
+				{this.props.empty ? (
+					<img
+						className={classNames({
+							[this.classes.iconBlank]: isBlank,
+							[this.classes.icon]: !isBlank },
+						)} src={beadIcon} alt=""
+					/>) : 'foo'}
 				{this.props.isOver &&
 				<div
 					style={{
@@ -97,6 +128,7 @@ Bead.propTypes = {
 	classes: jssClasses,
 	setBead: React.PropTypes.func,
 	connectDropTarget: React.PropTypes.func,
+	beadData: React.PropTypes.objectOf(React.PropTypes.any),
 };
 
 Bead.defaultProps = {

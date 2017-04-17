@@ -1,4 +1,4 @@
-<svg version="1.1" height="70" width="50" style="" xmlns="http://www.w3.org/2000/svg">
+<svg version="1.1" height="70" width="40" style="" xmlns="http://www.w3.org/2000/svg">
     <ellipse class="top" 	 cx="20" cy="10"  rx="10" ry="5" style="fill:#B1B2B9" />
     <ellipse class="bottom" cx="20" cy="60" rx="20" ry="10" style="fill:#B1B2B9" />
     <polygon points="10,10 30,10 40,60 0,60" style="fill:#B1B2B9"/>
