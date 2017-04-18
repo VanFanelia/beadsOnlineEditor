@@ -11,7 +11,7 @@ import beadColors from '../utils/beadColors';
 import grid from '../utils/grid';
 
 import { jssSheet, jssClasses } from '../utils/propTypes';
-import { transparent } from '../style/colors';
+import { transparent, hoverTargetColor } from '../style/colors';
 
 function collectDrops(con, monitor) {
 	return {
@@ -34,7 +34,7 @@ const styles = {
 		lineHeight: grid('xs'),
 		display: 'inline-block',
 		'&:hover': {
-			backgroundColor: 'yellow',
+			backgroundColor: hoverTargetColor,
 		},
 	},
 	empty: {
@@ -53,6 +53,14 @@ const styles = {
 		width: '11px',
 		margin: '2px auto auto auto',
 		display: 'block',
+	},
+	resetButtonStyle: {
+		padding: 0,
+		margin: 0,
+		border: 'none',
+		'&:hover': {
+			transform: 'translateY(-2px) scale(150%)',
+		},
 	},
 };
 
@@ -74,6 +82,11 @@ class Bead extends React.Component {
 		this.x = props.x;
 		this.y = props.y;
 		this.setBead = props.setBead;
+		this.onBeadClick = this.onBeadClick.bind(this);
+	}
+
+	onBeadClick() {
+		this.props.setBead(this.x, this.y, this.props.currentCanvasBead);
 	}
 
 	render() {
@@ -85,12 +98,14 @@ class Bead extends React.Component {
 		}
 
 		const bead = (
-			<span
+			<button
 				id={this.props.beadId}
 				className={classNames({
+					[this.classes.resetButtonStyle]: true,
 					[this.classes.bead]: true,
 					[this.classes.empty]: this.props.empty,
 				})}
+				onClick={this.onBeadClick}
 			>
 				{this.props.empty ? (
 					<img
@@ -109,11 +124,11 @@ class Bead extends React.Component {
 						width: '100%',
 						zIndex: 1,
 						opacity: 0.5,
-						backgroundColor: 'green',
+						backgroundColor: hoverTargetColor,
 					}}
 				/>
 				}
-			</span>);
+			</button>);
 		return this.props.connectDropTarget(bead);
 	}
 }
@@ -129,6 +144,7 @@ Bead.propTypes = {
 	setBead: React.PropTypes.func,
 	connectDropTarget: React.PropTypes.func,
 	beadData: React.PropTypes.objectOf(React.PropTypes.any),
+	currentCanvasBead: React.PropTypes.string,
 };
 
 Bead.defaultProps = {

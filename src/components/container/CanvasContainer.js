@@ -115,6 +115,7 @@ const CanvasContainer = ({ sheet: { classes }, ...props }) => (
 													key={bead.key}
 													setBead={props.setBead}
 													beadData={bead.beadData}
+													currentCanvasBead={props.currentCanvasBead}
 												/>
 											))}
 										</div>
