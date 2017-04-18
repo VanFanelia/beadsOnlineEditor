@@ -9,7 +9,6 @@ const beadList = {
 };
 
 const getBeadIdData = (beadId) => {
-	console.log(beadId);
 	if (beadId in beadList) {
 		return beadList[beadId];
 	}
