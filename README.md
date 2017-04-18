@@ -8,3 +8,15 @@ You can find the most recent version of this guide [here](https://github.com/fac
 
 ## Table of Contents
 
+
+
+## Todos - functions to implement
+
+- Set Bead by click
+- Upload a picture from file
+- Load a picture from url
+- Use algorithm on it to pixellate
+- Choose different sizes for pixellating picture
+- Transfer picture to canvas
+- Save state in session
+- Save canvas Data in URL
