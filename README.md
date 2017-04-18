@@ -19,6 +19,9 @@ You can find the most recent version of this guide [here](https://github.com/fac
 - Choose different sizes for pixellating picture
 - Transfer picture to canvas
 - Get Table of used Pearls
+- Insert all possible Hama Colors
+- Filter colors in color bar
+- search for Color in color bar
 - Print preview
 - Save state in session
 - Save canvas Data in URL
