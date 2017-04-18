@@ -45,21 +45,44 @@ const styles = {
 	},
 };
 
-const ColorBar = ({ sheet: { classes } }) =>
+const ColorBar = ({ sheet: { classes }, ...props }) =>
 (
 	<div className={classNames({ [classes.colorBar]: true })}>
 		<ColorFilter />
 		<input className={classes.input} type="text" value={''} placeholder={translate('SEARCH_PLACEHOLDER')} />
 		<ul className={classes.colorList}>
-			<ColorBeadPanel beadId={'H01'} backgroundColor={black} colorName={translate('COLOR_BLACK')} textColor={white} />
-			<ColorBeadPanel beadId={'H02'} backgroundColor={white} colorName={translate('COLOR_WHITE')} textColor={black} />
-			<ColorBeadPanel beadId={'H03'} backgroundColor={filterRed} colorName={translate('COLOR_RED')} textColor={black} />
+			<ColorBeadPanel
+				beadId={'H01'}
+				backgroundColor={black}
+				colorName={translate('COLOR_BLACK')}
+				textColor={white}
+				setCurrentCanvasColor={props.setCurrentCanvasColor}
+				isSelected={props.currentCanvasBead === 'H01'}
+			/>
+			<ColorBeadPanel
+				beadId={'H02'}
+				backgroundColor={white}
+				colorName={translate('COLOR_WHITE')}
+				textColor={black}
+				setCurrentCanvasColor={props.setCurrentCanvasColor}
+				isSelected={props.currentCanvasBead === 'H02'}
+			/>
+			<ColorBeadPanel
+				beadId={'H03'}
+				backgroundColor={filterRed}
+				colorName={translate('COLOR_RED')}
+				textColor={black}
+				setCurrentCanvasColor={props.setCurrentCanvasColor}
+				isSelected={props.currentCanvasBead === 'H03'}
+			/>
 		</ul>
 	</div>
 );
 
 ColorBar.propTypes = {
 	sheet: jssSheet,
+	setCurrentCanvasColor: React.PropTypes.func,
+	currentCanvasBead: React.PropTypes.string,
 };
 
 ColorBar.defaultProps = {

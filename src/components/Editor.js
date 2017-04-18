@@ -30,6 +30,8 @@ const Editor = ({ sheet: { classes }, ...props }) => (
 			onChangeZoom={props.onChangeZoom}
 			setBead={props.setBead}
 			currentCanvasPictureData={props.currentCanvasPictureData}
+			setCurrentCanvasColor={props.setCurrentCanvasBead}
+			currentCanvasBead={props.currentCanvasBead}
 		/>
 	</div>
 );
@@ -45,6 +47,8 @@ Editor.propTypes = {
 	tabletSizeX: React.PropTypes.number,
 	tabletSizeY: React.PropTypes.number,
 	zoom: React.PropTypes.number,
+	setCurrentCanvasBead: React.PropTypes.func,
+	currentCanvasBead: React.PropTypes.string,
 };
 
 export default injectSheet(styles)(Editor);

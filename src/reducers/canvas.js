@@ -1,9 +1,12 @@
+import { defaultBead } from '../utils/beadColors';
+
 export const defaultCanvasState = {
 	tabletSizeX: 1,
 	tabletSizeY: 1,
 	currentCanvasPictureData: { pixels: [] },
 	currentCanvasName: 'Untitled',
 	currentCanvasMode: 'init',
+	currentCanvasBead: defaultBead,
 	zoom: 100,
 };
 
@@ -18,11 +21,17 @@ const canvas = (state = defaultCanvasState, action) => {
 			currentCanvasPictureData: action.currentCanvasPictureData,
 			currentCanvasName: action.currentCanvasName,
 			currentCanvasMode: 'editor',
+			currentCanvasBead: action.currentCanvasBead,
 		});
 
 	case 'CHANGE_CANVAS_NAME':
 		return Object.assign({}, state, {
 			currentCanvasName: action.currentCanvasName,
+		});
+
+	case 'SET_CURRENT_CANVAS_BEAD':
+		return Object.assign({}, state, {
+			currentCanvasBead: action.currentCanvasBead,
 		});
 
 	case 'CHANGE_TABLET_SIZE':

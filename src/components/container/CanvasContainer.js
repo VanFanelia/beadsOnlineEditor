@@ -90,7 +90,10 @@ const CanvasContainer = ({ sheet: { classes }, ...props }) => (
 			onChange={props.onChangeTabletSize}
 		/>
 
-		<ColorBar />
+		<ColorBar
+			setCurrentCanvasColor={props.setCurrentCanvasColor}
+			currentCanvasBead={props.currentCanvasBead}
+		/>
 		<div className={classes.canvas} >
 			<div style={{ zoom: `${props.zoom / 100}` }} >
 				{
@@ -135,6 +138,8 @@ CanvasContainer.propTypes = {
 	visible: React.PropTypes.bool,
 	zoom: React.PropTypes.number,
 	currentCanvasPictureData: React.PropTypes.objectOf(React.PropTypes.any),
+	setCurrentCanvasColor: React.PropTypes.func,
+	currentCanvasBead: React.PropTypes.string,
 };
 
 CanvasContainer.defaultProps = {

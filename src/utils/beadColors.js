@@ -1,5 +1,7 @@
 const blankColor = { color: '#eeeeee00' };
 
+export const defaultBead = 'H01';
+
 const beadList = {
 	H01: { color: '#000000' },
 	H02: { color: '#ffffff' },

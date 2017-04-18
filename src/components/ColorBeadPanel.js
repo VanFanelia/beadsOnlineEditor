@@ -1,12 +1,13 @@
 import React from 'react';
 import { DragSource } from 'react-dnd';
 import jsxToString from 'jsx-to-string';
+import classNames from 'classnames';
 
 import injectSheet from '../utils/injectSheet';
 import grid from '../utils/grid';
 import ItemTypes from '../utils/dnd/ItemTypes';
 
-import { black, white, beadShadowGray } from '../style/colors';
+import { black, white, beadShadowGray, buttonActiveGray } from '../style/colors';
 import { textRatioLineHeight, textRatioFontSize } from '../utils/fontRatio';
 import { jssSheet, jssClasses } from '../utils/propTypes';
 
@@ -31,6 +32,9 @@ const styles = {
 		border: '1px solid black',
 		lineHeight: textRatioLineHeight('s'),
 		fontSize: textRatioFontSize('s'),
+		position: 'relative',
+		width: '100%',
+		cursor: 'copy !important',
 	},
 	colorField: {
 		height: grid('s'),
@@ -42,6 +46,9 @@ const styles = {
 	colorDescription: {
 		color: black,
 	},
+	isSelected: {
+		backgroundColor: buttonActiveGray,
+	},
 };
 
 class ColorBeadPanel extends React.Component {
@@ -50,6 +57,7 @@ class ColorBeadPanel extends React.Component {
 		super(props);
 		this.sheet = props.sheet;
 		this.classes = props.classes;
+		this.onClickPanel = this.onClickPanel.bind(this);
 	}
 
 	componentDidMount() {
@@ -59,23 +67,33 @@ class ColorBeadPanel extends React.Component {
 		img.onload = () => this.props.connectDragPreview(img, { dropEffect: 'copy', anchorX: 1, anchorY: 0 });
 	}
 
+	onClickPanel() {
+		this.props.setCurrentCanvasColor(this.props.beadId);
+	}
+
 	render() {
 		return this.props.connectDragSource(
-			<li
-				id={this.props.beadId}
-				className={this.classes.colorContainer}
-				style={{
-					opacity: this.props.isDragging ? 0.5 : 1,
-					cursor: 'move',
-				}}
-			>
-				<span
-					className={this.classes.colorField}
-					style={{ backgroundColor: this.props.backgroundColor, color: this.props.textColor }}
+			<li>
+				<button
+					id={this.props.beadId}
+					className={classNames({
+						[this.classes.colorContainer]: true,
+						[this.classes.isSelected]: this.props.isSelected,
+					})}
+					style={{
+						opacity: this.props.isDragging ? 0.5 : 1,
+						cursor: 'move',
+					}}
+					onClick={this.onClickPanel}
 				>
-					...
-				</span>
-				<span className={this.classes.colorDescription}>{this.props.colorName}</span>
+					<span
+						className={this.classes.colorField}
+						style={{ backgroundColor: this.props.backgroundColor, color: this.props.textColor }}
+					>
+						...
+					</span>
+					<span className={this.classes.colorDescription}>{this.props.colorName}</span>
+				</button>
 			</li>);
 	}
 }
@@ -99,14 +117,17 @@ ColorBeadPanel.propTypes = {
 	backgroundColor: React.PropTypes.string.isRequired,
 	textColor: React.PropTypes.string.isRequired,
 	colorName: React.PropTypes.string.isRequired,
+	isSelected: React.PropTypes.bool,
 	sheet: jssSheet,
 	classes: jssClasses,
 	connectDragSource: React.PropTypes.func.isRequired,
 	connectDragPreview: React.PropTypes.func.isRequired,
 	isDragging: React.PropTypes.bool.isRequired,
+	setCurrentCanvasColor: React.PropTypes.func,
 };
 
 ColorBeadPanel.defaultProps = {
+	isSelected: false,
 };
 
 export default DragSource(

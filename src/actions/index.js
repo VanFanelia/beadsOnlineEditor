@@ -7,6 +7,7 @@ export const createNewBeadsCanvas = () => ({
 	currentCanvasPictureData: defaultCanvasState.currentCanvasPictureData,
 	currentCanvasName: defaultCanvasState.currentCanvasName,
 	currentCanvasMode: defaultCanvasState.currentCanvasMode,
+	currentCanvasBead: defaultCanvasState.currentCanvasBead,
 });
 
 export const changeCanvasName = name => ({
@@ -32,3 +33,7 @@ export const setBead = (x, y, beadId) => ({
 	beadId,
 });
 
+export const setCurrentCanvasBead = beadId => ({
+	type: 'SET_CURRENT_CANVAS_BEAD',
+	currentCanvasBead: beadId,
+});
