@@ -5,6 +5,7 @@ import grid from '../utils/grid';
 
 import StartupEditorChooser from '../components/StartupEditorChooser';
 import CanvasContainer from '../components/container/CanvasContainer';
+import PictureChooser from '../components/PictureChooser';
 
 const styles = {
 	container: {
@@ -24,6 +25,9 @@ const Editor = ({ sheet: { classes }, ...props }) => (
 			visible={props.currentCanvasMode === 'init'}
 			onClickCreateCanvas={props.onClickCreateCanvas}
 			onClickChoosePicture={props.onClickChoosePicture}
+		/>
+		<PictureChooser
+			visible={props.currentCanvasMode === 'choosePicture'}
 		/>
 		<CanvasContainer
 			visible={props.currentCanvasMode === 'editor'}

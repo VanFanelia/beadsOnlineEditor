@@ -3,6 +3,7 @@ import animations from './animations';
 import { darkFontColor } from './colors';
 import { textRatioFontSize, textRatioLineHeight, headlineRatioLineHeight, headlineRatioFontSize } from '../utils/fontRatio';
 import transition from './transition';
+import grid from '../utils/grid';
 
 export default {
 	'@global': {
@@ -58,6 +59,7 @@ export default {
 		p: {
 			fontSize: textRatioFontSize('s'),
 			lineHeight: textRatioLineHeight('s'),
+			margin: `0 0 ${grid('s')} 0`,
 		},
 		label: {
 			fontSize: textRatioFontSize('s'),
