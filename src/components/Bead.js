@@ -59,7 +59,7 @@ const styles = {
 		margin: 0,
 		border: 'none',
 		'&:hover': {
-			transform: 'translateY(-2px) scale(150%)',
+			transform: 'translateY(-4px) scale(1.5)',
 		},
 	},
 };
