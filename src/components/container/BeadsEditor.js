@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
-import { createNewBeadsCanvas, setBead, setCurrentCanvasBead } from '../../actions/index';
+import { createNewBeadsCanvas, setBead, setCurrentCanvasBead, createChoosePictureDialog } from '../../actions/index';
 
 import Editor from '../Editor';
 
@@ -16,8 +16,11 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-	onCreateCanvasClick: () => {
+	onClickCreateCanvas: () => {
 		dispatch(createNewBeadsCanvas());
+	},
+	onClickChoosePicture: () => {
+		dispatch(createChoosePictureDialog());
 	},
 	setBead: (x, y, beadId) => {
 		dispatch(setBead(x, y, beadId));

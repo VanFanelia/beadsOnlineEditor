@@ -1,18 +1,9 @@
-import { defaultCanvasState } from '../reducers/canvas';
-
 export const createNewBeadsCanvas = () => ({
 	type: 'CREATE_NEW_BEADS_CANVAS',
-	tabletSizeX: defaultCanvasState.tabletSizeX,
-	tabletSizeY: defaultCanvasState.tabletSizeY,
-	currentCanvasPictureData: defaultCanvasState.currentCanvasPictureData,
-	currentCanvasName: defaultCanvasState.currentCanvasName,
-	currentCanvasMode: defaultCanvasState.currentCanvasMode,
-	currentCanvasBead: defaultCanvasState.currentCanvasBead,
 });
 
-export const changeCanvasName = name => ({
-	type: 'CHANGE_CANVAS_NAME',
-	currentCanvasName: name,
+export const createChoosePictureDialog = () => ({
+	type: 'CREATE_CHOOSE_PICTURE_DIALOG',
 });
 
 export const changeTabletSize = (x, y) => ({

@@ -11,17 +11,21 @@ export const defaultCanvasState = {
 };
 
 
-// TODO: Split / put currentCanvasPictureData beside
 const canvas = (state = defaultCanvasState, action) => {
 	switch (action.type) {
 	case 'CREATE_NEW_BEADS_CANVAS':
 		return Object.assign({}, state, {
-			tabletSizeX: action.tabletSizeX,
-			tabletSizeY: action.tabletSizeY,
-			currentCanvasPictureData: action.currentCanvasPictureData,
-			currentCanvasName: action.currentCanvasName,
+			tabletSizeX: defaultCanvasState.tabletSizeX,
+			tabletSizeY: defaultCanvasState.tabletSizeY,
+			currentCanvasPictureData: defaultCanvasState.currentCanvasPictureData,
+			currentCanvasName: defaultCanvasState.currentCanvasName,
 			currentCanvasMode: 'editor',
-			currentCanvasBead: action.currentCanvasBead,
+			currentCanvasBead: defaultCanvasState.currentCanvasBead,
+		});
+
+	case 'CREATE_CHOOSE_PICTURE_DIALOG':
+		return Object.assign({}, state, {
+			currentCanvasMode: 'choosePicture',
 		});
 
 	case 'CHANGE_CANVAS_NAME':

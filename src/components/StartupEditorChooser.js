@@ -58,7 +58,7 @@ const StartupEditorChooser = ({ sheet: { classes }, ...props }) => (
 		)}
 	>
 		<div className={classes.figureWrapper}>
-			<button className={classes.figure} onClick={props.onCreateCanvasClick}>
+			<button className={classes.figure} onClick={props.onClickCreateCanvas}>
 				<img className={classes.icon} src={iconEmptyFile} alt="" />
 				<h3 className={classes.headline}>
 					{ translate('START_EMPTY_EDITOR') }
@@ -66,7 +66,7 @@ const StartupEditorChooser = ({ sheet: { classes }, ...props }) => (
 			</button>
 		</div>
 		<div className={classes.figureWrapper}>
-			<button className={classes.figure} onClick={props.onCreateCanvasClick} >
+			<button className={classes.figure} onClick={props.onClickChoosePicture} >
 				<img className={classes.icon} src={iconImage} alt="" />
 				<h3 className={classes.headline}>
 					{ translate('START_WITH_PICTURE') }
@@ -78,7 +78,8 @@ const StartupEditorChooser = ({ sheet: { classes }, ...props }) => (
 
 StartupEditorChooser.propTypes = {
 	visible: React.PropTypes.bool,
-	onCreateCanvasClick: React.PropTypes.func,
+	onClickCreateCanvas: React.PropTypes.func,
+	onClickChoosePicture: React.PropTypes.func,
 	sheet: jssSheet,
 };
 

@@ -20,7 +20,11 @@ const styles = {
 
 const Editor = ({ sheet: { classes }, ...props }) => (
 	<div className={classes.container}>
-		<StartupEditorChooser visible={props.currentCanvasMode === 'init'} onCreateCanvasClick={props.onCreateCanvasClick} />
+		<StartupEditorChooser
+			visible={props.currentCanvasMode === 'init'}
+			onClickCreateCanvas={props.onClickCreateCanvas}
+			onClickChoosePicture={props.onClickChoosePicture}
+		/>
 		<CanvasContainer
 			visible={props.currentCanvasMode === 'editor'}
 			tabletSizeX={props.tabletSizeX}
@@ -40,7 +44,8 @@ Editor.propTypes = {
 	sheet: jssSheet,
 	currentCanvasMode: React.PropTypes.string,
 	currentCanvasPictureData: React.PropTypes.objectOf(React.PropTypes.any),
-	onCreateCanvasClick: React.PropTypes.func,
+	onClickCreateCanvas: React.PropTypes.func,
+	onClickChoosePicture: React.PropTypes.func,
 	onChangeTabletSize: React.PropTypes.func,
 	onChangeZoom: React.PropTypes.func,
 	setBead: React.PropTypes.func,
