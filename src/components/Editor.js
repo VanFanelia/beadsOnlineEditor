@@ -9,6 +9,7 @@ import StartupEditorChooser from '../components/StartupEditorChooser';
 import CanvasContainer from '../components/container/CanvasContainer';
 import PictureChooser from '../components/PictureChooser';
 import PicturePreview from '../components/PicturePreview';
+import ConfigureParameterEditor from '../components/ConfigureParameterEditor';
 
 const styles = {
 	container: {
@@ -35,6 +36,10 @@ const Editor = ({ sheet: { classes }, ...props }) => (
 		<PicturePreview
 			visible={props.mode === MODES.CHOOSE_PARAMETERS}
 			linkUrl={props.linkUrl}
+		/>
+		<ConfigureParameterEditor
+			visible={props.mode === MODES.CHOOSE_PARAMETERS}
+			rawPictureData={props.linkUrl}
 		/>
 		<CanvasContainer
 			visible={props.mode === MODES.EDITOR}

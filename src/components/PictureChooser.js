@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import validUrl from 'valid-url';
+import getPixels from 'get-pixels';
 
 import injectSheet from '../utils/injectSheet';
 import grid from '../utils/grid';
@@ -55,6 +56,7 @@ class PictureChooser extends React.Component {
 			linkUrl: props.linkUrl,
 		};
 		this.updateLinkUrl = this.updateLinkUrl.bind(this);
+		this.chooseImage = this.chooseImage.bind(this);
 	}
 
 	updateLinkUrl(e) {
@@ -65,6 +67,18 @@ class PictureChooser extends React.Component {
 		} else {
 			this.invalidLink = true;
 		}
+	}
+
+	chooseImage() {
+		getPixels(this.state.linkUrl, (err, pixels) => {
+			if (err) {
+				console.log('Bad image path');
+			} else {
+				console.log('got pixels');
+				console.log(pixels.shape.slice());
+			}
+		});
+		this.props.onClickChooseImageFromPreview();
 	}
 
 	render() {
@@ -98,7 +112,7 @@ class PictureChooser extends React.Component {
 					<h3>{translate('PREVIEW')}</h3>
 					<img className={this.classes.previewImage} src={this.state.linkUrl} alt="preview" />
 					<div>
-						<button onClick={this.props.onClickChooseImageFromPreview}>{translate('USE_IMAGE')}</button>
+						<button onClick={this.chooseImage}>{translate('USE_IMAGE')}</button>
 					</div>
 				</div>
 			</div>
