@@ -1,8 +1,8 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, combineReducers } from 'redux';
 
-import beadsOnlineEditorApp from './reducers/index';
+import canvas from './reducers/canvas';
 
 import injectSheet from './utils/injectSheet';
 import globalStyles from './style/globalStyle';
@@ -18,7 +18,9 @@ const styles = {
 
 /* eslint-disable no-underscore-dangle */
 const store = createStore(
-	beadsOnlineEditorApp,
+	combineReducers({
+		canvas,
+	}),
 	window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
 );
 /* eslint-enable */

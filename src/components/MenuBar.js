@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
-import { changeTabletSize, changeZoom } from '../actions/index';
+import { changeTabletSize, changeZoom } from '../reducers/canvas';
 import injectSheet from '../utils/injectSheet';
 
 import { black, lightGrayBackground, errorRed } from '../style/colors';

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
-import { createNewBeadsCanvas, setBead, setCurrentCanvasBead, createChoosePictureDialog } from '../../actions/index';
+import { createNewBeadsCanvas, setBead, setCurrentCanvasBead, createChoosePictureDialog } from '../../reducers/canvas';
 
 import Editor from '../Editor';
 
