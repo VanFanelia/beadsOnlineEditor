@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import { createStore, combineReducers } from 'redux';
 
 import canvas from './reducers/canvas';
+import converter from './reducers/converter';
 
 import injectSheet from './utils/injectSheet';
 import globalStyles from './style/globalStyle';
@@ -20,6 +21,7 @@ const styles = {
 const store = createStore(
 	combineReducers({
 		canvas,
+		converter,
 	}),
 	window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
 );
