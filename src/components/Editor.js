@@ -8,6 +8,7 @@ import { MODES } from '../reducers/global';
 import StartupEditorChooser from '../components/StartupEditorChooser';
 import CanvasContainer from '../components/container/CanvasContainer';
 import PictureChooser from '../components/PictureChooser';
+import PicturePreview from '../components/PicturePreview';
 
 const styles = {
 	container: {
@@ -30,6 +31,10 @@ const Editor = ({ sheet: { classes }, ...props }) => (
 		/>
 		<PictureChooser
 			visible={props.mode === MODES.CHOOSE_PICTURE}
+		/>
+		<PicturePreview
+			visible={props.mode === MODES.CHOOSE_PARAMETERS}
+			linkUrl={props.linkUrl}
 		/>
 		<CanvasContainer
 			visible={props.mode === MODES.EDITOR}
@@ -61,6 +66,7 @@ Editor.propTypes = {
 	zoom: React.PropTypes.number,
 	setCurrentCanvasBead: React.PropTypes.func,
 	currentCanvasBead: React.PropTypes.string,
+	linkUrl: React.PropTypes.string,
 };
 
 export default injectSheet(styles)(Editor);

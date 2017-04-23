@@ -11,5 +11,7 @@ export default {
 		COLOR_BLACK: 'Schwarz',
 		COLOR_WHITE: 'Weis',
 		ZOOM: 'Zoom',
+		PREVIEW: 'Vorschau',
+		USE_IMAGE: 'Dieses Bild benutzen',
 	},
 };

@@ -5,6 +5,7 @@ export const MODES = {
 	INIT: 'init',
 	EDITOR: 'editor',
 	CHOOSE_PICTURE: 'choosePicture',
+	CHOOSE_PARAMETERS: 'chooseParameters',
 };
 
 /** *******************
