@@ -11,6 +11,8 @@ export const darkFontColor = '#333344';
 export const errorRed = '#cc0000';
 export const hoverTargetColor = '#7eee63';
 
+export const inputErrorColor = '#cc7d65';
+
 export const beadShadowGray = '#B1B2B9';
 export const buttonActiveGray = '#818289';
 

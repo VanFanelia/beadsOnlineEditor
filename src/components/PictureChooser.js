@@ -1,13 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
+import validUrl from 'valid-url';
 
 import injectSheet from '../utils/injectSheet';
 import grid from '../utils/grid';
 import translate from '../utils/translate';
 
 import { setLinkUrl } from '../reducers/converter';
-import { lightGrayBackground } from '../style/colors';
+import { lightGrayBackground, inputErrorColor } from '../style/colors';
 import { jssSheet, jssClasses } from '../utils/propTypes';
 
 const styles = {
@@ -23,14 +24,11 @@ const styles = {
 	},
 	inputLink: {
 		width: grid('xxxl + xxxl + xxxl'),
-
-		'@media (min-width: 140px)': {
-			backgroundColor: 'pink',
-		},
 	},
-	ImageSourceContainer: {
-
+	invalidLink: {
+		backgroundColor: inputErrorColor,
 	},
+	ImageSourceContainer: {},
 };
 
 class PictureChooser extends React.Component {
@@ -39,11 +37,20 @@ class PictureChooser extends React.Component {
 		super(props);
 		this.sheet = props.sheet;
 		this.classes = props.classes;
+		this.invalidLink = false;
+
 		this.updateLinkUrl = this.updateLinkUrl.bind(this);
 	}
 
 	updateLinkUrl(e) {
-		this.props.setLinkUrl(e.target.value);
+		if (validUrl.is_uri(e.target.value)) {
+			this.invalidLink = false;
+			this.props.setLinkUrl(e.target.value);
+		} else {
+			this.invalidLink = true;
+		}
+		console.log(this.invalidLink);
+		this.forceUpdate();
 	}
 
 	render() {
@@ -57,7 +64,10 @@ class PictureChooser extends React.Component {
 				<div className={this.classes.ImageSourceContainer}>
 					<h3>{ translate('INSERT_LINK') }</h3>
 					<input
-						className={this.classes.inputLink}
+						className={classNames({
+							[this.classes.inputLink]: true,
+							[this.classes.invalidLink]: this.invalidLink,
+						})}
 						type="text"
 						name="LinkToExternalPicture"
 						value={this.props.linkUrl}
