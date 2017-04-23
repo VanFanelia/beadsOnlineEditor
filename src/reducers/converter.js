@@ -1,5 +1,4 @@
 const SET_LINK_URL = 'SET_LINK_URL';
-const INIT_CONVERTER = 'INIT_CONVERTER';
 
 /** *******************
  * Default State
@@ -12,17 +11,10 @@ export const defaultCanvasState = {
  * Actions
  ***********************/
 
-export const init = () => ({
+export const setLinkUrl = z => ({
 	type: SET_LINK_URL,
-	linkUrl: INIT_CONVERTER,
+	linkUrl: z,
 });
-
-export const setLinkUrl = (z) => {
-	return {
-		type: SET_LINK_URL,
-		linkUrl: z,
-	};
-};
 
 /** *******************
  * Reducer
@@ -30,7 +22,7 @@ export const setLinkUrl = (z) => {
 const converter = (state = defaultCanvasState, action) => {
 	switch (action.type) {
 
-	case INIT_CONVERTER:
+	case 'INIT':
 		return Object.assign({}, state, {
 			linkUrl: defaultCanvasState.linkUrl,
 		});

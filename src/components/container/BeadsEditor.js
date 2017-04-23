@@ -1,7 +1,8 @@
 import { connect } from 'react-redux';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
-import { createNewBeadsCanvas, setBead, setCurrentCanvasBead, createChoosePictureDialog } from '../../reducers/canvas';
+import { setBead, setCurrentCanvasBead } from '../../reducers/canvas';
+import { setMode } from '../../reducers/global';
 
 import Editor from '../Editor';
 
@@ -10,23 +11,20 @@ const mapStateToProps = state => ({
 	tabletSizeY: state.canvas.tabletSizeY,
 	currentCanvasPictureData: state.canvas.currentCanvasPictureData,
 	currentCanvasName: state.canvas.currentCanvasName,
-	currentCanvasMode: state.canvas.currentCanvasMode,
+	mode: state.global.mode,
 	currentCanvasBead: state.canvas.currentCanvasBead,
 	zoom: state.canvas.zoom,
 });
 
 const mapDispatchToProps = dispatch => ({
-	onClickCreateCanvas: () => {
-		dispatch(createNewBeadsCanvas());
-	},
-	onClickChoosePicture: () => {
-		dispatch(createChoosePictureDialog());
-	},
 	setBead: (x, y, beadId) => {
 		dispatch(setBead(x, y, beadId));
 	},
 	setCurrentCanvasBead: (beadId) => {
 		dispatch(setCurrentCanvasBead(beadId));
+	},
+	setMode: (mode) => {
+		dispatch(setMode(mode));
 	},
 });
 

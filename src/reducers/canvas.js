@@ -1,11 +1,11 @@
 import { defaultBead } from '../utils/beadColors';
 
-const CREATE_NEW_BEADS_CANVAS = 'CREATE_NEW_BEADS_CANVAS';
-const CREATE_CHOOSE_PICTURE_DIALOG = 'CREATE_CHOOSE_PICTURE_DIALOG';
 const CHANGE_TABLET_SIZE = 'CHANGE_TABLET_SIZE';
 const CHANGE_ZOOM = 'CHANGE_ZOOM';
 const SET_BEAD = 'SET_BEAD';
 const SET_CURRENT_CANVAS_BEAD = 'SET_CURRENT_CANVAS_BEAD';
+
+const SET_MODE = 'SET_MODE';
 
 /** *******************
  * Default State
@@ -15,7 +15,6 @@ export const defaultCanvasState = {
 	tabletSizeY: 1,
 	currentCanvasPictureData: { pixels: [] },
 	currentCanvasName: 'Untitled',
-	currentCanvasMode: 'init',
 	currentCanvasBead: defaultBead,
 	zoom: 100,
 };
@@ -23,13 +22,6 @@ export const defaultCanvasState = {
 /** *******************
  * Actions
  ***********************/
-export const createNewBeadsCanvas = () => ({
-	type: CREATE_NEW_BEADS_CANVAS,
-});
-
-export const createChoosePictureDialog = () => ({
-	type: CREATE_CHOOSE_PICTURE_DIALOG,
-});
 
 export const changeTabletSize = (x, y) => ({
 	type: CHANGE_TABLET_SIZE,
@@ -60,19 +52,13 @@ export const setCurrentCanvasBead = beadId => ({
  ***********************/
 const canvas = (state = defaultCanvasState, action) => {
 	switch (action.type) {
-	case CREATE_NEW_BEADS_CANVAS:
+	case SET_MODE:
 		return Object.assign({}, state, {
 			tabletSizeX: defaultCanvasState.tabletSizeX,
 			tabletSizeY: defaultCanvasState.tabletSizeY,
 			currentCanvasPictureData: defaultCanvasState.currentCanvasPictureData,
 			currentCanvasName: defaultCanvasState.currentCanvasName,
-			currentCanvasMode: 'editor',
 			currentCanvasBead: defaultCanvasState.currentCanvasBead,
-		});
-
-	case CREATE_CHOOSE_PICTURE_DIALOG:
-		return Object.assign({}, state, {
-			currentCanvasMode: 'choosePicture',
 		});
 
 	case SET_CURRENT_CANVAS_BEAD:
