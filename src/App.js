@@ -57,9 +57,9 @@ class App extends React.Component {
 }
 
 App.propTypes = {
-	children: React.PropTypes.element,
-	sheet: jssSheet,
-	classes: jssClasses,
+	children: React.PropTypes.element.isRequired,
+	sheet: jssSheet.isRequired,
+	classes: jssClasses.isRequired,
 };
 
 export default injectSheet(styles)(App);

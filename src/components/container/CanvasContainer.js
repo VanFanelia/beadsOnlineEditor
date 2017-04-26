@@ -102,10 +102,13 @@ const CanvasContainer = ({ sheet: { classes }, ...props }) => (
 						props.tabletSizeY,
 						props.currentCanvasPictureData.pixels)
 					.map((blockRow, blockRowCounter) => (
+						// eslint-disable-next-line react/no-array-index-key
 						<div className={classes.blockRow} key={`blockRow${blockRowCounter}`}>
 							{ blockRow.map((block, blockCounter) => (
+								// eslint-disable-next-line react/no-array-index-key
 								<div className={classes.block} key={`blockCounter${blockCounter}`}>
 									{ block.map((row, rowCounter) => (
+										// eslint-disable-next-line react/no-array-index-key
 										<div className={classes.row} key={`row${rowCounter}`}>
 											{row.map(bead => (
 												<Bead
@@ -131,20 +134,23 @@ const CanvasContainer = ({ sheet: { classes }, ...props }) => (
 );
 
 CanvasContainer.propTypes = {
-	sheet: jssSheet,
-	onChangeTabletSize: React.PropTypes.func,
-	setBead: React.PropTypes.func,
+	sheet: jssSheet.isRequired,
+	onChangeTabletSize: React.PropTypes.func.isRequired,
+	setBead: React.PropTypes.func.isRequired,
 	tabletSizeX: React.PropTypes.number,
 	tabletSizeY: React.PropTypes.number,
 	visible: React.PropTypes.bool,
 	zoom: React.PropTypes.number,
-	currentCanvasPictureData: React.PropTypes.objectOf(React.PropTypes.any),
-	setCurrentCanvasColor: React.PropTypes.func,
-	currentCanvasBead: React.PropTypes.string,
+	currentCanvasPictureData: React.PropTypes.objectOf(React.PropTypes.any).isRequired,
+	setCurrentCanvasColor: React.PropTypes.func.isRequired,
+	currentCanvasBead: React.PropTypes.string.isRequired,
 };
 
 CanvasContainer.defaultProps = {
 	visible: false,
+	tabletSizeX: 1,
+	tabletSizeY: 1,
+	zoom: 100,
 };
 
 export default connect()(injectSheet(styles)(CanvasContainer));

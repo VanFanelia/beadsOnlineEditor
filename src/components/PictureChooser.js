@@ -122,11 +122,11 @@ class PictureChooser extends React.Component {
 
 PictureChooser.propTypes = {
 	visible: React.PropTypes.bool.isRequired,
-	linkUrl: React.PropTypes.string,
-	setLinkUrl: React.PropTypes.func,
-	onClickChooseImageFromPreview: React.PropTypes.func,
-	classes: jssClasses,
-	sheet: jssSheet,
+	linkUrl: React.PropTypes.string.isRequired,
+	setLinkUrl: React.PropTypes.func.isRequired,
+	onClickChooseImageFromPreview: React.PropTypes.func.isRequired,
+	classes: jssClasses.isRequired,
+	sheet: jssSheet.isRequired,
 };
 
 PictureChooser.defaultProps = {

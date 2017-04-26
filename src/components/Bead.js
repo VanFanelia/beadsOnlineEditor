@@ -134,17 +134,17 @@ class Bead extends React.Component {
 }
 
 Bead.propTypes = {
-	x: React.PropTypes.number,
-	y: React.PropTypes.number,
-	beadId: React.PropTypes.string,
+	x: React.PropTypes.number.isRequired,
+	y: React.PropTypes.number.isRequired,
+	beadId: React.PropTypes.string.isRequired,
 	empty: React.PropTypes.bool,
 	isOver: React.PropTypes.bool.isRequired,
-	sheet: jssSheet,
-	classes: jssClasses,
-	setBead: React.PropTypes.func,
-	connectDropTarget: React.PropTypes.func,
-	beadData: React.PropTypes.objectOf(React.PropTypes.any),
-	currentCanvasBead: React.PropTypes.string,
+	sheet: jssSheet.isRequired,
+	classes: jssClasses.isRequired,
+	setBead: React.PropTypes.func.isRequired,
+	connectDropTarget: React.PropTypes.func.isRequired,
+	beadData: React.PropTypes.objectOf(React.PropTypes.any).isRequired,
+	currentCanvasBead: React.PropTypes.string.isRequired,
 };
 
 Bead.defaultProps = {

@@ -80,15 +80,12 @@ const ColorBar = ({ sheet: { classes }, ...props }) =>
 );
 
 ColorBar.propTypes = {
-	sheet: jssSheet,
-	setCurrentCanvasColor: React.PropTypes.func,
-	currentCanvasBead: React.PropTypes.string,
+	sheet: jssSheet.isRequired,
+	setCurrentCanvasColor: React.PropTypes.func.isRequired,
+	currentCanvasBead: React.PropTypes.string.isRequired,
 };
 
 ColorBar.defaultProps = {
-	tabletSizeX: 1,
-	tabletSizeY: 1,
-	visible: false,
 };
 
 export default connect()(injectSheet(styles)(ColorBar));

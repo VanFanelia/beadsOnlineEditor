@@ -16,8 +16,8 @@ const SimpleIntro = ({ sheet: { classes }, ...props }) => (
 );
 
 SimpleIntro.propTypes = {
-	children: React.PropTypes.node,
-	sheet: jssSheet,
+	children: React.PropTypes.node.isRequired,
+	sheet: jssSheet.isRequired,
 };
 
 export default injectSheet(styles)(SimpleIntro);

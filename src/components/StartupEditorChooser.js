@@ -78,9 +78,13 @@ const StartupEditorChooser = ({ sheet: { classes }, ...props }) => (
 
 StartupEditorChooser.propTypes = {
 	visible: React.PropTypes.bool,
-	onClickCreateCanvas: React.PropTypes.func,
-	onClickChoosePicture: React.PropTypes.func,
-	sheet: jssSheet,
+	onClickCreateCanvas: React.PropTypes.func.isRequired,
+	onClickChoosePicture: React.PropTypes.func.isRequired,
+	sheet: jssSheet.isRequired,
+};
+
+StartupEditorChooser.defaultProps = {
+	visible: false,
 };
 
 export default injectSheet(styles)(StartupEditorChooser);

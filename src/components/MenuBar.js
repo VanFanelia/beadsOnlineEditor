@@ -108,9 +108,9 @@ const MenuBar = ({ dispatch, sheet: { classes }, ...props }) => {
 MenuBar.propTypes = {
 	tabletSizeX: React.PropTypes.number,
 	tabletSizeY: React.PropTypes.number,
-	classes: jssClasses,
-	sheet: jssSheet,
-	dispatch: React.PropTypes.func,
+	classes: jssClasses.isRequired,
+	sheet: jssSheet.isRequired,
+	dispatch: React.PropTypes.func.isRequired,
 	zoom: React.PropTypes.number,
 };
 

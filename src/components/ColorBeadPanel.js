@@ -118,12 +118,12 @@ ColorBeadPanel.propTypes = {
 	textColor: React.PropTypes.string.isRequired,
 	colorName: React.PropTypes.string.isRequired,
 	isSelected: React.PropTypes.bool,
-	sheet: jssSheet,
-	classes: jssClasses,
+	sheet: jssSheet.isRequired,
+	classes: jssClasses.isRequired,
 	connectDragSource: React.PropTypes.func.isRequired,
 	connectDragPreview: React.PropTypes.func.isRequired,
 	isDragging: React.PropTypes.bool.isRequired,
-	setCurrentCanvasColor: React.PropTypes.func,
+	setCurrentCanvasColor: React.PropTypes.func.isRequired,
 };
 
 ColorBeadPanel.defaultProps = {

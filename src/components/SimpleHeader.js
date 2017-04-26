@@ -42,8 +42,8 @@ SimpleHeader.propTypes = {
 	children: React.PropTypes.string.isRequired,
 	logoAlt: React.PropTypes.string,
 	showLogo: React.PropTypes.bool,
-	classes: jssClasses,
-	sheet: jssSheet,
+	classes: jssClasses.isRequired,
+	sheet: jssSheet.isRequired,
 };
 
 SimpleHeader.defaultProps = {

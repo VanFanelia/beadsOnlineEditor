@@ -57,21 +57,21 @@ const Editor = ({ sheet: { classes }, ...props }) => (
 );
 
 Editor.propTypes = {
-	sheet: jssSheet,
-	mode: React.PropTypes.string,
-	currentCanvasPictureData: React.PropTypes.objectOf(React.PropTypes.any),
-	onClickCreateCanvas: React.PropTypes.func,
-	onClickChoosePicture: React.PropTypes.func,
-	onChangeTabletSize: React.PropTypes.func,
-	onChangeZoom: React.PropTypes.func,
-	setBead: React.PropTypes.func,
-	setMode: React.PropTypes.func,
-	tabletSizeX: React.PropTypes.number,
-	tabletSizeY: React.PropTypes.number,
-	zoom: React.PropTypes.number,
-	setCurrentCanvasBead: React.PropTypes.func,
-	currentCanvasBead: React.PropTypes.string,
-	linkUrl: React.PropTypes.string,
+	sheet: jssSheet.isRequired,
+	mode: React.PropTypes.string.isRequired,
+	currentCanvasPictureData: React.PropTypes.objectOf(React.PropTypes.any).isRequired,
+	onClickCreateCanvas: React.PropTypes.func.isRequired,
+	onClickChoosePicture: React.PropTypes.func.isRequired,
+	onChangeTabletSize: React.PropTypes.func.isRequired,
+	onChangeZoom: React.PropTypes.func.isRequired,
+	setBead: React.PropTypes.func.isRequired,
+	setMode: React.PropTypes.func.isRequired,
+	tabletSizeX: React.PropTypes.number.isRequired,
+	tabletSizeY: React.PropTypes.number.isRequired,
+	zoom: React.PropTypes.number.isRequired,
+	setCurrentCanvasBead: React.PropTypes.func.isRequired,
+	currentCanvasBead: React.PropTypes.string.isRequired,
+	linkUrl: React.PropTypes.string.isRequired,
 };
 
 export default injectSheet(styles)(Editor);

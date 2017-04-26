@@ -54,9 +54,9 @@ class ConfigureParameterEditor extends React.Component {
 
 ConfigureParameterEditor.propTypes = {
 	visible: React.PropTypes.bool.isRequired,
-	linkUrl: React.PropTypes.string,
-	classes: jssClasses,
-	sheet: jssSheet,
+	linkUrl: React.PropTypes.string.isRequired,
+	classes: jssClasses.isRequired,
+	sheet: jssSheet.isRequired,
 };
 
 ConfigureParameterEditor.defaultProps = {

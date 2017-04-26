@@ -97,7 +97,7 @@ const Navigation = ({ sheet: { classes } }) => (
 );
 
 Navigation.propTypes = {
-	sheet: jssSheet,
+	sheet: jssSheet.isRequired,
 };
 
 export default injectSheet(styles)(Navigation);

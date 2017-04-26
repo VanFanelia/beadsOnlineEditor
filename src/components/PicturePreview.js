@@ -52,7 +52,7 @@ const PicturePreview = ({ sheet: { classes }, ...props }) =>
 );
 
 PicturePreview.propTypes = {
-	sheet: jssSheet,
+	sheet: jssSheet.isRequired,
 	linkUrl: React.PropTypes.string,
 	visible: React.PropTypes.bool,
 };

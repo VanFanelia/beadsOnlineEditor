@@ -62,7 +62,7 @@ const ColorFilter = ({ sheet: { classes } }) => (
 );
 
 ColorFilter.propTypes = {
-	sheet: jssSheet,
+	sheet: jssSheet.isRequired,
 };
 
 ColorFilter.defaultProps = {
