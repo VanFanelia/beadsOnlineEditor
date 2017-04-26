@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 
@@ -134,7 +135,7 @@ const CanvasContainer = ({ sheet: { classes }, ...props }) => (
 
 CanvasContainer.propTypes = {
 	sheet: jssSheet.isRequired,
-	setBead: React.PropTypes.func.isRequired,
+	setBead: PropTypes.func.isRequired,
 	tabletSizeX: React.PropTypes.number,
 	tabletSizeY: React.PropTypes.number,
 	visible: React.PropTypes.bool,
