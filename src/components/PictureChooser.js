@@ -57,6 +57,11 @@ class PictureChooser extends React.Component {
 		};
 		this.updateLinkUrl = this.updateLinkUrl.bind(this);
 		this.chooseImage = this.chooseImage.bind(this);
+		this.handleLinkChange = this.handleLinkChange.bind(this);
+	}
+
+	handleLinkChange(event) {
+		this.setState({ linkUrl: event.target.value });
 	}
 
 	updateLinkUrl(e) {
@@ -76,6 +81,8 @@ class PictureChooser extends React.Component {
 			} else {
 				console.log('got pixels');
 				console.log(pixels.shape.slice());
+				console.log(pixels);
+				console.log(pixels.shape);
 			}
 		});
 		this.props.onClickChooseImageFromPreview();
@@ -98,10 +105,11 @@ class PictureChooser extends React.Component {
 						})}
 						type="text"
 						name="LinkToExternalPicture"
-						value={this.props.linkUrl}
-						onChange={() => {}}
+						value={this.state.linkUrl}
+						onChange={this.handleLinkChange}
 						onBlur={this.updateLinkUrl}
 					/>
+					<button onClick={this.updateLinkUrl}>-&gt;</button>
 					<h3>{ translate('UPLOAD_IMAGE')}</h3>
 					<input
 						type="file"
@@ -110,7 +118,7 @@ class PictureChooser extends React.Component {
 				</div>
 				<div className={this.classes.preview} >
 					<h3>{translate('PREVIEW')}</h3>
-					<img className={this.classes.previewImage} src={this.state.linkUrl} alt="preview" />
+					<img className={this.classes.previewImage} src={this.props.linkUrl} alt="preview" />
 					<div>
 						<button onClick={this.chooseImage}>{translate('USE_IMAGE')}</button>
 					</div>
@@ -131,11 +139,10 @@ PictureChooser.propTypes = {
 
 PictureChooser.defaultProps = {
 	visible: true,
-	linkUrl: '',
 };
 
 const mapStateToProps = state => ({
-	linkUrl: state.linkUrl,
+	linkUrl: state.converter.linkUrl,
 });
 
 const mapDispatchToProps = dispatch => ({

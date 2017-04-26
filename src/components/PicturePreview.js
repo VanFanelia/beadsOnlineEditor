@@ -58,8 +58,8 @@ PicturePreview.propTypes = {
 };
 
 PicturePreview.defaultProps = {
-	linkUrl: '',
 	visible: false,
+	linkUrl: '',
 };
 
 export default injectSheet(styles)(PicturePreview);
