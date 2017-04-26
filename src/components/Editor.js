@@ -46,8 +46,6 @@ const Editor = ({ sheet: { classes }, ...props }) => (
 			tabletSizeX={props.tabletSizeX}
 			tabletSizeY={props.tabletSizeY}
 			zoom={props.zoom}
-			onChangeTabletSize={props.onChangeTabletSize}
-			onChangeZoom={props.onChangeZoom}
 			setBead={props.setBead}
 			currentCanvasPictureData={props.currentCanvasPictureData}
 			setCurrentCanvasColor={props.setCurrentCanvasBead}
@@ -60,10 +58,6 @@ Editor.propTypes = {
 	sheet: jssSheet.isRequired,
 	mode: React.PropTypes.string.isRequired,
 	currentCanvasPictureData: React.PropTypes.objectOf(React.PropTypes.any).isRequired,
-	onClickCreateCanvas: React.PropTypes.func.isRequired,
-	onClickChoosePicture: React.PropTypes.func.isRequired,
-	onChangeTabletSize: React.PropTypes.func.isRequired,
-	onChangeZoom: React.PropTypes.func.isRequired,
 	setBead: React.PropTypes.func.isRequired,
 	setMode: React.PropTypes.func.isRequired,
 	tabletSizeX: React.PropTypes.number.isRequired,

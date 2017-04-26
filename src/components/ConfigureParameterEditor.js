@@ -61,6 +61,7 @@ ConfigureParameterEditor.propTypes = {
 
 ConfigureParameterEditor.defaultProps = {
 	visible: false,
+	linkUrl: '',
 };
 
 const mapStateToProps = state => ({

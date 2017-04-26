@@ -131,6 +131,7 @@ PictureChooser.propTypes = {
 
 PictureChooser.defaultProps = {
 	visible: true,
+	linkUrl: '',
 };
 
 const mapStateToProps = state => ({

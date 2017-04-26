@@ -87,7 +87,6 @@ const CanvasContainer = ({ sheet: { classes }, ...props }) => (
 			tabletSizeX={props.tabletSizeX}
 			tabletSizeY={props.tabletSizeY}
 			zoom={props.zoom}
-			onChange={props.onChangeTabletSize}
 		/>
 
 		<ColorBar
@@ -135,7 +134,6 @@ const CanvasContainer = ({ sheet: { classes }, ...props }) => (
 
 CanvasContainer.propTypes = {
 	sheet: jssSheet.isRequired,
-	onChangeTabletSize: React.PropTypes.func.isRequired,
 	setBead: React.PropTypes.func.isRequired,
 	tabletSizeX: React.PropTypes.number,
 	tabletSizeY: React.PropTypes.number,
