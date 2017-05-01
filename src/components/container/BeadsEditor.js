@@ -15,6 +15,7 @@ const mapStateToProps = state => ({
 	currentCanvasBead: state.canvas.currentCanvasBead,
 	zoom: state.canvas.zoom,
 	linkUrl: state.converter.linkUrl,
+	image: state.converter.image,
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -14,5 +14,8 @@ export default {
 		PREVIEW: 'Vorschau',
 		USE_IMAGE: 'Dieses Bild benutzen',
 		PICTURE_ERROR: 'Bild nicht gefunden oder falsches Format',
+		WIDTH: 'Breite',
+		HEIGHT: 'Höhe',
+		PIXE: 'Pixel',
 	},
 };

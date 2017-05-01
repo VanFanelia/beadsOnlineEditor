@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import injectSheet from '../utils/injectSheet';
 
 import { black, lightGrayBackground } from '../style/colors';
-import { jssSheet } from '../utils/propTypes';
+import { jssSheet, jimpImage } from '../utils/propTypes';
 
 import grid from '../utils/grid';
 import translate from '../utils/translate';
@@ -34,6 +34,9 @@ const styles = {
 		height: '100%',
 		width: 'auto',
 	},
+	dataSheet: {
+		textAlign: 'left',
+	}
 };
 
 const PicturePreview = ({ sheet: { classes }, ...props }) =>
@@ -47,6 +50,19 @@ const PicturePreview = ({ sheet: { classes }, ...props }) =>
 		<div className={classes.flexContainer}>
 			<h3>{ translate('PREVIEW') }</h3>
 			<img className={classes.image} src={props.linkUrl} alt="preview" />
+			<div className={classes.dataSheet}>
+				<ul>
+					<li>
+						{ translate('WIDTH')}: {props.image !== undefined ? props.image.bitmap.width : '?'} { translate('PIXEL')}
+					</li>
+					<li>
+						{ translate('HEIGHT')}: {props.image !== undefined ? props.image.bitmap.height : '?'} { translate('PIXEL')}
+					</li>
+					<li>
+						{ translate('Type')}: {props.image !== undefined ? props.image._originalMime : '?'}
+					</li>
+				</ul>
+			</div>
 		</div>
 	</div>
 );
@@ -55,11 +71,13 @@ PicturePreview.propTypes = {
 	sheet: jssSheet.isRequired,
 	linkUrl: React.PropTypes.string,
 	visible: React.PropTypes.bool,
+	image: jimpImage,
 };
 
 PicturePreview.defaultProps = {
 	visible: false,
 	linkUrl: '',
+	image: undefined,
 };
 
 export default injectSheet(styles)(PicturePreview);

@@ -1,6 +1,6 @@
 import React from 'react';
 import injectSheet from '../utils/injectSheet';
-import { jssSheet } from '../utils/propTypes';
+import { jssSheet, jimpImage } from '../utils/propTypes';
 import grid from '../utils/grid';
 
 import { MODES } from '../reducers/global';
@@ -36,6 +36,7 @@ const Editor = ({ sheet: { classes }, ...props }) => (
 		<PicturePreview
 			visible={props.mode === MODES.CHOOSE_PARAMETERS}
 			linkUrl={props.linkUrl}
+			image={props.image}
 		/>
 		<ConfigureParameterEditor
 			visible={props.mode === MODES.CHOOSE_PARAMETERS}
@@ -66,6 +67,11 @@ Editor.propTypes = {
 	setCurrentCanvasBead: React.PropTypes.func.isRequired,
 	currentCanvasBead: React.PropTypes.string.isRequired,
 	linkUrl: React.PropTypes.string.isRequired,
+	image: jimpImage,
+};
+
+Editor.defaultPropTypes = {
+	image: undefined,
 };
 
 export default injectSheet(styles)(Editor);

@@ -40,6 +40,7 @@ const converter = (state = defaultCanvasState, action) => {
 		});
 
 	case SET_IMAGE:
+		console.log(action.image);
 		return Object.assign({}, state, {
 			image: action.image,
 		});
