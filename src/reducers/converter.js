@@ -20,7 +20,7 @@ export const setLinkUrl = url => ({
 
 export const setImage = image => ({
 	type: SET_IMAGE,
-	image
+	image,
 });
 
 /** *******************

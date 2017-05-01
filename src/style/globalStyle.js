@@ -65,6 +65,9 @@ export default {
 			fontSize: textRatioFontSize('s'),
 			lineHeight: textRatioLineHeight('s'),
 		},
+		ul: {
+			textAlign: 'left',
+		},
 	},
 	...animations,
 };

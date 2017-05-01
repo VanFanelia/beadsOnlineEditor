@@ -70,7 +70,7 @@ Editor.propTypes = {
 	image: jimpImage,
 };
 
-Editor.defaultPropTypes = {
+Editor.defaultProps = {
 	image: undefined,
 };
 

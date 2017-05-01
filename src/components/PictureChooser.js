@@ -72,13 +72,11 @@ class PictureChooser extends React.Component {
 		const url = e.target.value;
 		if (validUrl.is_uri(url)) {
 			const that = this;
-			request.head({url: e.target.value}, (error, resp) => {
-				if(error || resp.statusCode !== 200) {
-					console.log(error);
+			request.head({ url: e.target.value }, (error, resp) => {
+				if (error || resp.statusCode !== 200) {
 					this.handleLinkError();
 				} else {
-					console.log(resp.statusCode);
-					that.setState({linkUrl: url, error: false, invalidLink: false});
+					that.setState({ linkUrl: url, error: false, invalidLink: false });
 					that.props.setLinkUrl(url);
 				}
 			});
@@ -87,18 +85,15 @@ class PictureChooser extends React.Component {
 		}
 	}
 
-	handleLinkError(){
-		console.log('Handle Link Error');
-		this.setState({ error: true, invalidLink: true})
+	handleLinkError() {
+		this.setState({ error: true, invalidLink: true });
 		this.props.setLinkUrl('');
 	}
 
 	chooseImage() {
-		console.log(this.state.linkUrl);
 		const that = this;
-		jimp.read(this.state.linkUrl, function (err, image) {
-			// do stuff with the image (if no exception)
-			if(err !== null && err !== undefined) {
+		jimp.read(this.state.linkUrl, (err, image) => {
+			if (err !== null && err !== undefined) {
 				that.setState({ error: true });
 			} else {
 				that.setState({ error: false });
@@ -137,16 +132,20 @@ class PictureChooser extends React.Component {
 				</div>
 				<div className={this.classes.preview} >
 					<h3>{translate('PREVIEW')}</h3>
-					<h4 className={classNames({
-						[this.classes.hide]: this.state.error === undefined || this.state.error === false
-					})}>
+					<h4
+						className={classNames({
+							[this.classes.hide]: this.state.error === undefined || this.state.error === false })}
+					>
 						{translate('PICTURE_ERROR')}
 					</h4>
-					<img className={classNames({
+					<img
+						className={classNames({
 							[this.classes.previewImage]: true,
 							[this.classes.hide]: this.props.linkUrl === '' || this.state.error === true || this.state.invalidLink === true,
 						})}
-						src={this.props.linkUrl} alt="preview" />
+						src={this.props.linkUrl}
+						alt="preview"
+					/>
 					<div>
 						<button onClick={this.chooseImage}>{translate('USE_IMAGE')}</button>
 					</div>
@@ -160,7 +159,6 @@ PictureChooser.propTypes = {
 	visible: React.PropTypes.bool.isRequired,
 	linkUrl: React.PropTypes.string.isRequired,
 	setLinkUrl: React.PropTypes.func.isRequired,
-	onClickChooseImageFromPreview: React.PropTypes.func.isRequired,
 	classes: jssClasses.isRequired,
 	sheet: jssSheet.isRequired,
 };

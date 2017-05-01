@@ -36,9 +36,10 @@ const styles = {
 	},
 	dataSheet: {
 		textAlign: 'left',
-	}
+	},
 };
 
+/* eslint-disable no-underscore-dangle */
 const PicturePreview = ({ sheet: { classes }, ...props }) =>
 (
 	<div
@@ -59,13 +60,14 @@ const PicturePreview = ({ sheet: { classes }, ...props }) =>
 						{ translate('HEIGHT')}: {props.image !== undefined ? props.image.bitmap.height : '?'} { translate('PIXEL')}
 					</li>
 					<li>
-						{ translate('Type')}: {props.image !== undefined ? props.image._originalMime : '?'}
+						{ translate('TYPE')}: {props.image !== undefined ? props.image._originalMime : '?'}
 					</li>
 				</ul>
 			</div>
 		</div>
 	</div>
 );
+/* eslint-enable no-underscore-dangle */
 
 PicturePreview.propTypes = {
 	sheet: jssSheet.isRequired,
