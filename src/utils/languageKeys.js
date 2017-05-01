@@ -13,5 +13,6 @@ export default {
 		ZOOM: 'Zoom',
 		PREVIEW: 'Vorschau',
 		USE_IMAGE: 'Dieses Bild benutzen',
+		PICTURE_ERROR: 'Bild nicht gefunden oder falsches Format',
 	},
 };

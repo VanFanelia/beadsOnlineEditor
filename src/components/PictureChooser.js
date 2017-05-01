@@ -2,13 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import validUrl from 'valid-url';
-import getPixels from 'get-pixels';
+import jimp from 'jimp';
+import request from 'request';
 
 import injectSheet from '../utils/injectSheet';
 import grid from '../utils/grid';
 import translate from '../utils/translate';
 
-import { setLinkUrl } from '../reducers/converter';
+import { setLinkUrl, setImage } from '../reducers/converter';
 import { setMode, MODES } from '../reducers/global';
 
 import { lightGrayBackground, inputErrorColor } from '../style/colors';
@@ -24,7 +25,7 @@ const styles = {
 		alignItems: 'center',
 		justifyContent: 'center',
 	},
-	containerHide: {
+	hide: {
 		display: 'none',
 	},
 	inputLink: {
@@ -51,13 +52,16 @@ class PictureChooser extends React.Component {
 		super(props);
 		this.sheet = props.sheet;
 		this.classes = props.classes;
-		this.invalidLink = false;
 		this.state = {
+			invalidLink: false,
 			linkUrl: props.linkUrl,
+			error: undefined,
+			image: undefined,
 		};
 		this.updateLinkUrl = this.updateLinkUrl.bind(this);
 		this.chooseImage = this.chooseImage.bind(this);
 		this.handleLinkChange = this.handleLinkChange.bind(this);
+		this.handleLinkError = this.handleLinkError.bind(this);
 	}
 
 	handleLinkChange(event) {
@@ -65,27 +69,42 @@ class PictureChooser extends React.Component {
 	}
 
 	updateLinkUrl(e) {
-		if (validUrl.is_uri(e.target.value)) {
-			this.invalidLink = false;
-			this.props.setLinkUrl(e.target.value);
-			this.setState({ linkUrl: e.target.value });
+		const url = e.target.value;
+		if (validUrl.is_uri(url)) {
+			const that = this;
+			request.head({url: e.target.value}, (error, resp) => {
+				if(error || resp.statusCode !== 200) {
+					console.log(error);
+					this.handleLinkError();
+				} else {
+					console.log(resp.statusCode);
+					that.setState({linkUrl: url, error: false, invalidLink: false});
+					that.props.setLinkUrl(url);
+				}
+			});
 		} else {
-			this.invalidLink = true;
+			this.handleLinkError();
 		}
 	}
 
+	handleLinkError(){
+		console.log('Handle Link Error');
+		this.setState({ error: true, invalidLink: true})
+		this.props.setLinkUrl('');
+	}
+
 	chooseImage() {
-		getPixels(this.state.linkUrl, (err, pixels) => {
-			if (err) {
-				console.log('Bad image path');
+		console.log(this.state.linkUrl);
+		const that = this;
+		jimp.read(this.state.linkUrl, function (err, image) {
+			// do stuff with the image (if no exception)
+			if(err !== null && err !== undefined) {
+				that.setState({ error: true });
 			} else {
-				console.log('got pixels');
-				console.log(pixels.shape.slice());
-				console.log(pixels);
-				console.log(pixels.shape);
+				that.setState({ error: false });
+				that.props.onClickChooseImageFromPreview(image);
 			}
 		});
-		this.props.onClickChooseImageFromPreview();
 	}
 
 	render() {
@@ -93,7 +112,7 @@ class PictureChooser extends React.Component {
 			<div
 				className={classNames({
 					[this.classes.container]: true,
-					[this.classes.containerHide]: !this.props.visible,
+					[this.classes.hide]: !this.props.visible,
 				})}
 			>
 				<div className={this.classes.ImageSourceContainer}>
@@ -101,7 +120,7 @@ class PictureChooser extends React.Component {
 					<input
 						className={classNames({
 							[this.classes.inputLink]: true,
-							[this.classes.invalidLink]: this.invalidLink,
+							[this.classes.invalidLink]: this.state.invalidLink,
 						})}
 						type="text"
 						name="LinkToExternalPicture"
@@ -109,7 +128,7 @@ class PictureChooser extends React.Component {
 						onChange={this.handleLinkChange}
 						onBlur={this.updateLinkUrl}
 					/>
-					<button onClick={this.updateLinkUrl}>-&gt;</button>
+					<button>-&gt;</button>
 					<h3>{ translate('UPLOAD_IMAGE')}</h3>
 					<input
 						type="file"
@@ -118,7 +137,16 @@ class PictureChooser extends React.Component {
 				</div>
 				<div className={this.classes.preview} >
 					<h3>{translate('PREVIEW')}</h3>
-					<img className={this.classes.previewImage} src={this.props.linkUrl} alt="preview" />
+					<h4 className={classNames({
+						[this.classes.hide]: this.state.error === undefined || this.state.error === false
+					})}>
+						{translate('PICTURE_ERROR')}
+					</h4>
+					<img className={classNames({
+							[this.classes.previewImage]: true,
+							[this.classes.hide]: this.props.linkUrl === '' || this.state.error === true || this.state.invalidLink === true,
+						})}
+						src={this.props.linkUrl} alt="preview" />
 					<div>
 						<button onClick={this.chooseImage}>{translate('USE_IMAGE')}</button>
 					</div>
@@ -149,7 +177,8 @@ const mapDispatchToProps = dispatch => ({
 	setLinkUrl: (link) => {
 		dispatch(setLinkUrl(link));
 	},
-	onClickChooseImageFromPreview: () => {
+	onClickChooseImageFromPreview: (image) => {
+		dispatch(setImage(image));
 		dispatch(setMode(MODES.CHOOSE_PARAMETERS));
 	},
 });

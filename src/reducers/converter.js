@@ -1,19 +1,26 @@
 const SET_LINK_URL = 'SET_LINK_URL';
+const SET_IMAGE = 'SET_IMAGE';
 
 /** *******************
  * Default State
  ***********************/
 export const defaultCanvasState = {
-	linkUrl: 'foobar',
+	linkUrl: '',
+	image: undefined,
 };
 
 /** *******************
  * Actions
  ***********************/
 
-export const setLinkUrl = z => ({
+export const setLinkUrl = url => ({
 	type: SET_LINK_URL,
-	linkUrl: z,
+	linkUrl: url,
+});
+
+export const setImage = image => ({
+	type: SET_IMAGE,
+	image
 });
 
 /** *******************
@@ -30,6 +37,11 @@ const converter = (state = defaultCanvasState, action) => {
 	case SET_LINK_URL:
 		return Object.assign({}, state, {
 			linkUrl: action.linkUrl,
+		});
+
+	case SET_IMAGE:
+		return Object.assign({}, state, {
+			image: action.image,
 		});
 
 	default:
