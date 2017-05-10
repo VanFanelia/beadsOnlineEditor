@@ -1,6 +1,9 @@
+import convert from '../utils/converter';
+
 const SET_LINK_URL = 'SET_LINK_URL';
 const SET_IMAGE = 'SET_IMAGE';
 const SET_CONVERTER_PARAMETERS = 'SET_CONVERTER_PARAMETERS';
+const START_CONVERSION = 'START_CONVERSION';
 
 /** *******************
  * Default State
@@ -12,6 +15,7 @@ export const defaultConverterState = {
 	maxHeight: 2,
 	usedBeadTypes: ['BASIC_HAMA_COLORS', 'PASTEL_HAMA_COLORS', 'METAL_HAMA_COLORS'],
 	image: undefined,
+	convertedImage: undefined,
 };
 
 /** *******************
@@ -34,6 +38,10 @@ export const setConverterParameters = (selectedAlgorithm, maxWidth, maxHeight, u
 	maxWidth,
 	maxHeight,
 	usedBeadTypes,
+});
+
+export const startConversion = () => ({
+	type: START_CONVERSION,
 });
 
 /** *******************
@@ -61,6 +69,17 @@ const converter = (state = defaultConverterState, action) => {
 			maxWidth: action.maxWidth,
 			maxHeight: action.maxHeight,
 			usedBeadTypes: action.usedBeadTypes,
+		});
+
+	case START_CONVERSION:
+		return Object.assign({}, state, {
+			convertedImage: convert(
+				state.image,
+				state.selectedAlgorithm,
+				state.maxWidth,
+				state.max,
+				state.usedBeadTypes,
+			),
 		});
 
 	default:

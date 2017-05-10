@@ -42,6 +42,7 @@ const Editor = ({ sheet: { classes }, ...props }) => (
 		<ConfigureParameterEditor
 			visible={props.mode === MODES.CHOOSE_PARAMETERS}
 		/>
+
 		<CanvasContainer
 			visible={props.mode === MODES.EDITOR}
 			tabletSizeX={props.tabletSizeX}

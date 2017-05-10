@@ -32,6 +32,6 @@ export default {
 		TRANSPARENT_HAMA_COLORS: 'Transparente HAMA',
 		METAL_HAMA_COLORS: 'Metalfarben HAMA',
 		IKEA_BEADS_COLORS: 'IKEA Farben',
-		TRANSFORM_PICTURE: 'Bild umwandeln',
+		CONVERT_PICTURE: 'Bild umwandeln',
 	},
 };
