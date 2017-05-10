@@ -62,12 +62,12 @@ class ConfigureParameterEditor extends React.Component {
 	handleOptionChange(changeEvent) {
 		this.setState({
 			selectedAlgorithm: changeEvent.target.value,
-		},() => {
+		}, () => {
 			this.props.changeConverterParameters(
 				this.state.selectedAlgorithm,
 				this.state.maxWidth,
 				this.state.maxHeight,
-				this.state.usedBeadTypes
+				this.state.usedBeadTypes,
 			);
 		});
 	}
@@ -77,12 +77,12 @@ class ConfigureParameterEditor extends React.Component {
 		if (newValue >= 1 && newValue <= 5) {
 			this.setState({
 				maxWidth: newValue,
-			},() => {
+			}, () => {
 				this.props.changeConverterParameters(
 					this.state.selectedAlgorithm,
 					this.state.maxWidth,
 					this.state.maxHeight,
-					this.state.usedBeadTypes
+					this.state.usedBeadTypes,
 				);
 			});
 		}
@@ -93,12 +93,12 @@ class ConfigureParameterEditor extends React.Component {
 		if (newValue >= 1 && newValue <= 5) {
 			this.setState({
 				maxHeight: newValue,
-			},() => {
+			}, () => {
 				this.props.changeConverterParameters(
 					this.state.selectedAlgorithm,
 					this.state.maxWidth,
 					this.state.maxHeight,
-					this.state.usedBeadTypes
+					this.state.usedBeadTypes,
 				);
 			});
 		}
@@ -106,7 +106,7 @@ class ConfigureParameterEditor extends React.Component {
 
 	handleBeadsTypeChange(changeEvent) {
 		const value = changeEvent.target.value;
-		if(changeEvent.target.checked) {
+		if (changeEvent.target.checked) {
 			this.setState({
 				usedBeadTypes: this.state.usedBeadTypes.concat([value]),
 			}, () => {
@@ -114,7 +114,7 @@ class ConfigureParameterEditor extends React.Component {
 					this.state.selectedAlgorithm,
 					this.state.maxWidth,
 					this.state.maxHeight,
-					this.state.usedBeadTypes
+					this.state.usedBeadTypes,
 				);
 			});
 		} else {
@@ -128,7 +128,7 @@ class ConfigureParameterEditor extends React.Component {
 					this.state.selectedAlgorithm,
 					this.state.maxWidth,
 					this.state.maxHeight,
-					newUsedBeadTypes
+					newUsedBeadTypes,
 				);
 			});
 		}
@@ -327,6 +327,13 @@ ConfigureParameterEditor.propTypes = {
 	visible: PropTypes.bool.isRequired,
 	classes: jssClasses.isRequired,
 	sheet: jssSheet.isRequired,
+	/* comes from connect() */
+	linkUrl: PropTypes.string.isRequired,
+	selectedAlgorithm: PropTypes.string.isRequired,
+	maxWidth: PropTypes.number.isRequired,
+	maxHeight: PropTypes.number.isRequired,
+	usedBeadTypes: PropTypes.arrayOf(PropTypes.string).isRequired,
+	changeConverterParameters: PropTypes.func.isRequired,
 };
 
 ConfigureParameterEditor.defaultProps = {
@@ -344,7 +351,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
 	changeConverterParameters: (selectedAlgorithm, maxWidth, maxHeight, usedBeadTypes) => {
 		dispatch(setConverterParameters(selectedAlgorithm, maxWidth, maxHeight, usedBeadTypes));
-	}
+	},
 });
 
 export default connect(

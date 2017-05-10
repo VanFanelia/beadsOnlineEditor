@@ -10,7 +10,7 @@ export const defaultConverterState = {
 	selectedAlgorithm: 'RESIZE_NEAREST_NEIGHBOR',
 	maxWidth: 2,
 	maxHeight: 2,
-	usedBeadTypes: ['BASIC_HAMA_COLORS','PASTEL_HAMA_COLORS','METAL_HAMA_COLORS'],
+	usedBeadTypes: ['BASIC_HAMA_COLORS', 'PASTEL_HAMA_COLORS', 'METAL_HAMA_COLORS'],
 	image: undefined,
 };
 
