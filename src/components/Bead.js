@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { DropTarget } from 'react-dnd';
 import { connect } from 'react-redux';
@@ -134,17 +135,17 @@ class Bead extends React.Component {
 }
 
 Bead.propTypes = {
-	x: React.PropTypes.number.isRequired,
-	y: React.PropTypes.number.isRequired,
-	beadId: React.PropTypes.string.isRequired,
-	empty: React.PropTypes.bool,
-	isOver: React.PropTypes.bool.isRequired,
+	x: PropTypes.number.isRequired,
+	y: PropTypes.number.isRequired,
+	beadId: PropTypes.string.isRequired,
+	empty: PropTypes.bool,
+	isOver: PropTypes.bool.isRequired,
 	sheet: jssSheet.isRequired,
 	classes: jssClasses.isRequired,
-	setBead: React.PropTypes.func.isRequired,
-	connectDropTarget: React.PropTypes.func.isRequired,
-	beadData: React.PropTypes.objectOf(React.PropTypes.any).isRequired,
-	currentCanvasBead: React.PropTypes.string.isRequired,
+	setBead: PropTypes.func.isRequired,
+	connectDropTarget: PropTypes.func.isRequired,
+	beadData: PropTypes.objectOf(PropTypes.any).isRequired,
+	currentCanvasBead: PropTypes.string.isRequired,
 };
 
 Bead.defaultProps = {

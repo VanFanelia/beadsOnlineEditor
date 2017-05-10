@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { DragSource } from 'react-dnd';
 import jsxToString from 'jsx-to-string';
 import classNames from 'classnames';
@@ -113,17 +114,17 @@ function collect(connect, monitor) {
 }
 
 ColorBeadPanel.propTypes = {
-	beadId: React.PropTypes.string.isRequired,
-	backgroundColor: React.PropTypes.string.isRequired,
-	textColor: React.PropTypes.string.isRequired,
-	colorName: React.PropTypes.string.isRequired,
-	isSelected: React.PropTypes.bool,
+	beadId: PropTypes.string.isRequired,
+	backgroundColor: PropTypes.string.isRequired,
+	textColor: PropTypes.string.isRequired,
+	colorName: PropTypes.string.isRequired,
+	isSelected: PropTypes.bool,
 	sheet: jssSheet.isRequired,
 	classes: jssClasses.isRequired,
-	connectDragSource: React.PropTypes.func.isRequired,
-	connectDragPreview: React.PropTypes.func.isRequired,
-	isDragging: React.PropTypes.bool.isRequired,
-	setCurrentCanvasColor: React.PropTypes.func.isRequired,
+	connectDragSource: PropTypes.func.isRequired,
+	connectDragPreview: PropTypes.func.isRequired,
+	isDragging: PropTypes.bool.isRequired,
+	setCurrentCanvasColor: PropTypes.func.isRequired,
 };
 
 ColorBeadPanel.defaultProps = {

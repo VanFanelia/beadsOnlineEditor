@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import injectSheet from '../utils/injectSheet';
 import reactLogo from '../graphics/ReactLogo.svg';
 import { white } from '../style/colors';
@@ -39,9 +40,9 @@ class SimpleHeader extends React.Component {
 }
 
 SimpleHeader.propTypes = {
-	children: React.PropTypes.string.isRequired,
-	logoAlt: React.PropTypes.string,
-	showLogo: React.PropTypes.bool,
+	children: PropTypes.string.isRequired,
+	logoAlt: PropTypes.string,
+	showLogo: PropTypes.bool,
 	classes: jssClasses.isRequired,
 	sheet: jssSheet.isRequired,
 };

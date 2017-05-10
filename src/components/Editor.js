@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import injectSheet from '../utils/injectSheet';
 import { jssSheet, jimpImage } from '../utils/propTypes';
 import grid from '../utils/grid';
@@ -57,16 +58,16 @@ const Editor = ({ sheet: { classes }, ...props }) => (
 
 Editor.propTypes = {
 	sheet: jssSheet.isRequired,
-	mode: React.PropTypes.string.isRequired,
-	currentCanvasPictureData: React.PropTypes.objectOf(React.PropTypes.any).isRequired,
-	setBead: React.PropTypes.func.isRequired,
-	setMode: React.PropTypes.func.isRequired,
-	tabletSizeX: React.PropTypes.number.isRequired,
-	tabletSizeY: React.PropTypes.number.isRequired,
-	zoom: React.PropTypes.number.isRequired,
-	setCurrentCanvasBead: React.PropTypes.func.isRequired,
-	currentCanvasBead: React.PropTypes.string.isRequired,
-	linkUrl: React.PropTypes.string.isRequired,
+	mode: PropTypes.string.isRequired,
+	currentCanvasPictureData: PropTypes.objectOf(PropTypes.any).isRequired,
+	setBead: PropTypes.func.isRequired,
+	setMode: PropTypes.func.isRequired,
+	tabletSizeX: PropTypes.number.isRequired,
+	tabletSizeY: PropTypes.number.isRequired,
+	zoom: PropTypes.number.isRequired,
+	setCurrentCanvasBead: PropTypes.func.isRequired,
+	currentCanvasBead: PropTypes.string.isRequired,
+	linkUrl: PropTypes.string.isRequired,
 	image: jimpImage,
 };
 

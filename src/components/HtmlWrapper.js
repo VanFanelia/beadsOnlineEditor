@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 const HtmlWrapper = (props) => {
 	// eslint-disable-next-line react/no-danger

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import injectSheet from '../utils/injectSheet';
 
@@ -71,8 +72,8 @@ const PicturePreview = ({ sheet: { classes }, ...props }) =>
 
 PicturePreview.propTypes = {
 	sheet: jssSheet.isRequired,
-	linkUrl: React.PropTypes.string,
-	visible: React.PropTypes.bool,
+	linkUrl: PropTypes.string,
+	visible: PropTypes.bool,
 	image: jimpImage,
 };
 

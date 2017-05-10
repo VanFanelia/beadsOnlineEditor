@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import validUrl from 'valid-url';
@@ -156,9 +157,9 @@ class PictureChooser extends React.Component {
 }
 
 PictureChooser.propTypes = {
-	visible: React.PropTypes.bool.isRequired,
-	linkUrl: React.PropTypes.string.isRequired,
-	setLinkUrl: React.PropTypes.func.isRequired,
+	visible: PropTypes.bool.isRequired,
+	linkUrl: PropTypes.string.isRequired,
+	setLinkUrl: PropTypes.func.isRequired,
 	classes: jssClasses.isRequired,
 	sheet: jssSheet.isRequired,
 };

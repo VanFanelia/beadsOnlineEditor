@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { changeTabletSize, changeZoom } from '../reducers/canvas';
@@ -106,12 +107,12 @@ const MenuBar = ({ dispatch, sheet: { classes }, ...props }) => {
 };
 
 MenuBar.propTypes = {
-	tabletSizeX: React.PropTypes.number,
-	tabletSizeY: React.PropTypes.number,
+	tabletSizeX: PropTypes.number,
+	tabletSizeY: PropTypes.number,
 	classes: jssClasses.isRequired,
 	sheet: jssSheet.isRequired,
-	dispatch: React.PropTypes.func.isRequired,
-	zoom: React.PropTypes.number,
+	dispatch: PropTypes.func.isRequired,
+	zoom: PropTypes.number,
 };
 
 MenuBar.defaultProps = {

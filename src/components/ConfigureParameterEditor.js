@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 
@@ -184,8 +185,8 @@ class ConfigureParameterEditor extends React.Component {
 }
 
 ConfigureParameterEditor.propTypes = {
-	visible: React.PropTypes.bool.isRequired,
-	linkUrl: React.PropTypes.string.isRequired,
+	visible: PropTypes.bool.isRequired,
+	linkUrl: PropTypes.string.isRequired,
 	classes: jssClasses.isRequired,
 	sheet: jssSheet.isRequired,
 };

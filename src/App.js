@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
 import { createStore, combineReducers } from 'redux';
 
@@ -57,7 +58,7 @@ class App extends React.Component {
 }
 
 App.propTypes = {
-	children: React.PropTypes.element.isRequired,
+	children: PropTypes.element.isRequired,
 	sheet: jssSheet.isRequired,
 	classes: jssClasses.isRequired,
 };

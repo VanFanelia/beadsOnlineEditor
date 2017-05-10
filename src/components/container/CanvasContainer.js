@@ -136,13 +136,13 @@ const CanvasContainer = ({ sheet: { classes }, ...props }) => (
 CanvasContainer.propTypes = {
 	sheet: jssSheet.isRequired,
 	setBead: PropTypes.func.isRequired,
-	tabletSizeX: React.PropTypes.number,
-	tabletSizeY: React.PropTypes.number,
-	visible: React.PropTypes.bool,
-	zoom: React.PropTypes.number,
-	currentCanvasPictureData: React.PropTypes.objectOf(React.PropTypes.any).isRequired,
-	setCurrentCanvasColor: React.PropTypes.func.isRequired,
-	currentCanvasBead: React.PropTypes.string.isRequired,
+	tabletSizeX: PropTypes.number,
+	tabletSizeY: PropTypes.number,
+	visible: PropTypes.bool,
+	zoom: PropTypes.number,
+	currentCanvasPictureData: PropTypes.objectOf(PropTypes.any).isRequired,
+	setCurrentCanvasColor: PropTypes.func.isRequired,
+	currentCanvasBead: PropTypes.string.isRequired,
 };
 
 CanvasContainer.defaultProps = {

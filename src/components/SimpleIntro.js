@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import injectSheet from '../utils/injectSheet';
 import { jssSheet } from '../utils/propTypes';
 
@@ -16,7 +17,7 @@ const SimpleIntro = ({ sheet: { classes }, ...props }) => (
 );
 
 SimpleIntro.propTypes = {
-	children: React.PropTypes.node.isRequired,
+	children: PropTypes.node.isRequired,
 	sheet: jssSheet.isRequired,
 };
 

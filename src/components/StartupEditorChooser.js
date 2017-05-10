@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import injectSheet from '../utils/injectSheet';
 import iconImage from '../graphics/icon/image.svg';
@@ -77,9 +78,9 @@ const StartupEditorChooser = ({ sheet: { classes }, ...props }) => (
 );
 
 StartupEditorChooser.propTypes = {
-	visible: React.PropTypes.bool,
-	onClickCreateCanvas: React.PropTypes.func.isRequired,
-	onClickChoosePicture: React.PropTypes.func.isRequired,
+	visible: PropTypes.bool,
+	onClickCreateCanvas: PropTypes.func.isRequired,
+	onClickChoosePicture: PropTypes.func.isRequired,
 	sheet: jssSheet.isRequired,
 };
 

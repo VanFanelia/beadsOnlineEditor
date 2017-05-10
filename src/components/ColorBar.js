@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
 import injectSheet from '../utils/injectSheet';
@@ -81,8 +82,8 @@ const ColorBar = ({ sheet: { classes }, ...props }) =>
 
 ColorBar.propTypes = {
 	sheet: jssSheet.isRequired,
-	setCurrentCanvasColor: React.PropTypes.func.isRequired,
-	currentCanvasBead: React.PropTypes.string.isRequired,
+	setCurrentCanvasColor: PropTypes.func.isRequired,
+	currentCanvasBead: PropTypes.string.isRequired,
 };
 
 ColorBar.defaultProps = {
