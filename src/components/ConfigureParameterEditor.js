@@ -7,8 +7,7 @@ import injectSheet from '../utils/injectSheet';
 import grid from '../utils/grid';
 import translate from '../utils/translate';
 
-import { setLinkUrl } from '../reducers/converter';
-import { setMode, MODES } from '../reducers/global';
+import { setConverterParameters } from '../reducers/converter';
 
 import { lightGrayBackground } from '../style/colors';
 import { jssSheet, jssClasses } from '../utils/propTypes';
@@ -36,6 +35,9 @@ const styles = {
 	numberInput: {
 		width: grid('m'),
 	},
+	checkbox: {
+		background: 'lightblue',
+	},
 };
 
 class ConfigureParameterEditor extends React.Component {
@@ -46,29 +48,91 @@ class ConfigureParameterEditor extends React.Component {
 		this.classes = props.classes;
 		this.state = {
 			linkUrl: props.linkUrl,
-			selectedAlgorithm: '',
+			selectedAlgorithm: props.selectedAlgorithm,
+			maxWidth: props.maxWidth,
+			maxHeight: props.maxHeight,
+			usedBeadTypes: props.usedBeadTypes,
 		};
 		this.handleOptionChange = this.handleOptionChange.bind(this);
 		this.handleMaxWidthChange = this.handleMaxWidthChange.bind(this);
 		this.handleMaxHeightChange = this.handleMaxHeightChange.bind(this);
+		this.handleBeadsTypeChange = this.handleBeadsTypeChange.bind(this);
 	}
 
 	handleOptionChange(changeEvent) {
 		this.setState({
 			selectedAlgorithm: changeEvent.target.value,
+		},() => {
+			this.props.changeConverterParameters(
+				this.state.selectedAlgorithm,
+				this.state.maxWidth,
+				this.state.maxHeight,
+				this.state.usedBeadTypes
+			);
 		});
 	}
 
 	handleMaxWidthChange(changeEvent) {
-		console.log(changeEvent);
-		console.log(this.state);
+		const newValue = changeEvent.target.value;
+		if (newValue >= 1 && newValue <= 5) {
+			this.setState({
+				maxWidth: newValue,
+			},() => {
+				this.props.changeConverterParameters(
+					this.state.selectedAlgorithm,
+					this.state.maxWidth,
+					this.state.maxHeight,
+					this.state.usedBeadTypes
+				);
+			});
+		}
 	}
 
 	handleMaxHeightChange(changeEvent) {
-		console.log(changeEvent);
-		console.log(this.state);
+		const newValue = changeEvent.target.value;
+		if (newValue >= 1 && newValue <= 5) {
+			this.setState({
+				maxHeight: newValue,
+			},() => {
+				this.props.changeConverterParameters(
+					this.state.selectedAlgorithm,
+					this.state.maxWidth,
+					this.state.maxHeight,
+					this.state.usedBeadTypes
+				);
+			});
+		}
 	}
 
+	handleBeadsTypeChange(changeEvent) {
+		const value = changeEvent.target.value;
+		if(changeEvent.target.checked) {
+			this.setState({
+				usedBeadTypes: this.state.usedBeadTypes.concat([value]),
+			}, () => {
+				this.props.changeConverterParameters(
+					this.state.selectedAlgorithm,
+					this.state.maxWidth,
+					this.state.maxHeight,
+					this.state.usedBeadTypes
+				);
+			});
+		} else {
+			const indexOf = this.state.usedBeadTypes.indexOf(value);
+			const newUsedBeadTypes = this.state.usedBeadTypes.slice();
+			newUsedBeadTypes.splice(indexOf, 1);
+			this.setState({
+				usedBeadTypes: newUsedBeadTypes,
+			}, () => {
+				this.props.changeConverterParameters(
+					this.state.selectedAlgorithm,
+					this.state.maxWidth,
+					this.state.maxHeight,
+					newUsedBeadTypes
+				);
+			});
+		}
+	}
 
 	render() {
 		return (
@@ -158,7 +222,7 @@ class ConfigureParameterEditor extends React.Component {
 									id="RESIZE_MAX_WIDTH"
 									className={this.classes.numberInput}
 									type="number"
-									value="2"
+									value={this.state.maxWidth}
 									onChange={this.handleMaxWidthChange}
 								/>
 								{translate('PLATES')}
@@ -171,10 +235,85 @@ class ConfigureParameterEditor extends React.Component {
 									id="RESIZE_MAX_HEIGHT"
 									className={this.classes.numberInput}
 									type="number"
-									value="2"
+									value={this.state.maxHeight}
 									onChange={this.handleMaxHeightChange}
 								/>
 								{translate('PLATES')}
+							</label>
+						</li>
+					</ul>
+				</div>
+				<div>
+					<strong>{translate('CHOOSE_BEADS')}</strong>
+					<ul className={this.classes.list}>
+						<li>
+							<label htmlFor="USE_BASIC_HAMA_COLORS">
+								<input
+									id="USE_BASIC_HAMA_COLORS"
+									className={this.classes.checkbox}
+									type="checkbox"
+									name="BEAD_TYPES"
+									value="BASIC_HAMA_COLORS"
+									checked={this.state.usedBeadTypes.indexOf('BASIC_HAMA_COLORS') >= 0}
+									onChange={this.handleBeadsTypeChange}
+								/>
+								{translate('BASIC_HAMA_COLORS')}
+							</label>
+						</li>
+						<li>
+							<label htmlFor="USE_PASTEL_HAMA_COLORS">
+								<input
+									id="USE_PASTEL_HAMA_COLORS"
+									className={this.classes.checkbox}
+									type="checkbox"
+									name="BEAD_TYPES"
+									value="PASTEL_HAMA_COLORS"
+									checked={this.state.usedBeadTypes.indexOf('PASTEL_HAMA_COLORS') >= 0}
+									onChange={this.handleBeadsTypeChange}
+								/>
+								{translate('PASTEL_HAMA_COLORS')}
+							</label>
+						</li>
+						<li>
+							<label htmlFor="USE_TRANSPARENT_HAMA_COLORS">
+								<input
+									id="USE_TRANSPARENT_HAMA_COLORS"
+									className={this.classes.checkbox}
+									type="checkbox"
+									name="BEAD_TYPES"
+									value="TRANSPARENT_HAMA_COLORS"
+									checked={this.state.usedBeadTypes.indexOf('TRANSPARENT_HAMA_COLORS') >= 0}
+									onChange={this.handleBeadsTypeChange}
+								/>
+								{translate('TRANSPARENT_HAMA_COLORS')}
+							</label>
+						</li>
+						<li>
+							<label htmlFor="USE_METAL_HAMA_COLORS">
+								<input
+									id="USE_METAL_HAMA_COLORS"
+									className={this.classes.checkbox}
+									type="checkbox"
+									name="BEAD_TYPES"
+									value="METAL_HAMA_COLORS"
+									checked={this.state.usedBeadTypes.indexOf('METAL_HAMA_COLORS') >= 0}
+									onChange={this.handleBeadsTypeChange}
+								/>
+								{translate('METAL_HAMA_COLORS')}
+							</label>
+						</li>
+						<li>
+							<label htmlFor="USE_IKEA_BEADS_COLORS">
+								<input
+									id="USE_IKEA_BEADS_COLORS"
+									className={this.classes.checkbox}
+									type="checkbox"
+									name="BEAD_TYPES"
+									value="IKEA_BEADS_COLORS"
+									checked={this.state.usedBeadTypes.indexOf('IKEA_BEADS_COLORS') >= 0}
+									onChange={this.handleBeadsTypeChange}
+								/>
+								{translate('IKEA_BEADS_COLORS')}
 							</label>
 						</li>
 					</ul>
@@ -186,27 +325,26 @@ class ConfigureParameterEditor extends React.Component {
 
 ConfigureParameterEditor.propTypes = {
 	visible: PropTypes.bool.isRequired,
-	linkUrl: PropTypes.string.isRequired,
 	classes: jssClasses.isRequired,
 	sheet: jssSheet.isRequired,
 };
 
 ConfigureParameterEditor.defaultProps = {
 	visible: false,
-	linkUrl: '',
 };
 
 const mapStateToProps = state => ({
-	linkUrl: state.linkUrl,
+	linkUrl: state.converter.linkUrl,
+	selectedAlgorithm: state.converter.selectedAlgorithm,
+	maxWidth: state.converter.maxWidth,
+	maxHeight: state.converter.maxHeight,
+	usedBeadTypes: state.converter.usedBeadTypes,
 });
 
 const mapDispatchToProps = dispatch => ({
-	setLinkUrl: (link) => {
-		dispatch(setLinkUrl(link));
-	},
-	onClickChooseImageFromPreview: () => {
-		dispatch(setMode(MODES.CHOOSE_PARAMETERS));
-	},
+	changeConverterParameters: (selectedAlgorithm, maxWidth, maxHeight, usedBeadTypes) => {
+		dispatch(setConverterParameters(selectedAlgorithm, maxWidth, maxHeight, usedBeadTypes));
+	}
 });
 
 export default connect(

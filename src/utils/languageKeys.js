@@ -26,5 +26,12 @@ export default {
 		RESIZE_HERMITE: 'Hermite',
 		RESIZE_BEZIER: 'Bezier',
 		PLATES: 'Platten',
+		CHOOSE_BEADS: 'Wähle Perlentypen',
+		BASIC_HAMA_COLORS: 'Basisfarben HAMA',
+		PASTEL_HAMA_COLORS: 'Pastelfarben HAMA',
+		TRANSPARENT_HAMA_COLORS: 'Transparente HAMA',
+		METAL_HAMA_COLORS: 'Metalfarben HAMA',
+		IKEA_BEADS_COLORS: 'IKEA Farben',
+		TRANSFORM_PICTURE: 'Bild umwandeln',
 	},
 };

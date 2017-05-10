@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import injectSheet from '../utils/injectSheet';
 
-import { black, lightGrayBackground } from '../style/colors';
+import { black, lightGrayBackground, borderGray } from '../style/colors';
 import { jssSheet, jimpImage } from '../utils/propTypes';
 
 import grid from '../utils/grid';
@@ -15,6 +15,7 @@ const styles = {
 		textAlign: 'center',
 		color: black,
 		width: 'auto',
+		borderBottom: `1px solid ${borderGray}`,
 	},
 	flexContainer: {
 		height: grid('xxxl + xs + xs'),

@@ -41,7 +41,6 @@ const Editor = ({ sheet: { classes }, ...props }) => (
 		/>
 		<ConfigureParameterEditor
 			visible={props.mode === MODES.CHOOSE_PARAMETERS}
-			rawPictureData={props.linkUrl}
 		/>
 		<CanvasContainer
 			visible={props.mode === MODES.EDITOR}

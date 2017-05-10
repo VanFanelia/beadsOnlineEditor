@@ -1,11 +1,16 @@
 const SET_LINK_URL = 'SET_LINK_URL';
 const SET_IMAGE = 'SET_IMAGE';
+const SET_CONVERTER_PARAMETERS = 'SET_CONVERTER_PARAMETERS';
 
 /** *******************
  * Default State
  ***********************/
-export const defaultCanvasState = {
+export const defaultConverterState = {
 	linkUrl: '',
+	selectedAlgorithm: 'RESIZE_NEAREST_NEIGHBOR',
+	maxWidth: 2,
+	maxHeight: 2,
+	usedBeadTypes: ['BASIC_HAMA_COLORS','PASTEL_HAMA_COLORS','METAL_HAMA_COLORS'],
 	image: undefined,
 };
 
@@ -23,16 +28,22 @@ export const setImage = image => ({
 	image,
 });
 
+export const setConverterParameters = (selectedAlgorithm, maxWidth, maxHeight, usedBeadTypes) => ({
+	type: SET_CONVERTER_PARAMETERS,
+	selectedAlgorithm,
+	maxWidth,
+	maxHeight,
+	usedBeadTypes,
+});
+
 /** *******************
  * Reducer
  ***********************/
-const converter = (state = defaultCanvasState, action) => {
+const converter = (state = defaultConverterState, action) => {
 	switch (action.type) {
 
 	case 'INIT':
-		return Object.assign({}, state, {
-			linkUrl: defaultCanvasState.linkUrl,
-		});
+		return Object.assign({}, state, defaultConverterState);
 
 	case SET_LINK_URL:
 		return Object.assign({}, state, {
@@ -40,9 +51,16 @@ const converter = (state = defaultCanvasState, action) => {
 		});
 
 	case SET_IMAGE:
-		console.log(action.image);
 		return Object.assign({}, state, {
 			image: action.image,
+		});
+
+	case SET_CONVERTER_PARAMETERS:
+		return Object.assign({}, state, {
+			selectedAlgorithm: action.selectedAlgorithm,
+			maxWidth: action.maxWidth,
+			maxHeight: action.maxHeight,
+			usedBeadTypes: action.usedBeadTypes,
 		});
 
 	default:

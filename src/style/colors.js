@@ -15,6 +15,7 @@ export const inputErrorColor = '#cc7d65';
 
 export const beadShadowGray = '#B1B2B9';
 export const buttonActiveGray = '#818289';
+export const borderGray = buttonActiveGray;
 
 export const filterGray = 'gray';
 export const filterYellow = 'yellow';
