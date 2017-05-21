@@ -3,7 +3,7 @@ import convert from '../utils/converter';
 const SET_LINK_URL = 'SET_LINK_URL';
 const SET_IMAGE = 'SET_IMAGE';
 const SET_CONVERTER_PARAMETERS = 'SET_CONVERTER_PARAMETERS';
-const START_CONVERSION = 'START_CONVERSION';
+const DO_CONVERSION = 'DO_CONVERSION';
 
 /** *******************
  * Default State
@@ -41,7 +41,7 @@ export const setConverterParameters = (selectedAlgorithm, maxWidth, maxHeight, u
 });
 
 export const startConversion = () => ({
-	type: START_CONVERSION,
+	type: DO_CONVERSION,
 });
 
 /** *******************
@@ -71,15 +71,16 @@ const converter = (state = defaultConverterState, action) => {
 			usedBeadTypes: action.usedBeadTypes,
 		});
 
-	case START_CONVERSION:
+	case DO_CONVERSION:
+		const convertedImage = convert(
+			state.image,
+			state.selectedAlgorithm,
+			state.maxWidth,
+			state.max,
+			state.usedBeadTypes,
+		);
 		return Object.assign({}, state, {
-			convertedImage: convert(
-				state.image,
-				state.selectedAlgorithm,
-				state.maxWidth,
-				state.max,
-				state.usedBeadTypes,
-			),
+			convertedImage,
 		});
 
 	default:

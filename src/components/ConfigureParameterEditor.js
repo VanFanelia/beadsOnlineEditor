@@ -8,6 +8,7 @@ import grid from '../utils/grid';
 import translate from '../utils/translate';
 
 import { setConverterParameters, startConversion } from '../reducers/converter';
+import { setMode, MODES } from '../reducers/global';
 
 import { lightGrayBackground, borderGray } from '../style/colors';
 import { BASIC_HAMA_COLORS, PASTEL_HAMA_COLORS, TRANSPARENT_HAMA_COLORS, METAL_HAMA_COLORS, IKEA_BEADS_COLORS } from '../utils/beadTypes';
@@ -372,6 +373,7 @@ const mapDispatchToProps = dispatch => ({
 	},
 	startConversion: () => {
 		dispatch(startConversion());
+		dispatch(setMode(MODES.CONVERSION_FINISHED));
 	},
 });
 

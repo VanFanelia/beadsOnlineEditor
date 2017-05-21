@@ -35,13 +35,14 @@ const Editor = ({ sheet: { classes }, ...props }) => (
 			visible={props.mode === MODES.CHOOSE_PICTURE}
 		/>
 		<PicturePreview
-			visible={props.mode === MODES.CHOOSE_PARAMETERS}
+			visible={props.mode === MODES.CHOOSE_PARAMETERS || props.mode === MODES.CONVERSION_FINISHED}
 			linkUrl={props.linkUrl}
 			image={props.image}
 		/>
 		<ConfigureParameterEditor
-			visible={props.mode === MODES.CHOOSE_PARAMETERS}
+			visible={props.mode === MODES.CHOOSE_PARAMETERS || props.mode === MODES.CONVERSION_FINISHED}
 		/>
+
 
 		<CanvasContainer
 			visible={props.mode === MODES.EDITOR}

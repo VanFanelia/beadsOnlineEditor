@@ -6,6 +6,7 @@ export const MODES = {
 	EDITOR: 'editor',
 	CHOOSE_PICTURE: 'choosePicture',
 	CHOOSE_PARAMETERS: 'chooseParameters',
+	CONVERSION_FINISHED: 'conversionFinished',
 };
 
 /** *******************
