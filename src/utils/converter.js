@@ -98,8 +98,6 @@ const convert = (image, selectedAlgorithm, maxWidth, maxHeight, usedBeadTypes) =
 		return null;
 	}
 
-	console.log('converting...');
-
 	const newImageSize = calculateResize(
 		image.bitmap.width,
 		image.bitmap.height,

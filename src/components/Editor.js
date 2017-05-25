@@ -43,7 +43,12 @@ const Editor = ({ sheet: { classes }, ...props }) => (
 			visible={props.mode === MODES.CHOOSE_PARAMETERS || props.mode === MODES.CONVERSION_FINISHED}
 		/>
 
-
+		<PicturePreview
+			visible={props.mode === MODES.CONVERSION_FINISHED}
+			linkUrl={props.linkUrl}
+			image={props.convertedImage}
+		  resizeImage={false}
+		/>
 		<CanvasContainer
 			visible={props.mode === MODES.EDITOR}
 			tabletSizeX={props.tabletSizeX}
@@ -70,10 +75,12 @@ Editor.propTypes = {
 	currentCanvasBead: PropTypes.string.isRequired,
 	linkUrl: PropTypes.string.isRequired,
 	image: jimpImage,
+	convertedImage: jimpImage,
 };
 
 Editor.defaultProps = {
-	image: undefined,
+	image: null,
+	convertedImage: null,
 };
 
 export default injectSheet(styles)(Editor);

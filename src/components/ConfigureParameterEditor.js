@@ -373,7 +373,6 @@ const mapDispatchToProps = dispatch => ({
 	},
 	startConversion: () => {
 		dispatch(startConversion());
-		dispatch(setMode(MODES.CONVERSION_FINISHED));
 	},
 });
 
