@@ -20,6 +20,7 @@ export default {
 		TYPE: 'Bildtyp',
 		CHOOSE_ALGORITHM: 'Wähle einen Algorithmus',
 		CHOOSE_MAX_SIZE: 'Wähle eine maximale Größe',
+		CHOOSE_SCALE_OPTION: 'Wähle Art der Verkleinerung',
 		RESIZE_NEAREST_NEIGHBOR: 'Nächster Nachbar',
 		RESIZE_BILINEAR: 'Bilinear',
 		RESIZE_BICUBIC: 'Bicubisch',
@@ -33,5 +34,7 @@ export default {
 		METAL_HAMA_COLORS: 'Metalfarben HAMA',
 		IKEA_BEADS_COLORS: 'IKEA Farben',
 		CONVERT_PICTURE: 'Bild umwandeln',
+		RESIZE_OPTION_SCALE_CUBIC: 'mit Faktor 2^x',
+		RESIZE_OPTION_SCALE_MAX_SPACE: 'maximale Fläche nutzen',
 	},
 };

@@ -1,9 +1,10 @@
 import Jimp from 'jimp';
 import { BEAD_PLATE_WIDTH, BEAD_PLATE_HEIGHT } from './constants';
 import { beadList } from './beadColors';
+import { RESIZE_OPTION_SCALE_MAX_SPACE } from './scaleOptions';
 
 
-export const calculateResize = (
+export const calculateResizeCubic = (
 	width,
 	height,
 	widthLimit = BEAD_PLATE_WIDTH,
@@ -24,6 +25,35 @@ export const calculateResize = (
 	}
 
 	return { width: calculatedWidth, height: calculatedHeight };
+};
+
+export const calculateResizeMaxSpace = (
+	width,
+	height,
+	widthLimit = BEAD_PLATE_WIDTH,
+	heightLimit = BEAD_PLATE_HEIGHT,
+) => {
+	if (!(typeof width === 'number') || !(typeof height === 'number')) {
+		return null;
+	}
+
+	if (width <= 0 || height <= 0) {
+		return null;
+	}
+
+	const differenceWidth = width - widthLimit;
+	const differenceHeight = height - heightLimit;
+
+	if (differenceWidth >= differenceHeight) {
+		return {
+			width: Math.round(widthLimit),
+			height: Math.round(height * Math.abs(widthLimit / width)),
+		};
+	}
+	return {
+		width: Math.round(width * Math.abs(heightLimit / height)),
+		height: Math.round(heightLimit),
+	};
 };
 
 /**
@@ -77,7 +107,7 @@ export const getNearestColor = (color, availableColors) => {
 export const colorImageInBeadColors = (image, beads) => {
 	for (let x = 0; x < image.bitmap.width; x += 1) {
 		for (let y = 0; y < image.bitmap.height; y += 1) {
-			const color = Jimp.intToRGBA(image.getPixelColor(x, y))
+			const color = Jimp.intToRGBA(image.getPixelColor(x, y));
 			const currentPixel = { red: color.r, green: color.g, blue: color.b, alpha: color.a };
 			const nearestColor = getNearestColor(currentPixel, beads);
 			image.setPixelColor(Jimp.rgbaToInt(
@@ -90,7 +120,13 @@ export const colorImageInBeadColors = (image, beads) => {
 	return image;
 };
 
-const convert = (image, selectedAlgorithm, maxWidth, maxHeight, usedBeadTypes) => {
+const convert = (
+	image,
+	selectedAlgorithm,
+	maxWidth,
+	maxHeight,
+	usedBeadTypes,
+	selectedScaleOption) => {
 	if (image === undefined || image.bitmap === undefined ||
 			image.bitmap.width === undefined || image.bitmap.height === undefined
 	) {
@@ -98,12 +134,23 @@ const convert = (image, selectedAlgorithm, maxWidth, maxHeight, usedBeadTypes) =
 		return null;
 	}
 
-	const newImageSize = calculateResize(
-		image.bitmap.width,
-		image.bitmap.height,
-		maxWidth * BEAD_PLATE_WIDTH,
-		maxHeight * BEAD_PLATE_HEIGHT,
-	);
+	let newImageSize;
+
+	if (selectedScaleOption === RESIZE_OPTION_SCALE_MAX_SPACE) {
+		newImageSize = calculateResizeMaxSpace(
+			image.bitmap.width,
+			image.bitmap.height,
+			maxWidth * BEAD_PLATE_WIDTH,
+			maxHeight * BEAD_PLATE_HEIGHT,
+		);
+	} else {
+		newImageSize = calculateResizeCubic(
+			image.bitmap.width,
+			image.bitmap.height,
+			maxWidth * BEAD_PLATE_WIDTH,
+			maxHeight * BEAD_PLATE_HEIGHT,
+		);
+	}
 
 	if (newImageSize == null) {
 		return null;
@@ -117,7 +164,8 @@ const convert = (image, selectedAlgorithm, maxWidth, maxHeight, usedBeadTypes) =
 
 	// color with beads
 	resizedImage = colorImageInBeadColors(resizedImage, beadList);
-	console.log(resizedImage);
+	console.log(resizedImage.bitmap.width, resizedImage.bitmap.height);
+	console.log(resizedImage.hash());
 	return resizedImage;
 };
 

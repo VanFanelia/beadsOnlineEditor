@@ -1,38 +1,80 @@
-import { calculateResize, getDistanceBetween2Colors, getNearestColor } from '../../src/utils/converter';
+import { calculateResizeCubic, calculateResizeMaxSpace, getDistanceBetween2Colors, getNearestColor } from '../../src/utils/converter';
 import { beadList } from '../../src/utils/beadColors';
 
-it('check calculatedResult returns same size for 1,1 ', () => {
-	const calculatedResult = calculateResize(1, 1);
+it('calculateResizeCubic: check calculatedResult is same size for 1,1 ', () => {
+	const calculatedResult = calculateResizeCubic(1, 1);
 	expect(calculatedResult.width).toBe(1);
 	expect(calculatedResult.height).toBe(1);
 });
 
-it('check calculatedResult returns same size for 29,29 ', () => {
-	const calculatedResult = calculateResize(29, 29);
+it('calculateResizeCubic: check calculatedResult is same size for 29,29 ', () => {
+	const calculatedResult = calculateResizeCubic(29, 29);
 	expect(calculatedResult.width).toBe(29);
 	expect(calculatedResult.height).toBe(29);
 });
 
-it('check calculatedResult returns null for invalid value 0 ', () => {
-	const calculatedResult = calculateResize(0, 0);
+it('calculateResizeCubic: check calculatedResult is null for invalid value 0 ', () => {
+	const calculatedResult = calculateResizeCubic(0, 0);
 	expect(calculatedResult).toBe(null);
 });
 
-it('check calculatedResult returns null for invalid value string ', () => {
-	const calculatedResult = calculateResize('foo', 1);
+it('calculateResizeCubic: check calculatedResult is null for invalid value string ', () => {
+	const calculatedResult = calculateResizeCubic('foo', 1);
 	expect(calculatedResult).toBe(null);
 });
 
-it('check calculatedResult returns (20,10) for value (40, 20) ', () => {
-	const calculatedResult = calculateResize(40, 20);
+it('calculateResizeCubic: check calculatedResult is (20,10) for value (40, 20) ', () => {
+	const calculatedResult = calculateResizeCubic(40, 20);
 	expect(calculatedResult.width).toBe(20);
 	expect(calculatedResult.height).toBe(10);
 });
 
-it('check calculatedResult returns right Value with maxLimit ', () => {
-	const calculatedResult = calculateResize(80, 300, 29, 145);
+it('calculateResizeCubic: check calculatedResult is right Value with maxLimit ', () => {
+	const calculatedResult = calculateResizeCubic(80, 300, 29, 145);
 	expect(calculatedResult.width).toBe(20);
 	expect(calculatedResult.height).toBe(75);
+});
+
+
+it('calculateResizeMaxSpace: check calculatedResult is null for invalid value 0 ', () => {
+	const calculatedResult = calculateResizeMaxSpace(0, 0);
+	expect(calculatedResult).toBe(null);
+});
+
+it('calculateResizeMaxSpace: check calculatedResult is null for invalid value string ', () => {
+	const calculatedResult = calculateResizeMaxSpace('foo', 1);
+	expect(calculatedResult).toBe(null);
+});
+
+it('calculateResizeMaxSpace: check calculatedResult is same size for 29,29 ', () => {
+	const calculatedResult = calculateResizeMaxSpace(29, 29);
+	expect(calculatedResult.width).toBe(29);
+	expect(calculatedResult.height).toBe(29);
+});
+
+it('calculateResizeMaxSpace: check calculatedResult is (29,23) for value (50, 40) ', () => {
+	const calculatedResult = calculateResizeMaxSpace(50, 40);
+	expect(calculatedResult.width).toBe(29);
+	expect(calculatedResult.height).toBe(23);
+});
+
+it('calculateResizeMaxSpace: check calculatedResult is (23,29) for value (40, 50) ', () => {
+	const calculatedResult = calculateResizeMaxSpace(40, 50);
+	expect(calculatedResult.width).toBe(23);
+	expect(calculatedResult.height).toBe(29);
+});
+
+
+it('calculateResizeMaxSpace: check calculatedResult is right Value with maxLimit ', () => {
+	const calculatedResult = calculateResizeMaxSpace(200, 152, 58, 145);
+	expect(calculatedResult.width).toBe(58);
+	expect(calculatedResult.height).toBe(44);
+});
+
+it('calculateResizeMaxSpace: check calculatedResult stretch to max ', () => {
+	const calculatedResult = calculateResizeMaxSpace(20, 10, 58, 58);
+	expect(calculatedResult.width).toBe(58);
+	expect(calculatedResult.height).toBe(29);
 });
 
 
@@ -83,16 +125,3 @@ it('testGetNearestColorReturnsYellowForYellowDColor', () => {
 	expect(getNearestColor(yellow, beadList)).toBe(beadList.H03);
 });
 
-
-/*
-
-@Test
-public void testGetColorsOfColorTypesOnlyReturnsAllowedColorTypes() throws Exception {
-	List<ColorType> allowed = new ArrayList<ColorType>(Arrays.asList(ColorType.HAMA_BASIC));
-	List<Color> filtered = BeadsColorUtils.getColorsOfColorTypes(allowed);
-
-	assertThat(filtered.contains(HAMA_COLOR_BLACK), Matchers.is(true));
-	assertThat(filtered.contains(HAMA_COLOR_GOLD), Matchers.is(false));
-}
-
-	*/

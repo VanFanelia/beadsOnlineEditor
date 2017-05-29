@@ -1,4 +1,5 @@
 import convert from '../utils/converter';
+import { RESIZE_OPTION_SCALE_CUBIC } from '../utils/scaleOptions';
 
 const SET_LINK_URL = 'SET_LINK_URL';
 const SET_IMAGE = 'SET_IMAGE';
@@ -11,6 +12,7 @@ const CONVERSION_DONE = 'CONVERSION_DONE';
 export const defaultConverterState = {
 	linkUrl: '',
 	selectedAlgorithm: 'RESIZE_NEAREST_NEIGHBOR',
+	selectedScaleOption: RESIZE_OPTION_SCALE_CUBIC,
 	maxWidth: 2,
 	maxHeight: 2,
 	usedBeadTypes: ['BASIC_HAMA_COLORS', 'PASTEL_HAMA_COLORS', 'METAL_HAMA_COLORS'],
@@ -32,13 +34,22 @@ export const setImage = image => ({
 	image,
 });
 
-export const setConverterParameters = (selectedAlgorithm, maxWidth, maxHeight, usedBeadTypes) => ({
-	type: SET_CONVERTER_PARAMETERS,
+export const setConverterParameters = (
 	selectedAlgorithm,
 	maxWidth,
 	maxHeight,
 	usedBeadTypes,
-});
+	selectedScaleOption,
+) => (
+	{
+		type: SET_CONVERTER_PARAMETERS,
+		selectedAlgorithm,
+		maxWidth,
+		maxHeight,
+		usedBeadTypes,
+		selectedScaleOption,
+	}
+);
 
 export const startConversion = () => ({
 	type: CONVERSION_DONE,
@@ -69,6 +80,7 @@ const converter = (state = defaultConverterState, action) => {
 			maxWidth: action.maxWidth,
 			maxHeight: action.maxHeight,
 			usedBeadTypes: action.usedBeadTypes,
+			selectedScaleOption: action.selectedScaleOption,
 		});
 
 	case CONVERSION_DONE:
@@ -77,8 +89,9 @@ const converter = (state = defaultConverterState, action) => {
 				state.image,
 				state.selectedAlgorithm,
 				state.maxWidth,
-				state.max,
+				state.maxHeight,
 				state.usedBeadTypes,
+				state.selectedScaleOption,
 			),
 		});
 

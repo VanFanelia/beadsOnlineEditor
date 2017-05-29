@@ -47,7 +47,7 @@ const Editor = ({ sheet: { classes }, ...props }) => (
 			visible={props.mode === MODES.CONVERSION_FINISHED}
 			linkUrl={props.linkUrl}
 			image={props.convertedImage}
-		  resizeImage={false}
+			resizeImage={false}
 		/>
 		<CanvasContainer
 			visible={props.mode === MODES.EDITOR}

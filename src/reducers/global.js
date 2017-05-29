@@ -1,6 +1,7 @@
 const INIT = 'INIT';
 const SET_MODE = 'SET_MODE';
 const CONVERSION_DONE = 'CONVERSION_DONE';
+const SET_CONVERTER_PARAMETERS = 'SET_CONVERTER_PARAMETERS';
 
 export const MODES = {
 	INIT: 'init',
@@ -40,6 +41,11 @@ const canvas = (state = defaultCanvasState, action) => {
 	case SET_MODE:
 		return Object.assign({}, state, {
 			mode: action.mode,
+		});
+
+	case SET_CONVERTER_PARAMETERS:
+		return Object.assign({}, state, {
+			mode: MODES.CHOOSE_PARAMETERS,
 		});
 
 	case CONVERSION_DONE:

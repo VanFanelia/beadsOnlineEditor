@@ -8,10 +8,10 @@ import grid from '../utils/grid';
 import translate from '../utils/translate';
 
 import { setConverterParameters, startConversion } from '../reducers/converter';
-import { setMode, MODES } from '../reducers/global';
 
 import { lightGrayBackground, borderGray } from '../style/colors';
 import { BASIC_HAMA_COLORS, PASTEL_HAMA_COLORS, TRANSPARENT_HAMA_COLORS, METAL_HAMA_COLORS, IKEA_BEADS_COLORS } from '../utils/beadTypes';
+import { RESIZE_OPTION_SCALE_CUBIC, RESIZE_OPTION_SCALE_MAX_SPACE } from '../utils/scaleOptions';
 import { jssSheet, jssClasses } from '../utils/propTypes';
 
 const styles = {
@@ -33,6 +33,9 @@ const styles = {
 		listStyleType: 'none',
 		margin: 0,
 		padding: 0,
+	},
+	firstList: {
+		marginBottom: grid('s'),
 	},
 	radio: {
 		marginRight: grid('xs'),
@@ -60,15 +63,17 @@ class ConfigureParameterEditor extends React.Component {
 			maxWidth: props.maxWidth,
 			maxHeight: props.maxHeight,
 			usedBeadTypes: props.usedBeadTypes,
+			selectedScaleOption: props.selectedScaleOption,
 		};
-		this.handleOptionChange = this.handleOptionChange.bind(this);
+		this.handleAlgorithmChange = this.handleAlgorithmChange.bind(this);
+		this.handleScaleOptionChange = this.handleScaleOptionChange.bind(this);
 		this.handleMaxWidthChange = this.handleMaxWidthChange.bind(this);
 		this.handleMaxHeightChange = this.handleMaxHeightChange.bind(this);
 		this.handleBeadsTypeChange = this.handleBeadsTypeChange.bind(this);
 		this.handleTransformClick = this.handleTransformClick.bind(this);
 	}
 
-	handleOptionChange(changeEvent) {
+	handleAlgorithmChange(changeEvent) {
 		this.setState({
 			selectedAlgorithm: changeEvent.target.value,
 		}, () => {
@@ -77,6 +82,21 @@ class ConfigureParameterEditor extends React.Component {
 				this.state.maxWidth,
 				this.state.maxHeight,
 				this.state.usedBeadTypes,
+				this.state.selectedScaleOption,
+			);
+		});
+	}
+
+	handleScaleOptionChange(changeEvent) {
+		this.setState({
+			selectedScaleOption: changeEvent.target.value,
+		}, () => {
+			this.props.changeConverterParameters(
+				this.state.selectedAlgorithm,
+				this.state.maxWidth,
+				this.state.maxHeight,
+				this.state.usedBeadTypes,
+				this.state.selectedScaleOption,
 			);
 		});
 	}
@@ -92,6 +112,7 @@ class ConfigureParameterEditor extends React.Component {
 					this.state.maxWidth,
 					this.state.maxHeight,
 					this.state.usedBeadTypes,
+					this.state.selectedScaleOption,
 				);
 			});
 		}
@@ -108,6 +129,7 @@ class ConfigureParameterEditor extends React.Component {
 					this.state.maxWidth,
 					this.state.maxHeight,
 					this.state.usedBeadTypes,
+					this.state.selectedScaleOption,
 				);
 			});
 		}
@@ -124,6 +146,7 @@ class ConfigureParameterEditor extends React.Component {
 					this.state.maxWidth,
 					this.state.maxHeight,
 					this.state.usedBeadTypes,
+					this.state.selectedScaleOption,
 				);
 			});
 		} else {
@@ -138,6 +161,7 @@ class ConfigureParameterEditor extends React.Component {
 					this.state.maxWidth,
 					this.state.maxHeight,
 					newUsedBeadTypes,
+					this.state.selectedScaleOption,
 				);
 			});
 		}
@@ -167,7 +191,7 @@ class ConfigureParameterEditor extends React.Component {
 										type="radio"
 										value="RESIZE_NEAREST_NEIGHBOR"
 										checked={this.state.selectedAlgorithm === 'RESIZE_NEAREST_NEIGHBOR'}
-										onChange={this.handleOptionChange}
+										onChange={this.handleAlgorithmChange}
 									/>
 									{translate('RESIZE_NEAREST_NEIGHBOR')}
 								</label>
@@ -180,7 +204,7 @@ class ConfigureParameterEditor extends React.Component {
 										type="radio"
 										value="RESIZE_BILINEAR"
 										checked={this.state.selectedAlgorithm === 'RESIZE_BILINEAR'}
-										onChange={this.handleOptionChange}
+										onChange={this.handleAlgorithmChange}
 									/>
 									{translate('RESIZE_BILINEAR')}
 								</label>
@@ -193,7 +217,7 @@ class ConfigureParameterEditor extends React.Component {
 										type="radio"
 										value="RESIZE_BICUBIC"
 										checked={this.state.selectedAlgorithm === 'RESIZE_BICUBIC'}
-										onChange={this.handleOptionChange}
+										onChange={this.handleAlgorithmChange}
 									/>
 									{translate('RESIZE_BICUBIC')}
 								</label>
@@ -206,7 +230,7 @@ class ConfigureParameterEditor extends React.Component {
 										type="radio"
 										value="RESIZE_BEZIER"
 										checked={this.state.selectedAlgorithm === 'RESIZE_BEZIER'}
-										onChange={this.handleOptionChange}
+										onChange={this.handleAlgorithmChange}
 									/>
 									{translate('RESIZE_BEZIER')}
 								</label>
@@ -219,7 +243,7 @@ class ConfigureParameterEditor extends React.Component {
 										type="radio"
 										value="RESIZE_HERMITE"
 										checked={this.state.selectedAlgorithm === 'RESIZE_HERMITE'}
-										onChange={this.handleOptionChange}
+										onChange={this.handleAlgorithmChange}
 									/>
 									{translate('RESIZE_HERMITE')}
 								</label>
@@ -228,7 +252,12 @@ class ConfigureParameterEditor extends React.Component {
 					</div>
 					<div>
 						<strong>{translate('CHOOSE_MAX_SIZE')}</strong>
-						<ul className={this.classes.list}>
+						<ul
+							className={classNames({
+								[this.classes.list]: true,
+								[this.classes.firstList]: true,
+							})}
+						>
 							<li>
 								<label htmlFor="RESIZE_MAX_WIDTH">
 									{translate('WIDTH')}:
@@ -253,6 +282,37 @@ class ConfigureParameterEditor extends React.Component {
 										onChange={this.handleMaxHeightChange}
 									/>
 									{translate('PLATES')}
+								</label>
+							</li>
+						</ul>
+						<strong>{translate('CHOOSE_SCALE_OPTION')}</strong>
+						<ul className={this.classes.list}>
+							<li>
+								<label htmlFor={RESIZE_OPTION_SCALE_CUBIC}>
+									<input
+										id={RESIZE_OPTION_SCALE_CUBIC}
+										className={this.classes.radio}
+										type="radio"
+										name="RESIZE_OPTION"
+										value={RESIZE_OPTION_SCALE_CUBIC}
+										checked={this.state.selectedScaleOption === RESIZE_OPTION_SCALE_CUBIC}
+										onChange={this.handleScaleOptionChange}
+									/>
+									{translate(RESIZE_OPTION_SCALE_CUBIC)}
+								</label>
+							</li>
+							<li>
+								<label htmlFor={RESIZE_OPTION_SCALE_MAX_SPACE}>
+									<input
+										id={RESIZE_OPTION_SCALE_MAX_SPACE}
+										className={this.classes.radio}
+										type="radio"
+										name="RESIZE_OPTION"
+										value={RESIZE_OPTION_SCALE_MAX_SPACE}
+										checked={this.state.selectedScaleOption === RESIZE_OPTION_SCALE_MAX_SPACE}
+										onChange={this.handleScaleOptionChange}
+									/>
+									{translate(RESIZE_OPTION_SCALE_MAX_SPACE)}
 								</label>
 							</li>
 						</ul>
@@ -353,6 +413,7 @@ ConfigureParameterEditor.propTypes = {
 	usedBeadTypes: PropTypes.arrayOf(PropTypes.string).isRequired,
 	changeConverterParameters: PropTypes.func.isRequired,
 	startConversion: PropTypes.func.isRequired,
+	selectedScaleOption: PropTypes.string.isRequired,
 };
 
 ConfigureParameterEditor.defaultProps = {
@@ -365,11 +426,23 @@ const mapStateToProps = state => ({
 	maxWidth: state.converter.maxWidth,
 	maxHeight: state.converter.maxHeight,
 	usedBeadTypes: state.converter.usedBeadTypes,
+	selectedScaleOption: state.converter.selectedScaleOption,
 });
 
 const mapDispatchToProps = dispatch => ({
-	changeConverterParameters: (selectedAlgorithm, maxWidth, maxHeight, usedBeadTypes) => {
-		dispatch(setConverterParameters(selectedAlgorithm, maxWidth, maxHeight, usedBeadTypes));
+	changeConverterParameters: (
+		selectedAlgorithm,
+		maxWidth,
+		maxHeight,
+		usedBeadTypes,
+		selectedScaleOption) => {
+		dispatch(setConverterParameters(
+			selectedAlgorithm,
+			maxWidth,
+			maxHeight,
+			usedBeadTypes,
+			selectedScaleOption),
+		);
 	},
 	startConversion: () => {
 		dispatch(startConversion());

@@ -55,9 +55,9 @@ class PicturePreview extends React.Component {
 		};
 	}
 
-	componentWillUpdate(nextProps, nextState) {
+	componentWillUpdate(nextProps) {
 		if (nextProps.image !== this.props.image) {
-			console.log("reset base64 image");
+			console.log('reset base64 image');
 			this.setState({ base64Image: null });
 		}
 	}
