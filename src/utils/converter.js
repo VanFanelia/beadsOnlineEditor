@@ -158,6 +158,7 @@ const convert = (
 
 	// resize with algorithm
 	let resizedImage = image.clone();
+	console.log(selectedAlgorithm);
 	resizedImage.resize(newImageSize.width, newImageSize.height, selectedAlgorithm);
 
 	// TODO: filter beadList by using usedBeadTypes

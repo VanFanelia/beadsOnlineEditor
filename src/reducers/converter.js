@@ -1,5 +1,6 @@
 import convert from '../utils/converter';
 import { RESIZE_OPTION_SCALE_CUBIC } from '../utils/scaleOptions';
+import { RESIZE_NEAREST_NEIGHBOR } from '../utils/resizeAlgorithm';
 
 const SET_LINK_URL = 'SET_LINK_URL';
 const SET_IMAGE = 'SET_IMAGE';
@@ -11,7 +12,7 @@ const CONVERSION_DONE = 'CONVERSION_DONE';
  ***********************/
 export const defaultConverterState = {
 	linkUrl: '',
-	selectedAlgorithm: 'RESIZE_NEAREST_NEIGHBOR',
+	selectedAlgorithm: RESIZE_NEAREST_NEIGHBOR,
 	selectedScaleOption: RESIZE_OPTION_SCALE_CUBIC,
 	maxWidth: 2,
 	maxHeight: 2,

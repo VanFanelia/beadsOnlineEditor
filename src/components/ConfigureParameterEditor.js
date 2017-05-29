@@ -12,6 +12,7 @@ import { setConverterParameters, startConversion } from '../reducers/converter';
 import { lightGrayBackground, borderGray } from '../style/colors';
 import { BASIC_HAMA_COLORS, PASTEL_HAMA_COLORS, TRANSPARENT_HAMA_COLORS, METAL_HAMA_COLORS, IKEA_BEADS_COLORS } from '../utils/beadTypes';
 import { RESIZE_OPTION_SCALE_CUBIC, RESIZE_OPTION_SCALE_MAX_SPACE } from '../utils/scaleOptions';
+import { RESIZE_BEZIER, RESIZE_BICUBIC, RESIZE_BILINEAR, RESIZE_HERMITE, RESIZE_NEAREST_NEIGHBOR } from '../utils/resizeAlgorithm';
 import { jssSheet, jssClasses } from '../utils/propTypes';
 
 const styles = {
@@ -184,68 +185,68 @@ class ConfigureParameterEditor extends React.Component {
 						<strong>{translate('CHOOSE_ALGORITHM')}</strong>
 						<ul className={this.classes.list}>
 							<li>
-								<label htmlFor="RESIZE_NEAREST_NEIGHBOR">
+								<label htmlFor={RESIZE_NEAREST_NEIGHBOR} >
 									<input
-										id="RESIZE_NEAREST_NEIGHBOR"
+										id={RESIZE_NEAREST_NEIGHBOR}
 										className={this.classes.radio}
 										type="radio"
-										value="RESIZE_NEAREST_NEIGHBOR"
-										checked={this.state.selectedAlgorithm === 'RESIZE_NEAREST_NEIGHBOR'}
+										value={RESIZE_NEAREST_NEIGHBOR}
+										checked={this.state.selectedAlgorithm === RESIZE_NEAREST_NEIGHBOR}
 										onChange={this.handleAlgorithmChange}
 									/>
-									{translate('RESIZE_NEAREST_NEIGHBOR')}
+									{translate(RESIZE_NEAREST_NEIGHBOR)}
 								</label>
 							</li>
 							<li>
-								<label htmlFor="RESIZE_BILINEAR">
+								<label htmlFor={RESIZE_BILINEAR}>
 									<input
-										id="RESIZE_BILINEAR"
+										id={RESIZE_BILINEAR}
 										className={this.classes.radio}
 										type="radio"
-										value="RESIZE_BILINEAR"
-										checked={this.state.selectedAlgorithm === 'RESIZE_BILINEAR'}
+										value={RESIZE_BILINEAR}
+										checked={this.state.selectedAlgorithm === RESIZE_BILINEAR}
 										onChange={this.handleAlgorithmChange}
 									/>
-									{translate('RESIZE_BILINEAR')}
+									{translate(RESIZE_BILINEAR)}
 								</label>
 							</li>
 							<li>
-								<label htmlFor="RESIZE_BICUBIC">
+								<label htmlFor={RESIZE_BICUBIC}>
 									<input
-										id="RESIZE_BICUBIC"
+										id={RESIZE_BICUBIC}
 										className={this.classes.radio}
 										type="radio"
-										value="RESIZE_BICUBIC"
-										checked={this.state.selectedAlgorithm === 'RESIZE_BICUBIC'}
+										value={RESIZE_BICUBIC}
+										checked={this.state.selectedAlgorithm === RESIZE_BICUBIC}
 										onChange={this.handleAlgorithmChange}
 									/>
-									{translate('RESIZE_BICUBIC')}
+									{translate(RESIZE_BICUBIC)}
 								</label>
 							</li>
 							<li>
-								<label htmlFor="RESIZE_BEZIER">
+								<label htmlFor={RESIZE_BEZIER}>
 									<input
-										id="RESIZE_BEZIER"
+										id={RESIZE_BEZIER}
 										className={this.classes.radio}
 										type="radio"
-										value="RESIZE_BEZIER"
-										checked={this.state.selectedAlgorithm === 'RESIZE_BEZIER'}
+										value={RESIZE_BEZIER}
+										checked={this.state.selectedAlgorithm === RESIZE_BEZIER}
 										onChange={this.handleAlgorithmChange}
 									/>
-									{translate('RESIZE_BEZIER')}
+									{translate(RESIZE_BEZIER)}
 								</label>
 							</li>
 							<li>
-								<label htmlFor="RESIZE_HERMITE">
+								<label htmlFor={RESIZE_HERMITE}>
 									<input
-										id="RESIZE_HERMITE"
+										id={RESIZE_HERMITE}
 										className={this.classes.radio}
 										type="radio"
-										value="RESIZE_HERMITE"
-										checked={this.state.selectedAlgorithm === 'RESIZE_HERMITE'}
+										value={RESIZE_HERMITE}
+										checked={this.state.selectedAlgorithm === RESIZE_HERMITE}
 										onChange={this.handleAlgorithmChange}
 									/>
-									{translate('RESIZE_HERMITE')}
+									{translate(RESIZE_HERMITE)}
 								</label>
 							</li>
 						</ul>

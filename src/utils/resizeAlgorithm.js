@@ -1,0 +1,7 @@
+import Jimp from 'jimp';
+
+export const RESIZE_NEAREST_NEIGHBOR = Jimp.RESIZE_NEAREST_NEIGHBOR;
+export const RESIZE_BILINEAR = Jimp.RESIZE_BILINEAR;
+export const RESIZE_BICUBIC = Jimp.RESIZE_BICUBIC;
+export const RESIZE_HERMITE = Jimp.RESIZE_HERMITE;
+export const RESIZE_BEZIER = Jimp.RESIZE_BEZIER;
