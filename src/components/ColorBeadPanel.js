@@ -36,6 +36,8 @@ const styles = {
 		position: 'relative',
 		width: '100%',
 		cursor: 'copy !important',
+		display: 'inline-flex',
+		justifyContent: 'space-between',
 	},
 	colorField: {
 		height: grid('s'),
@@ -46,6 +48,8 @@ const styles = {
 	},
 	colorDescription: {
 		color: black,
+		width: '100%',
+		paddingLeft: grid('xs'),
 	},
 	isSelected: {
 		backgroundColor: buttonActiveGray,

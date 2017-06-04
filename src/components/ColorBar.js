@@ -4,8 +4,9 @@ import classNames from 'classnames';
 import { connect } from 'react-redux';
 import injectSheet from '../utils/injectSheet';
 
-import { black, white, lightGrayBackground, filterRed } from '../style/colors';
+import { black, white, lightGrayBackground } from '../style/colors';
 import { jssSheet } from '../utils/propTypes';
+import { beadList } from '../utils/beadColors';
 
 import grid from '../utils/grid';
 import { textRatioLineHeight, textRatioFontSize } from '../utils/fontRatio';
@@ -17,7 +18,7 @@ const styles = {
 	colorBar: {
 		backgroundColor: lightGrayBackground,
 		position: 'absolute',
-		height: '100%',
+		height: `calc(100% - ${grid('xl')})`,
 		padding: grid('xs'),
 		paddingTop: grid('l'),
 		color: black,
@@ -37,9 +38,11 @@ const styles = {
 		margin: `0 0 ${grid('xs')} 0`,
 	},
 	colorList: {
-		padding: 0,
+		padding: `0 ${grid('s')} 0 0`,
 		margin: 0,
 		listStyleType: 'none',
+		height: '100%',
+		overflowY: 'scroll',
 	},
 	colorFilter: {
 		display: 'inline-block',
@@ -52,30 +55,18 @@ const ColorBar = ({ sheet: { classes }, ...props }) =>
 		<ColorFilter />
 		<input className={classes.input} type="text" value={''} placeholder={translate('SEARCH_PLACEHOLDER')} />
 		<ul className={classes.colorList}>
-			<ColorBeadPanel
-				beadId={'H01'}
-				backgroundColor={black}
-				colorName={translate('COLOR_BLACK')}
-				textColor={white}
-				setCurrentCanvasColor={props.setCurrentCanvasColor}
-				isSelected={props.currentCanvasBead === 'H01'}
-			/>
-			<ColorBeadPanel
-				beadId={'H02'}
-				backgroundColor={white}
-				colorName={translate('COLOR_WHITE')}
-				textColor={black}
-				setCurrentCanvasColor={props.setCurrentCanvasColor}
-				isSelected={props.currentCanvasBead === 'H02'}
-			/>
-			<ColorBeadPanel
-				beadId={'H03'}
-				backgroundColor={filterRed}
-				colorName={translate('COLOR_RED')}
-				textColor={black}
-				setCurrentCanvasColor={props.setCurrentCanvasColor}
-				isSelected={props.currentCanvasBead === 'H03'}
-			/>
+			{ Object.values(beadList).map(bead => (
+				<ColorBeadPanel
+					key={`ColorPanel${bead.id}`}
+					beadId={bead.id}
+					backgroundColor={bead.color}
+					colorName={translate(`${bead.id}_NAME`)}
+					textColor={white}
+					setCurrentCanvasColor={props.setCurrentCanvasColor}
+					isSelected={props.currentCanvasBead === bead.id}
+				/>
+				))
+			}
 		</ul>
 	</div>
 );
