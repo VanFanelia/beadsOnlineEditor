@@ -14,12 +14,12 @@ You can find the most recent version of this guide [here](https://github.com/fac
 
 - Set Bead by click // DONE
 - Upload a picture from file
-- Load a picture from url
-- Use algorithm on it to pixellate
-- Choose different sizes for pixellating picture
-- Transfer picture to canvas
+- Load a picture from url // DONE
+- Use algorithm on it to pixellate // DONE
+- Choose different sizes for pixellating picture // DONE
+- Transfer picture to canvas // DONE
 - Get Table of used Pearls
-- Insert all possible Hama Colors
+- Insert all possible Hama Colors // DONE
 - Filter colors in color bar
 - search for Color in color bar
 - Print preview
