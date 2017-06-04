@@ -36,5 +36,6 @@ export default {
 		CONVERT_PICTURE: 'Bild umwandeln',
 		RESIZE_OPTION_SCALE_CUBIC: 'mit Faktor 2^x',
 		RESIZE_OPTION_SCALE_MAX_SPACE: 'maximale Fläche nutzen',
+		TRANSFER_TO_EDITOR: 'Dieses Bild im Editor nutzen',
 	},
 };

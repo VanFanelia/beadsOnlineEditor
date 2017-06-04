@@ -8,7 +8,7 @@ import jsxToString from 'jsx-to-string';
 import injectSheet from '../utils/injectSheet';
 import blankBead from '../graphics/BlankBead.svg';
 import ItemTypes from '../utils/dnd/ItemTypes';
-import beadColors from '../utils/beadColors';
+import { getBeadIdData } from '../utils/beadColors';
 import grid from '../utils/grid';
 
 import { jssSheet, jssClasses } from '../utils/propTypes';
@@ -94,7 +94,7 @@ class Bead extends React.Component {
 		let beadIcon = blankBead;
 		let isBlank = true;
 		if (Object.keys(this.props.beadData).length !== 0) {
-			beadIcon = getColoredBeadIcon(beadColors(this.props.beadData.beadId).color);
+			beadIcon = getColoredBeadIcon(getBeadIdData(this.props.beadData.beadId).color);
 			isBlank = false;
 		}
 

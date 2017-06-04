@@ -2,6 +2,7 @@ const INIT = 'INIT';
 const SET_MODE = 'SET_MODE';
 const CONVERSION_DONE = 'CONVERSION_DONE';
 const SET_CONVERTER_PARAMETERS = 'SET_CONVERTER_PARAMETERS';
+const SET_CURRENT_CANVAS_IMAGE = 'SET_CURRENT_CANVAS_IMAGE';
 
 export const MODES = {
 	INIT: 'init',
@@ -51,6 +52,11 @@ const canvas = (state = defaultCanvasState, action) => {
 	case CONVERSION_DONE:
 		return Object.assign({}, state, {
 			mode: MODES.CONVERSION_FINISHED,
+		});
+
+	case SET_CURRENT_CANVAS_IMAGE:
+		return Object.assign({}, state, {
+			mode: MODES.EDITOR,
 		});
 
 	default:

@@ -1,9 +1,11 @@
-import { defaultBead } from '../utils/beadColors';
+import Jimp from 'jimp';
+import { defaultBead, getBeadByColor } from '../utils/beadColors';
 
 const CHANGE_TABLET_SIZE = 'CHANGE_TABLET_SIZE';
 const CHANGE_ZOOM = 'CHANGE_ZOOM';
 const SET_BEAD = 'SET_BEAD';
 const SET_CURRENT_CANVAS_BEAD = 'SET_CURRENT_CANVAS_BEAD';
+const SET_CURRENT_CANVAS_IMAGE = 'SET_CURRENT_CANVAS_IMAGE';
 
 const SET_MODE = 'SET_MODE';
 
@@ -46,6 +48,12 @@ export const setCurrentCanvasBead = beadId => ({
 	currentCanvasBead: beadId,
 });
 
+export const transferPreviewImageInToEditor = (image, tabletSizeX, tabletSizeY) => ({
+	type: SET_CURRENT_CANVAS_IMAGE,
+	image,
+	tabletSizeX,
+	tabletSizeY,
+});
 
 /** *******************
  * Reducer
@@ -91,6 +99,33 @@ const canvas = (state = defaultCanvasState, action) => {
 
 		return Object.assign({}, state, {
 			currentCanvasPictureData: { pixels: data },
+		});
+	}
+
+	case SET_CURRENT_CANVAS_IMAGE: {
+		let data = state.currentCanvasPictureData.pixels;
+
+		for (let x = 0; x < action.image.bitmap.width; x += 1) {
+			for (let y = 0; y < action.image.bitmap.height; y += 1) {
+				const color = Jimp.intToRGBA(action.image.getPixelColor(x, y));
+				const beadId = getBeadByColor(color.r, color.g, color.b, color.a).id;
+
+				const index = data.findIndex(element => (
+					element.x === action.x && element.y === action.y
+				));
+				if (index > -1) {
+					data = [...data];
+					data[index] = { x, y, beadId };
+				} else {
+					data = [...data, { x, y, beadId }];
+				}
+			}
+		}
+
+		return Object.assign({}, state, {
+			currentCanvasPictureData: { pixels: data },
+			tabletSizeX: Math.ceil(action.image.bitmap.width / 29),
+			tabletSizeY: Math.ceil(action.image.bitmap.height / 29),
 		});
 	}
 

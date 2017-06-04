@@ -11,6 +11,7 @@ import CanvasContainer from '../components/container/CanvasContainer';
 import PictureChooser from '../components/PictureChooser';
 import PicturePreview from '../components/PicturePreview';
 import ConfigureParameterEditor from '../components/ConfigureParameterEditor';
+import ActionBar from '../components/ActionBar';
 
 const styles = {
 	container: {
@@ -49,6 +50,17 @@ const Editor = ({ sheet: { classes }, ...props }) => (
 			image={props.convertedImage}
 			resizeImage={false}
 		/>
+		<ActionBar
+			visible={props.mode === MODES.CONVERSION_FINISHED}
+			action={() => {
+				props.usePreviewImageInEditor(
+					props.convertedImage,
+					props.tabletSizeX,
+					props.tabletSizeY,
+				);
+			}}
+		/>
+
 		<CanvasContainer
 			visible={props.mode === MODES.EDITOR}
 			tabletSizeX={props.tabletSizeX}
@@ -72,6 +84,7 @@ Editor.propTypes = {
 	tabletSizeY: PropTypes.number.isRequired,
 	zoom: PropTypes.number.isRequired,
 	setCurrentCanvasBead: PropTypes.func.isRequired,
+	usePreviewImageInEditor: PropTypes.func.isRequired,
 	currentCanvasBead: PropTypes.string.isRequired,
 	linkUrl: PropTypes.string.isRequired,
 	image: jimpImage,
