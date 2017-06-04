@@ -1,42 +1,30 @@
 import React from 'react';
 import { render } from 'react-dom';
-import ReactDOMServer from 'react-dom/server';
-import { SheetsRegistryProvider, SheetsRegistry } from 'react-jss';
-import { Router, RouterContext, browserHistory, createMemoryHistory, match } from 'react-router';
-import Helmet from 'react-helmet';
-import routes from './routes';
-import HtmlWrapper from './components/HtmlWrapper';
+import { createStore, combineReducers } from 'redux';
+import { Provider } from 'react-redux';
+import { routerReducer as routing } from 'react-router-redux';
 
-const serverSideStylesId = 'server-side-styles';
+import global from './reducers/global';
+import canvas from './reducers/canvas';
+import converter from './reducers/converter';
 
-if (typeof document !== 'undefined') {
-	render(
-		<Router history={browserHistory} routes={routes} />,
-		document.getElementById('root'),
-	);
-}
+import App from './App';
 
-export default (locals, callback) => {
-	const history = createMemoryHistory();
-	const location = history.createLocation(locals.path);
+/* eslint-disable no-underscore-dangle */
+const store = createStore(
+	combineReducers({
+		canvas,
+		global,
+		converter,
+		routing,
+	}),
+	window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+);
+/* eslint-enable */
 
-	match({ routes, location }, (error, redirectLocation, renderProps) => {
-		const sheets = new SheetsRegistry();
-		const appContent = ReactDOMServer.renderToStaticMarkup(
-			<SheetsRegistryProvider registry={sheets}>
-				<RouterContext {...renderProps} />
-			</SheetsRegistryProvider>,
-		);
-		const head = Helmet.rewind();
-		const html = ReactDOMServer.renderToStaticMarkup(
-			<HtmlWrapper
-				appContent={appContent}
-				appStyle={sheets.toString()}
-				appStyleId={serverSideStylesId}
-				buildHash={locals.buildHash}
-				head={head}
-			/>,
-		);
-		callback(null, html);
-	});
-};
+render(
+	<Provider store={store}>
+		<App />
+	</Provider>,
+	document.getElementById('root'),
+);

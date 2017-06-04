@@ -9,7 +9,6 @@ import { jssSheet, jssClasses } from '../utils/propTypes';
 const styles = {
 	wrapper: {
 		backgroundColor: '#222',
-		height: '150px',
 		padding: '20px',
 		color: white,
 	},

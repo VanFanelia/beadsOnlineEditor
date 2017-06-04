@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Provider } from 'react-redux';
+import { BrowserRouter, Route } from 'react-router-dom';
 import { createStore, combineReducers } from 'redux';
+import { routerReducer as routing } from 'react-router-redux';
+import createBrowserHistory from 'history/createBrowserHistory';
 
 import global from './reducers/global';
 import canvas from './reducers/canvas';
@@ -11,6 +13,11 @@ import injectSheet from './utils/injectSheet';
 import globalStyles from './style/globalStyle';
 import SimpleNavigation from './components/Navigation';
 import { jssSheet, jssClasses } from './utils/propTypes';
+
+import Home from './pages/Home';
+import BeadsEditor from './pages/BeadsEditor';
+import OtherPage from './pages/OtherPage';
+import LogoColorPalette from './pages/LogoColorPalette';
 
 const styles = {
 	...globalStyles,
@@ -25,10 +32,13 @@ const store = createStore(
 		canvas,
 		global,
 		converter,
+		routing,
 	}),
 	window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
 );
 /* eslint-enable */
+
+const customHistory = createBrowserHistory();
 
 class App extends React.Component {
 
@@ -45,22 +55,30 @@ class App extends React.Component {
 
 	render() {
 		return (
-			<Provider store={store}>
+			<BrowserRouter history={customHistory} >
 				<div>
 					<SimpleNavigation />
 					<div className={this.classes.content}>
 						{this.children}
 					</div>
+					<Route exact path="/" component={Home} />
+					<Route path="/beads-editor" component={BeadsEditor} />
+					<Route path="/about" component={OtherPage} />
+					<Route path="/logo" component={LogoColorPalette} />
 				</div>
-			</Provider>
+			</BrowserRouter>
 		);
 	}
 }
 
 App.propTypes = {
-	children: PropTypes.element.isRequired,
+	children: PropTypes.element,
 	sheet: jssSheet.isRequired,
 	classes: jssClasses.isRequired,
+};
+
+App.defaultProps = {
+	children: null,
 };
 
 export default injectSheet(styles)(App);
