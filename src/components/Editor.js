@@ -62,7 +62,7 @@ const Editor = ({ sheet: { classes }, ...props }) => (
 		/>
 
 		<CanvasContainer
-			visible={props.mode === MODES.EDITOR}
+			visible={props.mode === MODES.EDITOR || props.mode === MODES.PRINT_PREVIEW}
 			tabletSizeX={props.tabletSizeX}
 			tabletSizeY={props.tabletSizeY}
 			zoom={props.zoom}
@@ -70,6 +70,7 @@ const Editor = ({ sheet: { classes }, ...props }) => (
 			currentCanvasPictureData={props.currentCanvasPictureData}
 			setCurrentCanvasColor={props.setCurrentCanvasBead}
 			currentCanvasBead={props.currentCanvasBead}
+			currentMode={props.mode}
 		/>
 	</div>
 );

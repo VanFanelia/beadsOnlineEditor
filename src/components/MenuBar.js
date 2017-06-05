@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { changeTabletSize, changeZoom } from '../reducers/canvas';
+import { setMode, MODES } from '../reducers/global';
 import injectSheet from '../utils/injectSheet';
 
 import { black, lightGrayBackground, errorRed } from '../style/colors';
@@ -34,6 +35,11 @@ const styles = {
 	zoom: {
 		width: grid('l'),
 		marginLeft: grid('s'),
+		marginRight: grid('s'),
+	},
+	printButton: {
+		marginLeft: grid('s'),
+		marginRight: grid('s'),
 	},
 };
 
@@ -102,6 +108,12 @@ const MenuBar = ({ dispatch, sheet: { classes }, ...props }) => {
 				onChange={checkZoomFactor}
 			/>
 			<label htmlFor="zoom">{translate('ZOOM')}</label>
+			<button
+				className={classes.printButton}
+				onClick={() => dispatch(setMode(MODES.PRINT_PREVIEW))}
+			>
+				{translate('PRINT_PREVIEW')}
+			</button>
 		</div>
 	);
 };

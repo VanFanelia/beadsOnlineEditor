@@ -18,13 +18,17 @@ const styles = {
 	colorBar: {
 		backgroundColor: lightGrayBackground,
 		position: 'absolute',
-		height: `calc(100% - ${grid('xl')})`,
+		height: `calc(100% - ${grid('xl + l')})`,
+		marginTop: grid('l'),
 		padding: grid('xs'),
 		paddingTop: grid('l'),
 		color: black,
 		width: grid('xxxl + xxl'),
 		right: 0,
 		top: 0,
+	},
+	hide: {
+		display: 'none',
 	},
 	hidden: {
 		width: grid('xs'),
@@ -51,7 +55,7 @@ const styles = {
 
 const ColorBar = ({ sheet: { classes }, ...props }) =>
 (
-	<div className={classNames({ [classes.colorBar]: true })}>
+	<div className={classNames({ [classes.colorBar]: true, [classes.hide]: !props.visible })}>
 		<ColorFilter />
 		<input className={classes.input} type="text" value={''} placeholder={translate('SEARCH_PLACEHOLDER')} />
 		<ul className={classes.colorList}>
@@ -75,9 +79,11 @@ ColorBar.propTypes = {
 	sheet: jssSheet.isRequired,
 	setCurrentCanvasColor: PropTypes.func.isRequired,
 	currentCanvasBead: PropTypes.string.isRequired,
+	visible: PropTypes.bool,
 };
 
 ColorBar.defaultProps = {
+	visible: true,
 };
 
 export default connect()(injectSheet(styles)(ColorBar));

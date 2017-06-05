@@ -10,9 +10,11 @@ import blankBead from '../graphics/BlankBead.svg';
 import ItemTypes from '../utils/dnd/ItemTypes';
 import { getBeadIdData } from '../utils/beadColors';
 import grid from '../utils/grid';
+import translate from '../utils/translate';
 
 import { jssSheet, jssClasses } from '../utils/propTypes';
-import { transparent, hoverTargetColor } from '../style/colors';
+import { transparent, hoverTargetColor, tooltipBackground } from '../style/colors';
+
 
 function collectDrops(con, monitor) {
 	return {
@@ -36,7 +38,47 @@ const styles = {
 		display: 'inline-block',
 		'&:hover': {
 			backgroundColor: hoverTargetColor,
+			'&:before': {
+				display: 'block',
+				transform: 'translateY(0) scale(1)',
+			},
 		},
+		'&:before': {
+			position: 'absolute',
+			left: '0',
+			top: `-${grid('s')}`,
+			backgroundColor: tooltipBackground,
+			height: grid('s'),
+			lineHeight: grid('s'),
+			borderRadius: '5px',
+			padding: `0 ${grid('xs')}`,
+			content: 'attr(label)',
+			whiteSpace: 'nowrap',
+			display: 'none',
+			animation: 'seconds 1.0s forwards',
+			animationIterationCount: '1',
+			animationDelay: '1s',
+			opacity: 0,
+			fontWeight: 'bold',
+			zIndex: 9,
+		},
+	},
+
+	'@keyframes seconds': {
+		'0%': {
+			opacity: 0,
+		},
+		'100%': {
+			opacity: 1,
+		},
+	},
+
+	'&:hover:after': {
+		display: 'block',
+	},
+
+	'bead:hover:before': {
+		display: 'block',
 	},
 	empty: {
 		backgroundColor: transparent,
@@ -93,11 +135,13 @@ class Bead extends React.Component {
 	render() {
 		let beadIcon = blankBead;
 		let isBlank = true;
+		let beadName = translate('NO_BEAD_SET');
 		if (Object.keys(this.props.beadData).length !== 0) {
-			beadIcon = getColoredBeadIcon(getBeadIdData(this.props.beadData.beadId).color);
+			const beadData = getBeadIdData(this.props.beadData.beadId);
+			beadIcon = getColoredBeadIcon(beadData.color);
+			beadName = `${beadData.id} - ${beadData.name}`;
 			isBlank = false;
 		}
-
 		const bead = (
 			<button
 				id={this.props.beadId}
@@ -105,15 +149,19 @@ class Bead extends React.Component {
 					[this.classes.resetButtonStyle]: true,
 					[this.classes.bead]: true,
 					[this.classes.empty]: this.props.empty,
+					[`content-${this.props.beadId}`]: true,
 				})}
 				onClick={this.onBeadClick}
+				label={beadName}
 			>
 				{this.props.empty ? (
 					<img
 						className={classNames({
 							[this.classes.iconBlank]: isBlank,
 							[this.classes.icon]: !isBlank },
-						)} src={beadIcon} alt=""
+						)}
+						src={beadIcon}
+						alt=""
 					/>) : 'foo'}
 				{this.props.isOver &&
 				<div

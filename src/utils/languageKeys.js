@@ -37,6 +37,8 @@ export default {
 		RESIZE_OPTION_SCALE_CUBIC: 'mit Faktor 2^x',
 		RESIZE_OPTION_SCALE_MAX_SPACE: 'maximale Fläche nutzen',
 		TRANSFER_TO_EDITOR: 'Dieses Bild im Editor nutzen',
+		PRINT_PREVIEW: 'Druckansicht',
+		NO_BEAD_SET: 'Keine Perle gesetzt',
 
 		H01_NAME: 'WHITE',
 		H02_NAME: 'CREAM',

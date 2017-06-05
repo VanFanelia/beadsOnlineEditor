@@ -9,6 +9,7 @@ import ColorBar from '../ColorBar';
 
 import injectSheet from '../../utils/injectSheet';
 import { jssSheet } from '../../utils/propTypes';
+import { MODES } from '../../reducers/global';
 
 import grid from '../../utils/grid';
 
@@ -16,16 +17,17 @@ const styles = {
 	canvasContainer: {
 		position: 'relative',
 		height: '100%',
+	},
+	hide: {
 		display: 'none',
 	},
-	visible: {
-		display: 'block',
-	},
 	canvas: {
-		marginRight: grid('xxxl + xxl'),
-		marginTop: grid('s'),
-		overflow: 'scroll',
+		paddingRight: grid('xxxl + xxl'),
+		paddingTop: grid('m'),
 		maxHeight: `calc(100% - ${grid('xxl')} )`,
+	},
+	zoom: {
+		overflow: 'auto',
 	},
 	row: {
 		height: grid('xs'),
@@ -82,7 +84,7 @@ const buildBeadsForEditor = (tableSizeX, tableSizeY, pixels) => {
 const CanvasContainer = ({ sheet: { classes }, ...props }) => (
 	<div
 		className={classNames({ [classes.canvasContainer]: true,
-			[classes.visible]: props.visible })}
+			[classes.hide]: !props.visible })}
 	>
 		<MenuBar
 			tabletSizeX={props.tabletSizeX}
@@ -91,11 +93,17 @@ const CanvasContainer = ({ sheet: { classes }, ...props }) => (
 		/>
 
 		<ColorBar
+			visible={props.currentMode === MODES.EDITOR}
 			setCurrentCanvasColor={props.setCurrentCanvasColor}
 			currentCanvasBead={props.currentCanvasBead}
 		/>
-		<div className={classes.canvas} >
-			<div style={{ zoom: `${props.zoom / 100}` }} >
+		<div
+			className={classNames({
+				[classes.canvas]: true,
+				[classes.hide]: props.currentMode !== MODES.EDITOR,
+			})}
+		>
+			<div className={classes.zoom} style={{ zoom: `${props.zoom / 100}` }} >
 				{
 					buildBeadsForEditor(
 						props.tabletSizeX,
@@ -143,6 +151,7 @@ CanvasContainer.propTypes = {
 	currentCanvasPictureData: PropTypes.objectOf(PropTypes.any).isRequired,
 	setCurrentCanvasColor: PropTypes.func.isRequired,
 	currentCanvasBead: PropTypes.string.isRequired,
+	currentMode: PropTypes.string.isRequired,
 };
 
 CanvasContainer.defaultProps = {

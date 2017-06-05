@@ -10,6 +10,7 @@ export const MODES = {
 	CHOOSE_PICTURE: 'choosePicture',
 	CHOOSE_PARAMETERS: 'chooseParameters',
 	CONVERSION_FINISHED: 'conversionFinished',
+	PRINT_PREVIEW: 'printPreview',
 };
 
 /** *******************
