@@ -18,7 +18,10 @@ You can find the most recent version of this guide [here](https://github.com/fac
 - Use algorithm on it to pixellate // DONE
 - Choose different sizes for pixellating picture // DONE
 - Transfer picture to canvas // DONE
+- Filter beadList by using usedBeadTypes in Converter
+- Remove Transparent Pearls around image
 - Get Table of used Pearls
+- Get Print preview
 - Insert all possible Hama Colors // DONE
 - Filter colors in color bar
 - search for Color in color bar
