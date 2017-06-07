@@ -6,12 +6,14 @@ import classNames from 'classnames';
 import Bead from '../Bead';
 import MenuBar from '../MenuBar';
 import ColorBar from '../ColorBar';
+import PrintPreview from '../PrintPreview';
 
 import injectSheet from '../../utils/injectSheet';
 import { jssSheet } from '../../utils/propTypes';
 import { MODES } from '../../reducers/global';
 
 import grid from '../../utils/grid';
+import blockBuilder from '../../utils/blockBuilder';
 
 const styles = {
 	canvasContainer: {
@@ -53,36 +55,13 @@ const styles = {
 	},
 };
 
-const buildBeadsForEditor = (tableSizeX, tableSizeY, pixels) => {
-	const blocks = [];
-	for (let blockY = 0; blockY < tableSizeY; blockY += 1) {
-		blocks[blockY] = blocks[blockY] === undefined ? [] : blocks[blockY];
-		for (let blockX = 0; blockX < tableSizeX; blockX += 1) {
-			blocks[blockY][blockX] = blocks[blockY][blockX] === undefined ? [] : blocks[blockY][blockX];
-			for (let x = 0; x < 29; x += 1) {
-				for (let y = 0; y < 29; y += 1) {
-					if (blocks[blockY][blockX][y] === undefined) {
-						blocks[blockY][blockX][y] = [];
-					}
-					const xAbsolute = (29 * blockX) + x;
-					const yAbsolute = (29 * blockY) + y;
-					let beadData = {};
-					const index = pixels.findIndex(element => (
-						element.x === xAbsolute && element.y === yAbsolute
-					));
-					if (index > -1) {
-						beadData = pixels[index];
-					}
-					blocks[blockY][blockX][y].push({ key: `x${xAbsolute}y${yAbsolute}`, x: xAbsolute, y: yAbsolute, beadData });
-				}
-			}
-		}
-	}
-	return blocks;
-};
+const CanvasContainer = ({ sheet: { classes }, ...props }) => {
+	const blockData = blockBuilder(
+		props.tabletSizeX,
+		props.tabletSizeY,
+		props.currentCanvasPictureData.pixels);
 
-const CanvasContainer = ({ sheet: { classes }, ...props }) => (
-	<div
+	return (<div
 		className={classNames({ [classes.canvasContainer]: true,
 			[classes.hide]: !props.visible })}
 	>
@@ -105,11 +84,7 @@ const CanvasContainer = ({ sheet: { classes }, ...props }) => (
 		>
 			<div className={classes.zoom} style={{ zoom: `${props.zoom / 100}` }} >
 				{
-					buildBeadsForEditor(
-						props.tabletSizeX,
-						props.tabletSizeY,
-						props.currentCanvasPictureData.pixels)
-					.map((blockRow, blockRowCounter) => (
+					blockData.map((blockRow, blockRowCounter) => (
 						// eslint-disable-next-line react/no-array-index-key
 						<div className={classes.blockRow} key={`blockRow${blockRowCounter}`}>
 							{ blockRow.map((block, blockCounter) => (
@@ -138,8 +113,14 @@ const CanvasContainer = ({ sheet: { classes }, ...props }) => (
 				}
 			</div>
 		</div>
+
+		<PrintPreview
+			visible={props.currentMode === MODES.PRINT_PREVIEW}
+			blockData={blockData}
+		/>
 	</div>
-);
+	);
+};
 
 CanvasContainer.propTypes = {
 	sheet: jssSheet.isRequired,
