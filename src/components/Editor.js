@@ -71,6 +71,7 @@ const Editor = ({ sheet: { classes }, ...props }) => (
 			setCurrentCanvasColor={props.setCurrentCanvasBead}
 			currentCanvasBead={props.currentCanvasBead}
 			currentMode={props.mode}
+			blockData={props.blockData}
 		/>
 	</div>
 );
@@ -88,6 +89,7 @@ Editor.propTypes = {
 	usePreviewImageInEditor: PropTypes.func.isRequired,
 	currentCanvasBead: PropTypes.string.isRequired,
 	linkUrl: PropTypes.string.isRequired,
+	blockData: PropTypes.objectOf(PropTypes.any).isRequired,
 	image: jimpImage,
 	convertedImage: jimpImage,
 };

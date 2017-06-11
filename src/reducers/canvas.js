@@ -7,8 +7,6 @@ const SET_BEAD = 'SET_BEAD';
 const SET_CURRENT_CANVAS_BEAD = 'SET_CURRENT_CANVAS_BEAD';
 const SET_CURRENT_CANVAS_IMAGE = 'SET_CURRENT_CANVAS_IMAGE';
 
-const SET_MODE = 'SET_MODE';
-
 /** *******************
  * Default State
  ***********************/
@@ -60,14 +58,6 @@ export const transferPreviewImageInToEditor = (image, tabletSizeX, tabletSizeY) 
  ***********************/
 const canvas = (state = defaultCanvasState, action) => {
 	switch (action.type) {
-	case SET_MODE:
-		return Object.assign({}, state, {
-			tabletSizeX: defaultCanvasState.tabletSizeX,
-			tabletSizeY: defaultCanvasState.tabletSizeY,
-			currentCanvasPictureData: defaultCanvasState.currentCanvasPictureData,
-			currentCanvasName: defaultCanvasState.currentCanvasName,
-			currentCanvasBead: defaultCanvasState.currentCanvasBead,
-		});
 
 	case SET_CURRENT_CANVAS_BEAD:
 		return Object.assign({}, state, {

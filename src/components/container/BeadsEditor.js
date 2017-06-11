@@ -3,6 +3,7 @@ import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { setBead, setCurrentCanvasBead, transferPreviewImageInToEditor } from '../../reducers/canvas';
 import { setMode } from '../../reducers/global';
+import { blockBuilder } from '../../utils/blockBuilder';
 
 import Editor from '../Editor';
 
@@ -17,6 +18,10 @@ const mapStateToProps = state => ({
 	linkUrl: state.converter.linkUrl,
 	image: state.converter.image,
 	convertedImage: state.converter.convertedImage,
+	blockData: blockBuilder(
+		state.canvas.tabletSizeX,
+		state.canvas.tabletSizeY,
+		state.canvas.currentCanvasPictureData.pixels),
 });
 
 const mapDispatchToProps = dispatch => ({

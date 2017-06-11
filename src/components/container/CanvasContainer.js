@@ -11,9 +11,9 @@ import PrintPreview from '../PrintPreview';
 import injectSheet from '../../utils/injectSheet';
 import { jssSheet } from '../../utils/propTypes';
 import { MODES } from '../../reducers/global';
+import { sortByPosition } from '../../utils/sortFunctions/sortByPosition';
 
 import grid from '../../utils/grid';
-import blockBuilder from '../../utils/blockBuilder';
 
 const styles = {
 	canvasContainer: {
@@ -55,13 +55,8 @@ const styles = {
 	},
 };
 
-const CanvasContainer = ({ sheet: { classes }, ...props }) => {
-	const blockData = blockBuilder(
-		props.tabletSizeX,
-		props.tabletSizeY,
-		props.currentCanvasPictureData.pixels);
-
-	return (<div
+const CanvasContainer = ({ sheet: { classes }, ...props }) => (
+	<div
 		className={classNames({ [classes.canvasContainer]: true,
 			[classes.hide]: !props.visible })}
 	>
@@ -84,28 +79,30 @@ const CanvasContainer = ({ sheet: { classes }, ...props }) => {
 		>
 			<div className={classes.zoom} style={{ zoom: `${props.zoom / 100}` }} >
 				{
-					blockData.map((blockRow, blockRowCounter) => (
-						// eslint-disable-next-line react/no-array-index-key
-						<div className={classes.blockRow} key={`blockRow${blockRowCounter}`}>
-							{ blockRow.map((block, blockCounter) => (
-								// eslint-disable-next-line react/no-array-index-key
-								<div className={classes.block} key={`blockCounter${blockCounter}`}>
-									{ block.map((row, rowCounter) => (
-										// eslint-disable-next-line react/no-array-index-key
-										<div className={classes.row} key={`row${rowCounter}`}>
-											{row.map(bead => (
-												<Bead
-													beadId={bead.key}
-													x={bead.x}
-													y={bead.y}
-													key={bead.key}
-													setBead={props.setBead}
-													beadData={bead.beadData}
-													currentCanvasBead={props.currentCanvasBead}
-												/>
-											))}
-										</div>
-									))}
+					props.blockData.blocksY.map(row => (
+						<div className={classes.blockRow} key={`blockRow${row}`}>
+							{ props.blockData.blocksX.map(col => (
+								<div className={classes.block} key={`block-${row}-${col}`}>
+									{
+										[1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+											11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+											21, 22, 23, 24, 25, 26, 27, 28, 29].map(rowInBlock => (
+												<div className={classes.row} key={`block-${row}-${col}-${rowInBlock}`}>
+													{ props.blockData.data.filter(entry => (
+														entry.blockY === row && entry.blockX === col && entry.row === rowInBlock
+													)).sort(sortByPosition).map(bead => (
+														<Bead
+															beadId={bead.key}
+															x={bead.x}
+															y={bead.y}
+															key={bead.key}
+															setBead={props.setBead}
+															beadData={bead.beadData}
+															currentCanvasBead={props.currentCanvasBead}
+														/>
+													))}
+												</div>
+										))}
 								</div>
 							))}
 						</div>
@@ -116,11 +113,10 @@ const CanvasContainer = ({ sheet: { classes }, ...props }) => {
 
 		<PrintPreview
 			visible={props.currentMode === MODES.PRINT_PREVIEW}
-			blockData={blockData}
+			blockData={props.blockData}
 		/>
 	</div>
-	);
-};
+);
 
 CanvasContainer.propTypes = {
 	sheet: jssSheet.isRequired,
@@ -133,6 +129,7 @@ CanvasContainer.propTypes = {
 	setCurrentCanvasColor: PropTypes.func.isRequired,
 	currentCanvasBead: PropTypes.string.isRequired,
 	currentMode: PropTypes.string.isRequired,
+	blockData: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 CanvasContainer.defaultProps = {
