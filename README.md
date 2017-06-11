@@ -19,12 +19,14 @@ You can find the most recent version of this guide [here](https://github.com/fac
 - Choose different sizes for pixellating picture // DONE
 - Transfer picture to canvas // DONE
 - Filter beadList by using usedBeadTypes in Converter
-- Remove Transparent Pearls around image
-- Get Table of used Pearls
-- Get Print preview
+- Remove Transparent Beads around image
+- Get Table of used Beads // DONE
+- Get Print preview // DONE
+- Navigation from beads Editor to overview 
+	and from print preview back to editor
 - Insert all possible Hama Colors // DONE
 - Filter colors in color bar
 - search for Color in color bar
-- Print preview
 - Save state in session
 - Save canvas Data in URL
+- Write impressium and rest of page
