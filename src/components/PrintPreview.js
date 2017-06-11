@@ -4,6 +4,9 @@ import classNames from 'classnames';
 
 import injectSheet from '../utils/injectSheet';
 import Circle from './Circle';
+import translate from '../utils/translate';
+import grid from '../utils/grid';
+
 import { jssSheet, jssClasses } from '../utils/propTypes';
 import { getBeadIdData } from '../utils/beadColors';
 import { sortByPosition } from '../utils/sortFunctions/sortByPosition';
@@ -16,21 +19,21 @@ const styles = {
 	},
 	page: {
 		display: 'flex',
-		flexWrap: 'wrap',
+		flexWrap: 'nowrap',
 		flexDirection: 'row',
 		justifyContent: 'space-around',
 		alignItems: 'center',
+	},
+	colorBox: {
 	},
 	hide: {
 		display: 'none',
 	},
 	tablePearls: {
-		flex: 1,
-		flexBasis: '50%',
+		margin: grid('m'),
 	},
 	tableSum: {
-		flex: 1,
-		flexBasis: '50%',
+		margin: grid('m'),
 	},
 	tableCell: {
 		border: `1px solid ${black}`,
@@ -76,16 +79,64 @@ const PrintPreview = ({ sheet: { classes }, ...props }) => (
 							</tbody>
 						</table>
 						<table className={classes.tableSum}>
-							<tbody>
+							<thead>
 								<tr>
-									<td>Foobar</td>
+									<th>{ translate('ID') }</th>
+									<th>{ translate('COLOR') }</th>
+									<th>{ translate('SUM') }</th>
 								</tr>
+							</thead>
+							<tbody>
+								{props.blockData.blockColorSums.find(entry => (
+									entry.blockY === row && entry.blockX === col
+								)).blockColors.map(beadSum => (
+									<tr key={`PrintSumList-${row}-${col}-${beadSum.id}`}>
+										<td>{beadSum.id}</td>
+										<td>
+											<span
+												className={classes.colorBox}
+												style={{ backgroundColor: getBeadIdData(beadSum.id).color }}
+											>
+												{getBeadIdData(beadSum.id).name}
+											</span>
+										</td>
+										<td>{beadSum.sum}</td>
+									</tr>
+								))}
 							</tbody>
 						</table>
 					</div>
 				))
 			))
 		}
+		<div>
+			<h3>{translate('TOTAL_USED_BEADS')}</h3>
+			<table className={classes.tableSum}>
+				<thead>
+					<tr>
+						<th>{ translate('ID') }</th>
+						<th>{ translate('COLOR') }</th>
+						<th>{ translate('SUM') }</th>
+					</tr>
+				</thead>
+				<tbody>
+					{props.blockData.totalSums.map(beadSum => (
+						<tr key={`PrintTotalSumList-${beadSum.id}`}>
+							<td>{beadSum.id}</td>
+							<td>
+								<span
+									className={classes.colorBox}
+									style={{ backgroundColor: getBeadIdData(beadSum.id).color }}
+								>
+									{getBeadIdData(beadSum.id).name}
+								</span>
+							</td>
+							<td>{beadSum.sum}</td>
+						</tr>
+					))}
+				</tbody>
+			</table>
+		</div>
 	</div>
 );
 

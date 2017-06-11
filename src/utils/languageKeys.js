@@ -76,5 +76,10 @@ export default {
 		H61_NAME: 'GOLD',
 		H62_NAME: 'SILVER',
 		H63_NAME: 'BRONZE',
+
+		ID: 'Id',
+		COLOR: 'Farbe',
+		SUM: 'Summe',
+		TOTAL_USED_BEADS: 'Insgesamt benötigte Perlen',
 	},
 };
