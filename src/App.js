@@ -11,7 +11,7 @@ import converter from './reducers/converter';
 
 import injectSheet from './utils/injectSheet';
 import globalStyles from './style/globalStyle';
-import SimpleNavigation from './components/Navigation';
+import Navigation from './components/Navigation';
 import { jssSheet, jssClasses } from './utils/propTypes';
 
 import Home from './pages/Home';
@@ -57,7 +57,7 @@ class App extends React.Component {
 		return (
 			<BrowserRouter history={customHistory} >
 				<div>
-					<SimpleNavigation />
+					<Navigation currentPath={""} />
 					<div className={this.classes.content}>
 						{this.children}
 					</div>

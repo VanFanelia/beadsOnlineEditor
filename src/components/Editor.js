@@ -21,7 +21,7 @@ const styles = {
 		top: 0,
 		width: '100%',
 		height: `calc(100% - ${grid('xl')})`,
-		marginTop: grid('xl'),
+		marginTop: grid('l'),
 	},
 };
 
