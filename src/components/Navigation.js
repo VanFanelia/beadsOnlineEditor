@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { NavLink } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import classNames from 'classnames';
+import { connect } from 'react-redux';
 
 import beadsLogoBlack from '../graphics/BeadsLogoBlackBackground.svg';
 import injectSheet from '../utils/injectSheet';
@@ -10,6 +11,7 @@ import transition from '../style/transition';
 import { textRatioFontSize, textRatioLineHeight } from '../utils/fontRatio';
 import { jssSheet } from '../utils/propTypes';
 import { darkGrayBackground, lightFontColor, white } from '../style/colors';
+import { setMode, MODES } from '../reducers/global';
 
 
 const styles = {
@@ -55,31 +57,32 @@ const styles = {
 	},
 };
 
-const menuItems = [
-	{
-		path: '/',
-		label: 'Home',
-	},
-	{
-		path: '/beads-editor',
-		label: 'Beads Editor',
-	},
-	{
-		path: '/about',
-		label: 'About',
-	},
-	{
-		path: '/logo',
-		label: 'Logo Colors',
-	},
-];
-
 const languageKeys = {
 	logoAltDescription: 'Logo beads editor',
 };
 
-const Navigation = ({ sheet: { classes }, ...props }) => (
-	<nav className={classes.wrapper}>
+const Navigation = ({ sheet: { classes }, ...props }) => {
+	const menuItems = [
+		{
+			path: '/',
+			label: 'Home',
+		},
+		{
+			path: '/beads-editor',
+			label: 'Beads Editor',
+			onClick: props.resetBeadsEditor,
+		},
+		{
+			path: '/about',
+			label: 'About',
+		},
+		{
+			path: '/logo',
+			label: 'Logo Colors',
+		},
+	];
+
+	return (<nav className={classes.wrapper}>
 		<img
 			src={beadsLogoBlack}
 			className={classes.logo}
@@ -87,7 +90,7 @@ const Navigation = ({ sheet: { classes }, ...props }) => (
 		/>
 		<ul className={classes.list}>
 			{
-				menuItems.map(({ path, label }) => (
+				menuItems.map(({ path, label, onClick }) => (
 					<li
 						key={`wrapper-${path}`}
 						className={classNames({
@@ -101,6 +104,7 @@ const Navigation = ({ sheet: { classes }, ...props }) => (
 							to={path}
 							exact
 							activeClassName={classes.current}
+							onClick={onClick}
 						>
 							{ label }
 						</NavLink>
@@ -108,17 +112,33 @@ const Navigation = ({ sheet: { classes }, ...props }) => (
 				))
 			}
 		</ul>
-	</nav>
-);
+	</nav>);
+};
 
 Navigation.propTypes = {
 	sheet: jssSheet.isRequired,
 	currentPath: PropTypes.string,
+	resetBeadsEditor: PropTypes.func.isRequired,
 };
 
 Navigation.defaultProps = {
 	currentPath: '',
 };
 
-export default injectSheet(styles)(Navigation);
+const mapStateToProps = () => ({
+});
+
+const mapDispatchToProps = dispatch => ({
+	resetBeadsEditor: () => {
+		dispatch(setMode(MODES.INIT));
+		return false;
+	},
+});
+
+export default withRouter(
+	connect(
+		mapStateToProps,
+		mapDispatchToProps)(injectSheet(styles)(Navigation),
+	),
+);
 
