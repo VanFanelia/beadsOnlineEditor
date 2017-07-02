@@ -57,7 +57,13 @@ const ColorBar = ({ sheet: { classes }, ...props }) =>
 (
 	<div className={classNames({ [classes.colorBar]: true, [classes.hide]: !props.visible })}>
 		<ColorFilter setColorFilter={props.setColorFilter} colorFilter={props.colorFilter} />
-		<input className={classes.input} type="text" value={''} placeholder={translate('SEARCH_PLACEHOLDER')} />
+		{/*
+		<input
+			className={classes.input}
+			type="text" value={''}
+			placeholder={translate('SEARCH_PLACEHOLDER')}
+		/>
+		*/}
 		<ul className={classes.colorList}>
 			<ColorBeadPanel
 				beadId={NO_BEAD}
