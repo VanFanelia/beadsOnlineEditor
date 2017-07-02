@@ -2,6 +2,8 @@ const blankColor = { color: '#eeeeee00' };
 
 export const defaultBead = 'H01';
 
+export const NO_BEAD = 'NO_BEAD';
+
 /* eslint-disable no-multi-spaces, key-spacing */
 export const beadList = {
 	H01:{ id: 'H01', name: 'WHITE',         type: 'HAMA',        red: 255, green: 255, blue: 255, alpha: 255, color: '#FFFFFF' },

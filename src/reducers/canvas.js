@@ -1,5 +1,5 @@
 import Jimp from 'jimp';
-import { defaultBead, getBeadByColor } from '../utils/beadColors';
+import { defaultBead, getBeadByColor, NO_BEAD } from '../utils/beadColors';
 
 const CHANGE_TABLET_SIZE = 'CHANGE_TABLET_SIZE';
 const CHANGE_ZOOM = 'CHANGE_ZOOM';
@@ -80,7 +80,7 @@ const canvas = (state = defaultCanvasState, action) => {
 		const index = data.findIndex(element => (
 			element.x === action.x && element.y === action.y
 		));
-		if (action.beadId == null) {
+		if (action.beadId === NO_BEAD) {
 			if (index > -1) {
 				data.splice(index, 1);
 			}

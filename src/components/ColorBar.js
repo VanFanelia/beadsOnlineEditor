@@ -6,7 +6,7 @@ import injectSheet from '../utils/injectSheet';
 
 import { black, white, lightGrayBackground } from '../style/colors';
 import { jssSheet } from '../utils/propTypes';
-import { beadList } from '../utils/beadColors';
+import { beadList, NO_BEAD } from '../utils/beadColors';
 
 import grid from '../utils/grid';
 import { textRatioLineHeight, textRatioFontSize } from '../utils/fontRatio';
@@ -60,7 +60,7 @@ const ColorBar = ({ sheet: { classes }, ...props }) =>
 		<input className={classes.input} type="text" value={''} placeholder={translate('SEARCH_PLACEHOLDER')} />
 		<ul className={classes.colorList}>
 			<ColorBeadPanel
-				beadId={null}
+				beadId={NO_BEAD}
 				backgroundColor={lightGrayBackground}
 				textColor={white}
 				colorName={translate('NO_BEAD')}
