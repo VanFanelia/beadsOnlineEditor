@@ -5,7 +5,8 @@ const translate = (key, lang = 'de_DE') => {
 		return keys[lang][key];
 	}
 
-	console.log(`Warning: cannont find LK: ${key}`);
+	// eslint-disable-next-line no-console
+	console.error(`Warning: cannot find LK: ${key}`);
 	return key;
 };
 

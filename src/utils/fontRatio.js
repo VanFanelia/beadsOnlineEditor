@@ -13,7 +13,8 @@ export const textRatioLineHeight = (size) => {
 		return `${gridSize[size]}px`;
 	}
 
-	console.log('ERROR - grid size not found!');
+	// eslint-disable-next-line no-console
+	console.error('ERROR - grid size not found!');
 	return '';
 };
 
@@ -22,7 +23,8 @@ export const textRatioFontSize = (size) => {
 		return `${gridSize[size] * (1 / 1.444444)}px`;
 	}
 
-	console.log('ERROR - grid size not found!');
+	// eslint-disable-next-line no-console
+	console.error('ERROR - grid size not found!');
 	return '';
 };
 
@@ -31,7 +33,8 @@ export const headlineRatioLineHeight = (size) => {
 		return `${gridSize[size]}px`;
 	}
 
-	console.log('ERROR - grid size not found!');
+	// eslint-disable-next-line no-console
+	console.error('ERROR - grid size not found!');
 	return '';
 };
 
@@ -40,6 +43,7 @@ export const headlineRatioFontSize = (size) => {
 		return `${gridSize[size]}px`;
 	}
 
-	console.log('ERROR - grid size not found!');
+	// eslint-disable-next-line no-console
+	console.error('ERROR - grid size not found!');
 	return '';
 };

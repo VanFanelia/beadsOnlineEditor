@@ -57,7 +57,7 @@ class App extends React.Component {
 		return (
 			<BrowserRouter history={customHistory} >
 				<div>
-					<Navigation currentPath={""} />
+					<Navigation currentPath={''} />
 					<div className={this.classes.content}>
 						{this.children}
 					</div>

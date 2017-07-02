@@ -48,6 +48,7 @@ export const getBeadIdData = (beadId) => {
 		return beadList[beadId];
 	}
 
+	// eslint-disable-next-line no-console
 	console.error('BeadId not found in bead list!');
 	return blankColor;
 };

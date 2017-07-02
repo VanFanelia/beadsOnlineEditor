@@ -130,6 +130,7 @@ const convert = (
 	if (image === undefined || image.bitmap === undefined ||
 			image.bitmap.width === undefined || image.bitmap.height === undefined
 	) {
+		// eslint-disable-next-line no-console
 		console.error('not enough data to convert');
 		return null;
 	}

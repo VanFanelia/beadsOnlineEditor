@@ -23,7 +23,8 @@ const grid = (size, printPixel = true) => {
 		return `${sum}${printPixel ? 'px' : ''}`;
 	}
 
-	console.log('ERROR - grid size not found!');
+	// eslint-disable-next-line no-console
+	console.error('ERROR - grid size not found!');
 	return '';
 };
 
