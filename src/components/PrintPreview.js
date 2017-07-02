@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 import injectSheet from '../utils/injectSheet';
 import Circle from './Circle';
-import translate from '../utils/translate';
+import { translate } from '../utils/translate';
 import grid from '../utils/grid';
 
 import { jssSheet, jssClasses } from '../utils/propTypes';

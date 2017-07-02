@@ -8,7 +8,7 @@ import request from 'request';
 
 import injectSheet from '../utils/injectSheet';
 import grid from '../utils/grid';
-import translate from '../utils/translate';
+import { translate } from '../utils/translate';
 
 import { setLinkUrl, setImage } from '../reducers/converter';
 import { setMode, MODES } from '../reducers/global';

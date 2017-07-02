@@ -55,10 +55,10 @@ export const removeSurroundingTransparentBeads = (pixels, width, height) => {
 	let imageHash = orderCanvasData(pixels, width, height);
 
 	for (let n = 0; n < width; n += 1) {
-		imageHash = removeTransparentBead(imageHash, n, 0,          width - 1, height - 1); // top
+		imageHash = removeTransparentBead(imageHash, n, 0, width - 1, height - 1); // top
 		imageHash = removeTransparentBead(imageHash, n, height - 1, width - 1, height - 1); // bottom
-		imageHash = removeTransparentBead(imageHash, 0, n,          width - 1, height - 1); // left
-		imageHash = removeTransparentBead(imageHash, width - 1, n,  width - 1, height - 1); // right
+		imageHash = removeTransparentBead(imageHash, 0, n, width - 1, height - 1); // left
+		imageHash = removeTransparentBead(imageHash, width - 1, n, width - 1, height - 1); // right
 	}
 
 	return convertToPixelNotation(imageHash, width, height);

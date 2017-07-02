@@ -5,7 +5,7 @@ import injectSheet from '../utils/injectSheet';
 import iconImage from '../graphics/icon/image.svg';
 import iconEmptyFile from '../graphics/icon/emptyFile.svg';
 import grid from '../utils/grid';
-import translate from '../utils/translate';
+import { translate } from '../utils/translate';
 
 import { lightGrayBackground } from '../style/colors';
 import { textRatioFontSize, textRatioLineHeight } from '../utils/fontRatio';

@@ -7,7 +7,7 @@ import { black, lightGrayBackground, borderGray } from '../style/colors';
 import { jssSheet, jssClasses } from '../utils/propTypes';
 
 import grid from '../utils/grid';
-import translate from '../utils/translate';
+import { translate } from '../utils/translate';
 
 const styles = {
 	container: {

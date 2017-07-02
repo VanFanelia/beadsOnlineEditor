@@ -10,7 +10,7 @@ import blankBead from '../graphics/BlankBead.svg';
 import ItemTypes from '../utils/dnd/ItemTypes';
 import { getBeadIdData } from '../utils/beadColors';
 import grid from '../utils/grid';
-import translate from '../utils/translate';
+import { translate } from '../utils/translate';
 
 import { jssSheet, jssClasses } from '../utils/propTypes';
 import { transparent, hoverTargetColor, tooltipBackground } from '../style/colors';

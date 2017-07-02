@@ -29,7 +29,7 @@ const styles = {
 	},
 	active: {
 	},
-	white: { backgroundColor: white},
+	white: { backgroundColor: white },
 	gray: { backgroundColor: filterMonochrome },
 	yellow: { backgroundColor: filterYellow },
 	red: { backgroundColor: filterRed },
