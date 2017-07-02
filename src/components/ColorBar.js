@@ -10,7 +10,7 @@ import { beadList, NO_BEAD } from '../utils/beadColors';
 
 import grid from '../utils/grid';
 import { textRatioLineHeight, textRatioFontSize } from '../utils/fontRatio';
-import translate from '../utils/translate';
+import { translate } from '../utils/translate';
 import ColorFilter from './ColorFilter';
 import ColorBeadPanel from './ColorBeadPanel';
 
@@ -21,7 +21,7 @@ const styles = {
 		height: `calc(100% - ${grid('xl + l')})`,
 		marginTop: grid('l'),
 		padding: grid('xs'),
-		paddingTop: grid('l'),
+		paddingTop: grid('s'),
 		color: black,
 		width: grid('xxxl + xxl'),
 		right: 0,
@@ -46,7 +46,7 @@ const styles = {
 		margin: 0,
 		listStyleType: 'none',
 		height: '100%',
-		overflowY: 'scroll',
+		overflowY: 'auto',
 	},
 	colorFilter: {
 		display: 'inline-block',
@@ -56,7 +56,7 @@ const styles = {
 const ColorBar = ({ sheet: { classes }, ...props }) =>
 (
 	<div className={classNames({ [classes.colorBar]: true, [classes.hide]: !props.visible })}>
-		<ColorFilter />
+		<ColorFilter setColorFilter={props.setColorFilter} colorFilter={props.colorFilter} />
 		<input className={classes.input} type="text" value={''} placeholder={translate('SEARCH_PLACEHOLDER')} />
 		<ul className={classes.colorList}>
 			<ColorBeadPanel
@@ -76,6 +76,7 @@ const ColorBar = ({ sheet: { classes }, ...props }) =>
 					textColor={white}
 					onClick={props.setCurrentCanvasColor}
 					isSelected={props.currentCanvasBead === bead.id}
+					visible={props.colorFilter === bead.category || props.colorFilter === ''}
 				/>
 				))
 			}
@@ -86,6 +87,8 @@ const ColorBar = ({ sheet: { classes }, ...props }) =>
 ColorBar.propTypes = {
 	sheet: jssSheet.isRequired,
 	setCurrentCanvasColor: PropTypes.func.isRequired,
+	setColorFilter: PropTypes.func.isRequired,
+	colorFilter: PropTypes.string.isRequired,
 	currentCanvasBead: PropTypes.string.isRequired,
 	visible: PropTypes.bool,
 };

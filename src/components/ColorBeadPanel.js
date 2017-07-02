@@ -46,6 +46,9 @@ const styles = {
 		textAlign: 'center',
 		fontSize: textRatioFontSize('xs'),
 	},
+	hidden: {
+		display: 'none',
+	},
 	colorDescription: {
 		color: black,
 		width: '100%',
@@ -78,7 +81,7 @@ class ColorBeadPanel extends React.Component {
 
 	render() {
 		return this.props.connectDragSource(
-			<li>
+			<li className={classNames({ [this.classes.hidden]: !this.props.visible })} >
 				<button
 					id={this.props.beadId}
 					className={classNames({
@@ -123,6 +126,7 @@ ColorBeadPanel.propTypes = {
 	textColor: PropTypes.string.isRequired,
 	colorName: PropTypes.string.isRequired,
 	isSelected: PropTypes.bool,
+	visible: PropTypes.bool,
 	sheet: jssSheet.isRequired,
 	classes: jssClasses.isRequired,
 	connectDragSource: PropTypes.func.isRequired,
@@ -133,6 +137,7 @@ ColorBeadPanel.propTypes = {
 
 ColorBeadPanel.defaultProps = {
 	isSelected: false,
+	visible: true,
 };
 
 export default DragSource(

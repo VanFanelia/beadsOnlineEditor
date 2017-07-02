@@ -8,6 +8,7 @@ const SET_BEAD = 'SET_BEAD';
 const SET_CURRENT_CANVAS_BEAD = 'SET_CURRENT_CANVAS_BEAD';
 const SET_CURRENT_CANVAS_IMAGE = 'SET_CURRENT_CANVAS_IMAGE';
 const REMOVE_SURROUNDING_TRANSPARENT_BEADS = 'REMOVE_SURROUNDING_TRANSPARENT_BEADS';
+const SET_COLOR_FILTER = 'SET_COLOR_FILTER';
 
 /** *******************
  * Default State
@@ -19,6 +20,7 @@ export const defaultCanvasState = {
 	currentCanvasName: 'Untitled',
 	currentCanvasBead: defaultBead,
 	zoom: 100,
+	colorFilter: '',
 };
 
 /** *******************
@@ -59,6 +61,11 @@ export const removeSurroundingTransparentBeadsAction = () => ({
 	type: REMOVE_SURROUNDING_TRANSPARENT_BEADS,
 });
 
+export const setColorFilter = category => ({
+	type: SET_COLOR_FILTER,
+	colorFilter: category,
+});
+
 /** *******************
  * Reducer
  ***********************/
@@ -68,6 +75,11 @@ const canvas = (state = defaultCanvasState, action) => {
 	case SET_CURRENT_CANVAS_BEAD:
 		return Object.assign({}, state, {
 			currentCanvasBead: action.currentCanvasBead,
+		});
+
+	case SET_COLOR_FILTER:
+		return Object.assign({}, state, {
+			colorFilter: action.colorFilter,
 		});
 
 	case CHANGE_TABLET_SIZE:

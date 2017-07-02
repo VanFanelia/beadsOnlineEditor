@@ -67,6 +67,8 @@ const Editor = ({ sheet: { classes }, ...props }) => (
 			tabletSizeY={props.tabletSizeY}
 			zoom={props.zoom}
 			setBead={props.setBead}
+			setColorFilter={props.setColorFilter}
+			colorFilter={props.colorFilter}
 			currentCanvasPictureData={props.currentCanvasPictureData}
 			setCurrentCanvasColor={props.setCurrentCanvasBead}
 			currentCanvasBead={props.currentCanvasBead}
@@ -82,9 +84,11 @@ Editor.propTypes = {
 	currentCanvasPictureData: PropTypes.objectOf(PropTypes.any).isRequired,
 	setBead: PropTypes.func.isRequired,
 	setMode: PropTypes.func.isRequired,
+	setColorFilter: PropTypes.func.isRequired,
 	tabletSizeX: PropTypes.number.isRequired,
 	tabletSizeY: PropTypes.number.isRequired,
 	zoom: PropTypes.number.isRequired,
+	colorFilter: PropTypes.string.isRequired,
 	setCurrentCanvasBead: PropTypes.func.isRequired,
 	usePreviewImageInEditor: PropTypes.func.isRequired,
 	currentCanvasBead: PropTypes.string.isRequired,

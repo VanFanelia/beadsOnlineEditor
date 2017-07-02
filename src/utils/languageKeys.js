@@ -83,5 +83,6 @@ export default {
 		TOTAL_USED_BEADS: 'Insgesamt benötigte Perlen',
 		NO_BEAD: 'Keine Perle',
 		BACK_TO_EDITOR_MODE: 'Zurück zum Editor',
+		FILTER_COLOR: 'Farben filter',
 	},
 };

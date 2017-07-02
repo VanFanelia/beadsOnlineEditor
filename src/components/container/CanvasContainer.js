@@ -70,6 +70,8 @@ const CanvasContainer = ({ sheet: { classes }, ...props }) => (
 		<ColorBar
 			visible={props.currentMode === MODES.EDITOR}
 			setCurrentCanvasColor={props.setCurrentCanvasColor}
+			setColorFilter={props.setColorFilter}
+			colorFilter={props.colorFilter}
 			currentCanvasBead={props.currentCanvasBead}
 		/>
 		<div
@@ -85,9 +87,9 @@ const CanvasContainer = ({ sheet: { classes }, ...props }) => (
 							{ props.blockData.blocksX.map(col => (
 								<div className={classes.block} key={`block-${row}-${col}`}>
 									{
-										[1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+										[ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
 											11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-											21, 22, 23, 24, 25, 26, 27, 28, 29].map(rowInBlock => (
+											21, 22, 23, 24, 25, 26, 27, 28].map(rowInBlock => (
 												<div className={classes.row} key={`block-${row}-${col}-${rowInBlock}`}>
 													{ props.blockData.data.filter(entry => (
 														entry.blockY === row && entry.blockX === col && entry.row === rowInBlock
@@ -122,6 +124,8 @@ const CanvasContainer = ({ sheet: { classes }, ...props }) => (
 CanvasContainer.propTypes = {
 	sheet: jssSheet.isRequired,
 	setBead: PropTypes.func.isRequired,
+	setColorFilter: PropTypes.func.isRequired,
+	colorFilter: PropTypes.string.isRequired,
 	tabletSizeX: PropTypes.number,
 	tabletSizeY: PropTypes.number,
 	visible: PropTypes.bool,
