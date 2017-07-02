@@ -1,11 +1,13 @@
 import Jimp from 'jimp';
-import { defaultBead, getBeadByColor, NO_BEAD } from '../utils/beadColors';
+import { defaultBead, getBeadByColor, NO_BEAD, transparentBead } from '../utils/beadColors';
+import { removeSurroundingTransparentBeads } from '../utils/imageAlgorithm';
 
 const CHANGE_TABLET_SIZE = 'CHANGE_TABLET_SIZE';
 const CHANGE_ZOOM = 'CHANGE_ZOOM';
 const SET_BEAD = 'SET_BEAD';
 const SET_CURRENT_CANVAS_BEAD = 'SET_CURRENT_CANVAS_BEAD';
 const SET_CURRENT_CANVAS_IMAGE = 'SET_CURRENT_CANVAS_IMAGE';
+const REMOVE_SURROUNDING_TRANSPARENT_BEADS = 'REMOVE_SURROUNDING_TRANSPARENT_BEADS';
 
 /** *******************
  * Default State
@@ -51,6 +53,10 @@ export const transferPreviewImageInToEditor = (image, tabletSizeX, tabletSizeY) 
 	image,
 	tabletSizeX,
 	tabletSizeY,
+});
+
+export const removeSurroundingTransparentBeadsAction = () => ({
+	type: REMOVE_SURROUNDING_TRANSPARENT_BEADS,
 });
 
 /** *******************
@@ -99,19 +105,23 @@ const canvas = (state = defaultCanvasState, action) => {
 	case SET_CURRENT_CANVAS_IMAGE: {
 		let data = state.currentCanvasPictureData.pixels;
 
-		for (let x = 0; x < action.image.bitmap.width; x += 1) {
-			for (let y = 0; y < action.image.bitmap.height; y += 1) {
-				const color = Jimp.intToRGBA(action.image.getPixelColor(x, y));
-				const beadId = getBeadByColor(color.r, color.g, color.b, color.a).id;
-
-				const index = data.findIndex(element => (
-					element.x === action.x && element.y === action.y
-				));
-				if (index > -1) {
-					data = [...data];
-					data[index] = { x, y, beadId };
+		for (let x = 0; x < Math.ceil(action.image.bitmap.width / 29) * 29; x += 1) {
+			for (let y = 0; y < Math.ceil(action.image.bitmap.height / 29) * 29; y += 1) {
+				if (x >= action.image.bitmap.width || y >= action.image.bitmap.height) {
+					data = [...data, { x, y, beadId: transparentBead }];
 				} else {
-					data = [...data, { x, y, beadId }];
+					const color = Jimp.intToRGBA(action.image.getPixelColor(x, y));
+					const beadId = getBeadByColor(color.r, color.g, color.b, color.a).id;
+
+					const index = data.findIndex(element => (
+						element.x === action.x && element.y === action.y
+					));
+					if (index > -1) {
+						data = [...data];
+						data[index] = { x, y, beadId };
+					} else {
+						data = [...data, { x, y, beadId }];
+					}
 				}
 			}
 		}
@@ -120,6 +130,18 @@ const canvas = (state = defaultCanvasState, action) => {
 			currentCanvasPictureData: { pixels: data },
 			tabletSizeX: Math.ceil(action.image.bitmap.width / 29),
 			tabletSizeY: Math.ceil(action.image.bitmap.height / 29),
+		});
+	}
+
+	case REMOVE_SURROUNDING_TRANSPARENT_BEADS: {
+		return Object.assign({}, state, {
+			currentCanvasPictureData: {
+				pixels: removeSurroundingTransparentBeads(
+					state.currentCanvasPictureData.pixels,
+					state.tabletSizeX * 29,
+					state.tabletSizeY * 29,
+				),
+			},
 		});
 	}
 

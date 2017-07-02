@@ -19,12 +19,11 @@ You can find the most recent version of this guide [here](https://github.com/fac
 - Choose different sizes for pixellating picture // DONE
 - Transfer picture to canvas // DONE
 - Add No-Bead option in canvas editor // DONE
+- Remove Transparent Beads around image // DONE
 - Filter beadList by using usedBeadTypes in Converter
-- Remove Transparent Beads around image
 - Get Table of used Beads // DONE
 - Get Print preview // DONE
-- Navigation from beads Editor to overview 
-	and from print preview back to editor
+- Navigation from beads Editor to overview and from print preview back to editor // DONE
 - Insert all possible Hama Colors // DONE
 - Filter colors in color bar
 - search for Color in color bar

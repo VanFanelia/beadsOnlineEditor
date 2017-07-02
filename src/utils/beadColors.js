@@ -1,7 +1,7 @@
 const blankColor = { color: '#eeeeee00' };
 
 export const defaultBead = 'H01';
-
+export const transparentBead = 'H19';
 export const NO_BEAD = 'NO_BEAD';
 
 /* eslint-disable no-multi-spaces, key-spacing */
@@ -51,7 +51,7 @@ export const getBeadIdData = (beadId) => {
 	}
 
 	// eslint-disable-next-line no-console
-	console.error('BeadId not found in bead list!');
+	console.error(`BeadId '${beadId}' not found in bead list!`);
 	return blankColor;
 };
 
