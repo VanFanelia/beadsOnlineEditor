@@ -37,7 +37,7 @@ const styles = {
 		marginLeft: grid('s'),
 		marginRight: grid('s'),
 	},
-	printButton: {
+	button: {
 		marginLeft: grid('s'),
 		marginRight: grid('s'),
 	},
@@ -109,10 +109,18 @@ const MenuBar = ({ dispatch, sheet: { classes }, ...props }) => {
 			/>
 			<label htmlFor="zoom">{translate('ZOOM')}</label>
 			<button
-				className={classes.printButton}
+				className={classes.button}
 				onClick={() => dispatch(setMode(MODES.PRINT_PREVIEW))}
+				style={{ display: props.currentMode === MODES.EDITOR ? 'inline-block' : 'none' }}
 			>
 				{translate('PRINT_PREVIEW')}
+			</button>
+			<button
+				className={classes.button}
+				onClick={() => dispatch(setMode(MODES.EDITOR))}
+				style={{ display: props.currentMode === MODES.PRINT_PREVIEW ? 'inline-block' : 'none' }}
+			>
+				{translate('BACK_TO_EDITOR_MODE')}
 			</button>
 		</div>
 	);
@@ -121,6 +129,7 @@ const MenuBar = ({ dispatch, sheet: { classes }, ...props }) => {
 MenuBar.propTypes = {
 	tabletSizeX: PropTypes.number,
 	tabletSizeY: PropTypes.number,
+	currentMode: PropTypes.string.isRequired,
 	classes: jssClasses.isRequired,
 	sheet: jssSheet.isRequired,
 	dispatch: PropTypes.func.isRequired,
