@@ -84,6 +84,10 @@ export const getDistanceBetween2Colors = (colorA, colorB) => {
 
 
 export const getNearestColor = (color, availableColors) => {
+	if (Object.keys(availableColors).length === 0) {
+		return beadList.H19;
+	}
+
 	if (color.alpha === 0) {
 		return beadList.H19;
 	}
@@ -118,6 +122,18 @@ export const colorImageInBeadColors = (image, beads) => {
 		}
 	}
 	return image;
+};
+
+const filterBeadList = (beads, beadTypes) => {
+	const result = {};
+
+	Object.keys(beads).forEach((key) => {
+		if (beadTypes.includes(beads[key].type)) {
+			result[beads[key].id] = beads[key];
+		}
+	});
+
+	return result;
 };
 
 const convert = (
@@ -161,10 +177,8 @@ const convert = (
 	let resizedImage = image.clone();
 	resizedImage.resize(newImageSize.width, newImageSize.height, selectedAlgorithm);
 
-	// TODO: filter beadList by using usedBeadTypes
-
 	// color with beads
-	resizedImage = colorImageInBeadColors(resizedImage, beadList);
+	resizedImage = colorImageInBeadColors(resizedImage, filterBeadList(beadList, usedBeadTypes));
 	return resizedImage;
 };
 

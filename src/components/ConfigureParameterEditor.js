@@ -10,10 +10,10 @@ import { translate } from '../utils/translate';
 import { setConverterParameters, startConversion } from '../reducers/converter';
 
 import { lightGrayBackground, borderGray } from '../style/colors';
-import { BASIC_HAMA_COLORS, PASTEL_HAMA_COLORS, TRANSPARENT_HAMA_COLORS, METAL_HAMA_COLORS, IKEA_BEADS_COLORS } from '../utils/beadTypes';
+import { HAMA_BASIC, HAMA_PASTEL, HAMA_TRANSPARENT, HAMA_METAL, IKEA } from '../utils/beadTypes';
 import { RESIZE_OPTION_SCALE_CUBIC, RESIZE_OPTION_SCALE_MAX_SPACE } from '../utils/scaleOptions';
 import { RESIZE_BEZIER, RESIZE_BICUBIC, RESIZE_BILINEAR, RESIZE_HERMITE, RESIZE_NEAREST_NEIGHBOR } from '../utils/resizeAlgorithm';
-import { jssSheet, jssClasses } from '../utils/propTypes';
+import { jssSheet, jssClasses, jimpImage } from '../utils/propTypes';
 
 const styles = {
 	container: {
@@ -65,6 +65,7 @@ class ConfigureParameterEditor extends React.Component {
 			maxHeight: props.maxHeight,
 			usedBeadTypes: props.usedBeadTypes,
 			selectedScaleOption: props.selectedScaleOption,
+			convertedImage: props.convertedImage,
 		};
 		this.handleAlgorithmChange = this.handleAlgorithmChange.bind(this);
 		this.handleScaleOptionChange = this.handleScaleOptionChange.bind(this);
@@ -322,73 +323,73 @@ class ConfigureParameterEditor extends React.Component {
 						<strong>{translate('CHOOSE_BEADS')}</strong>
 						<ul className={this.classes.list}>
 							<li>
-								<label htmlFor={BASIC_HAMA_COLORS}>
+								<label htmlFor={HAMA_BASIC}>
 									<input
-										id={BASIC_HAMA_COLORS}
+										id={HAMA_BASIC}
 										className={this.classes.checkbox}
 										type="checkbox"
 										name="BEAD_TYPES"
-										value={BASIC_HAMA_COLORS}
-										checked={this.state.usedBeadTypes.indexOf(BASIC_HAMA_COLORS) >= 0}
+										value={HAMA_BASIC}
+										checked={this.state.usedBeadTypes.indexOf(HAMA_BASIC) >= 0}
 										onChange={this.handleBeadsTypeChange}
 									/>
-									{translate(BASIC_HAMA_COLORS)}
+									{translate(HAMA_BASIC)}
 								</label>
 							</li>
 							<li>
-								<label htmlFor={PASTEL_HAMA_COLORS}>
+								<label htmlFor={HAMA_PASTEL}>
 									<input
-										id={PASTEL_HAMA_COLORS}
+										id={HAMA_PASTEL}
 										className={this.classes.checkbox}
 										type="checkbox"
 										name="BEAD_TYPES"
-										value={PASTEL_HAMA_COLORS}
-										checked={this.state.usedBeadTypes.indexOf(PASTEL_HAMA_COLORS) >= 0}
+										value={HAMA_PASTEL}
+										checked={this.state.usedBeadTypes.indexOf(HAMA_PASTEL) >= 0}
 										onChange={this.handleBeadsTypeChange}
 									/>
-									{translate(PASTEL_HAMA_COLORS)}
+									{translate(HAMA_PASTEL)}
 								</label>
 							</li>
 							<li>
-								<label htmlFor={TRANSPARENT_HAMA_COLORS}>
+								<label htmlFor={HAMA_TRANSPARENT}>
 									<input
-										id={TRANSPARENT_HAMA_COLORS}
+										id={HAMA_TRANSPARENT}
 										className={this.classes.checkbox}
 										type="checkbox"
 										name="BEAD_TYPES"
-										value={TRANSPARENT_HAMA_COLORS}
-										checked={this.state.usedBeadTypes.indexOf(TRANSPARENT_HAMA_COLORS) >= 0}
+										value={HAMA_TRANSPARENT}
+										checked={this.state.usedBeadTypes.indexOf(HAMA_TRANSPARENT) >= 0}
 										onChange={this.handleBeadsTypeChange}
 									/>
-									{translate(TRANSPARENT_HAMA_COLORS)}
+									{translate(HAMA_TRANSPARENT)}
 								</label>
 							</li>
 							<li>
-								<label htmlFor={METAL_HAMA_COLORS}>
+								<label htmlFor={HAMA_METAL}>
 									<input
-										id={METAL_HAMA_COLORS}
+										id={HAMA_METAL}
 										className={this.classes.checkbox}
 										type="checkbox"
 										name="BEAD_TYPES"
-										value={METAL_HAMA_COLORS}
-										checked={this.state.usedBeadTypes.indexOf(METAL_HAMA_COLORS) >= 0}
+										value={HAMA_METAL}
+										checked={this.state.usedBeadTypes.indexOf(HAMA_METAL) >= 0}
 										onChange={this.handleBeadsTypeChange}
 									/>
-									{translate(METAL_HAMA_COLORS)}
+									{translate(HAMA_METAL)}
 								</label>
 							</li>
 							<li>
-								<label htmlFor={IKEA_BEADS_COLORS}>
+								<label htmlFor={IKEA}>
 									<input
-										id={IKEA_BEADS_COLORS}
+										id={IKEA}
 										className={this.classes.checkbox}
 										type="checkbox"
 										name="BEAD_TYPES"
-										value={IKEA_BEADS_COLORS}
-										checked={this.state.usedBeadTypes.indexOf(IKEA_BEADS_COLORS) >= 0}
+										value={IKEA}
+										checked={this.state.usedBeadTypes.indexOf(IKEA) >= 0}
 										onChange={this.handleBeadsTypeChange}
 									/>
-									{translate(IKEA_BEADS_COLORS)}
+									{translate(IKEA)}
 								</label>
 							</li>
 						</ul>
@@ -415,10 +416,12 @@ ConfigureParameterEditor.propTypes = {
 	changeConverterParameters: PropTypes.func.isRequired,
 	startConversion: PropTypes.func.isRequired,
 	selectedScaleOption: PropTypes.string.isRequired,
+	convertedImage: jimpImage,
 };
 
 ConfigureParameterEditor.defaultProps = {
 	visible: false,
+	convertedImage: null,
 };
 
 const mapStateToProps = state => ({
@@ -428,6 +431,7 @@ const mapStateToProps = state => ({
 	maxHeight: state.converter.maxHeight,
 	usedBeadTypes: state.converter.usedBeadTypes,
 	selectedScaleOption: state.converter.selectedScaleOption,
+	convertedImage: state.converter.convertedImage,
 });
 
 const mapDispatchToProps = dispatch => ({

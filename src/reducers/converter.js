@@ -16,7 +16,7 @@ export const defaultConverterState = {
 	selectedScaleOption: RESIZE_OPTION_SCALE_CUBIC,
 	maxWidth: 2,
 	maxHeight: 2,
-	usedBeadTypes: ['BASIC_HAMA_COLORS', 'PASTEL_HAMA_COLORS', 'METAL_HAMA_COLORS'],
+	usedBeadTypes: ['HAMA_BASIC', 'HAMA_PASTEL', 'HAMA_METAL'],
 	image: null,
 	convertedImage: null,
 };
@@ -82,6 +82,7 @@ const converter = (state = defaultConverterState, action) => {
 			maxHeight: action.maxHeight,
 			usedBeadTypes: action.usedBeadTypes,
 			selectedScaleOption: action.selectedScaleOption,
+			convertedImage: null,
 		});
 
 	case CONVERSION_DONE:

@@ -55,6 +55,12 @@ class PicturePreview extends React.Component {
 		};
 	}
 
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.image !== this.props.image) {
+			this.state = { base64Image: null };
+		}
+	}
+
 	getImageSrc() {
 		if (this.props.image === null) {
 			return this.props.linkUrl;
