@@ -80,7 +80,11 @@ const canvas = (state = defaultCanvasState, action) => {
 		const index = data.findIndex(element => (
 			element.x === action.x && element.y === action.y
 		));
-		if (index > -1) {
+		if (action.beadId == null) {
+			if (index > -1) {
+				data.splice(index, 1);
+			}
+		} else if (index > -1) {
 			data = [...data];
 			data[index] = { x: action.x, y: action.y, beadId: action.beadId };
 		} else {

@@ -73,7 +73,7 @@ class ColorBeadPanel extends React.Component {
 	}
 
 	onClickPanel() {
-		this.props.setCurrentCanvasColor(this.props.beadId);
+		this.props.onClick(this.props.beadId);
 	}
 
 	render() {
@@ -128,7 +128,7 @@ ColorBeadPanel.propTypes = {
 	connectDragSource: PropTypes.func.isRequired,
 	connectDragPreview: PropTypes.func.isRequired,
 	isDragging: PropTypes.bool.isRequired,
-	setCurrentCanvasColor: PropTypes.func.isRequired,
+	onClick: PropTypes.func.isRequired,
 };
 
 ColorBeadPanel.defaultProps = {

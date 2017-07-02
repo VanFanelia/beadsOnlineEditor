@@ -81,5 +81,6 @@ export default {
 		COLOR: 'Farbe',
 		SUM: 'Summe',
 		TOTAL_USED_BEADS: 'Insgesamt benötigte Perlen',
+		NO_BEAD: 'Keine Perle',
 	},
 };

@@ -18,6 +18,7 @@ You can find the most recent version of this guide [here](https://github.com/fac
 - Use algorithm on it to pixellate // DONE
 - Choose different sizes for pixellating picture // DONE
 - Transfer picture to canvas // DONE
+- Add No-Bead option in canvas editor // DONE
 - Filter beadList by using usedBeadTypes in Converter
 - Remove Transparent Beads around image
 - Get Table of used Beads // DONE

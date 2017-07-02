@@ -59,6 +59,14 @@ const ColorBar = ({ sheet: { classes }, ...props }) =>
 		<ColorFilter />
 		<input className={classes.input} type="text" value={''} placeholder={translate('SEARCH_PLACEHOLDER')} />
 		<ul className={classes.colorList}>
+			<ColorBeadPanel
+				beadId={null}
+				backgroundColor={lightGrayBackground}
+				textColor={white}
+				colorName={translate('NO_BEAD')}
+				onClick={props.setCurrentCanvasColor}
+				isSelected={props.currentCanvasBead === null}
+			/>
 			{ Object.values(beadList).map(bead => (
 				<ColorBeadPanel
 					key={`ColorPanel${bead.id}`}
@@ -66,7 +74,7 @@ const ColorBar = ({ sheet: { classes }, ...props }) =>
 					backgroundColor={bead.color}
 					colorName={translate(`${bead.id}_NAME`)}
 					textColor={white}
-					setCurrentCanvasColor={props.setCurrentCanvasColor}
+					onClick={props.setCurrentCanvasColor}
 					isSelected={props.currentCanvasBead === bead.id}
 				/>
 				))
