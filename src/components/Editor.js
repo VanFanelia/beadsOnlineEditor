@@ -12,6 +12,7 @@ import PictureChooser from '../components/PictureChooser';
 import PicturePreview from '../components/PicturePreview';
 import ConfigureParameterEditor from '../components/ConfigureParameterEditor';
 import ActionBar from '../components/ActionBar';
+import CopyUrlPopup from '../components/CopyUrlPopup';
 
 const styles = {
 	container: {
@@ -75,6 +76,10 @@ const Editor = ({ sheet: { classes }, ...props }) => (
 			currentMode={props.mode}
 			blockData={props.blockData}
 		/>
+		<CopyUrlPopup
+			visible={props.showUrlPopup}
+			url={props.imageShareUrl}
+		/>
 	</div>
 );
 
@@ -96,6 +101,8 @@ Editor.propTypes = {
 	blockData: PropTypes.objectOf(PropTypes.any).isRequired,
 	image: jimpImage,
 	convertedImage: jimpImage,
+	showUrlPopup: PropTypes.bool.isRequired,
+	imageShareUrl: PropTypes.string.isRequired,
 };
 
 Editor.defaultProps = {

@@ -84,5 +84,7 @@ export default {
 		NO_BEAD: 'Keine Perle',
 		BACK_TO_EDITOR_MODE: 'Zurück zum Editor',
 		FILTER_COLOR: 'Farben filter',
+		URL_TO_SHARE: 'Url zum Teilen',
+		LINK_TO_SHARE_CANVAS: 'Link zum teilen des aktuellen Editors',
 	},
 };

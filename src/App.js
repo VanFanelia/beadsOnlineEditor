@@ -1,13 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { BrowserRouter, Route } from 'react-router-dom';
-import { createStore, combineReducers } from 'redux';
-import { routerReducer as routing } from 'react-router-redux';
 import createBrowserHistory from 'history/createBrowserHistory';
-
-import global from './reducers/global';
-import canvas from './reducers/canvas';
-import converter from './reducers/converter';
 
 import injectSheet from './utils/injectSheet';
 import globalStyles from './style/globalStyle';
@@ -26,20 +20,6 @@ const styles = {
 	},
 };
 
-/* eslint-disable no-underscore-dangle */
-const store = createStore(
-	combineReducers({
-		canvas,
-		global,
-		converter,
-		routing,
-	}),
-	window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-);
-/* eslint-enable */
-
-const customHistory = createBrowserHistory();
-
 class App extends React.Component {
 
 	constructor(props) {
@@ -47,15 +27,17 @@ class App extends React.Component {
 		this.sheet = props.sheet;
 		this.classes = props.classes;
 		this.children = props.children;
+		this.customHistory = createBrowserHistory();
+		this.store = props.store;
 	}
 
 	componentDidMount() {
-		store.dispatch({ type: 'INIT' });
+		this.store.dispatch({ type: 'INIT' });
 	}
 
 	render() {
 		return (
-			<BrowserRouter history={customHistory} >
+			<BrowserRouter history={this.customHistory} >
 				<div>
 					<Navigation currentPath={''} />
 					<div className={this.classes.content}>
@@ -73,6 +55,7 @@ class App extends React.Component {
 
 App.propTypes = {
 	children: PropTypes.element,
+	store: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
 	sheet: jssSheet.isRequired,
 	classes: jssClasses.isRequired,
 };

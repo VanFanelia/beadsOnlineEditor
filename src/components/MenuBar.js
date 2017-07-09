@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
-import { changeTabletSize, changeZoom } from '../reducers/canvas';
+import { changeTabletSize, changeZoom, generateUrlAndShowPopup } from '../reducers/canvas';
 import { setMode, MODES } from '../reducers/global';
 import injectSheet from '../utils/injectSheet';
 
@@ -115,6 +115,18 @@ const MenuBar = ({ dispatch, sheet: { classes }, ...props }) => {
 			>
 				{translate('PRINT_PREVIEW')}
 			</button>
+
+			<button
+				className={classes.button}
+				onClick={() => dispatch(generateUrlAndShowPopup(
+					props.currentCanvasPictureData.pixels,
+					props.tabletSizeX * 29,
+					props.tabletSizeY * 29,
+				))}
+				style={{ display: props.currentMode === MODES.EDITOR ? 'inline-block' : 'none' }}
+			>
+				{translate('URL_TO_SHARE')}
+			</button>
 			<button
 				className={classes.button}
 				onClick={() => dispatch(setMode(MODES.EDITOR))}
@@ -130,6 +142,7 @@ MenuBar.propTypes = {
 	tabletSizeX: PropTypes.number,
 	tabletSizeY: PropTypes.number,
 	currentMode: PropTypes.string.isRequired,
+	currentCanvasPictureData: PropTypes.objectOf(PropTypes.any).isRequired,
 	classes: jssClasses.isRequired,
 	sheet: jssSheet.isRequired,
 	dispatch: PropTypes.func.isRequired,

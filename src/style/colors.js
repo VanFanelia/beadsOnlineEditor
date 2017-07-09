@@ -12,6 +12,8 @@ export const lightGrayBackground = '#f7f8f7';
 export const darkGrayBackground = '#222222';
 export const tooltipBackground = '#e5e3e5';
 
+export const transparentOverlay = 'rgba(197, 192, 197, 0.85)';
+
 export const lightFontColor = '#eaeaea';
 export const darkFontColor = '#333344';
 

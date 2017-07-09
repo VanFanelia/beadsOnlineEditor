@@ -55,6 +55,10 @@ export const getBeadIdData = (beadId) => {
 	return blankColor;
 };
 
+export const colorToHexCode = (red, green, blue, alpha) => (
+	parseInt(`${red.toString(16)}${green.toString(16)}${blue.toString(16)}${alpha.toString(16)}`, 16)
+);
+
 export const getBeadByColor = (red, green, blue, alpha) => (
 	Object.values(beadList).find(
 		bead => (

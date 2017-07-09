@@ -22,7 +22,10 @@ const mapStateToProps = state => ({
 	blockData: blockBuilder(
 		state.canvas.tabletSizeX,
 		state.canvas.tabletSizeY,
-		state.canvas.currentCanvasPictureData.pixels),
+		state.canvas.currentCanvasPictureData.pixels,
+	),
+	imageShareUrl: state.canvas.imageShareUrl,
+	showUrlPopup: state.canvas.showUrlPopup,
 });
 
 const mapDispatchToProps = dispatch => ({

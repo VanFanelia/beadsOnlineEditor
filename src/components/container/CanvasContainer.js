@@ -65,6 +65,7 @@ const CanvasContainer = ({ sheet: { classes }, ...props }) => (
 			tabletSizeY={props.tabletSizeY}
 			zoom={props.zoom}
 			currentMode={props.currentMode}
+			currentCanvasPictureData={props.currentCanvasPictureData}
 		/>
 
 		<ColorBar

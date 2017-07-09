@@ -1,6 +1,7 @@
 import Jimp from 'jimp';
 import { defaultBead, getBeadByColor, NO_BEAD, transparentBead } from '../utils/beadColors';
 import { removeSurroundingTransparentBeads } from '../utils/imageAlgorithm';
+import { calculateBase64Image } from '../utils/calculateBase64Image';
 
 const CHANGE_TABLET_SIZE = 'CHANGE_TABLET_SIZE';
 const CHANGE_ZOOM = 'CHANGE_ZOOM';
@@ -9,6 +10,8 @@ const SET_CURRENT_CANVAS_BEAD = 'SET_CURRENT_CANVAS_BEAD';
 const SET_CURRENT_CANVAS_IMAGE = 'SET_CURRENT_CANVAS_IMAGE';
 const REMOVE_SURROUNDING_TRANSPARENT_BEADS = 'REMOVE_SURROUNDING_TRANSPARENT_BEADS';
 const SET_COLOR_FILTER = 'SET_COLOR_FILTER';
+const SHOW_URL_POPUP = 'SHOW_URL_POPUP';
+const HIDE_URL_POPUP = 'HIDE_URL_POPUP';
 
 /** *******************
  * Default State
@@ -21,6 +24,8 @@ export const defaultCanvasState = {
 	currentCanvasBead: defaultBead,
 	zoom: 100,
 	colorFilter: '',
+	showUrlPopup: false,
+	imageShareUrl: '',
 };
 
 /** *******************
@@ -65,6 +70,26 @@ export const setColorFilter = category => ({
 	type: SET_COLOR_FILTER,
 	colorFilter: category,
 });
+
+export const showUrlPopup = imageBase64 => ({
+	type: SHOW_URL_POPUP,
+	showUrlPopup: true,
+	imageUrl: imageBase64,
+});
+
+export const hideUrlPopup = () => ({
+	type: HIDE_URL_POPUP,
+	showUrlPopup: false,
+});
+
+export const generateUrlAndShowPopup = (pixels, sizeX, sizeY) => (
+	dispatch => (
+		calculateBase64Image(pixels, sizeX, sizeY).then(
+			image => dispatch(showUrlPopup(image)),
+			error => dispatch(showUrlPopup(`An Error occured: ${error}`)),
+		)
+	)
+);
 
 /** *******************
  * Reducer
@@ -154,6 +179,23 @@ const canvas = (state = defaultCanvasState, action) => {
 					state.tabletSizeY * 29,
 				),
 			},
+		});
+	}
+
+	case SHOW_URL_POPUP: {
+		const link = `${window.location.href}?img=${
+			encodeURIComponent(action.imageUrl)
+		}`;
+
+		return Object.assign({}, state, {
+			showUrlPopup: true,
+			imageShareUrl: link,
+		});
+	}
+
+	case HIDE_URL_POPUP: {
+		return Object.assign({}, state, {
+			showUrlPopup: false,
 		});
 	}
 
