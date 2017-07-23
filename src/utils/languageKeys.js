@@ -86,5 +86,7 @@ export default {
 		FILTER_COLOR: 'Farben filter',
 		URL_TO_SHARE: 'Url zum Teilen',
 		LINK_TO_SHARE_CANVAS: 'Link zum teilen des aktuellen Editors',
+		HOME_INTRODUCTION: 'Online Tool zum Erstellen von Mustern/ Anleitungen für Bügelperlen aus Bilddateien.',
+		CONTACT: 'Kontakt',
 	},
 };

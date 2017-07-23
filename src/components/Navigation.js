@@ -76,10 +76,6 @@ const Navigation = ({ sheet: { classes }, ...props }) => {
 			path: '/about',
 			label: 'About',
 		},
-		{
-			path: '/logo',
-			label: 'Logo Colors',
-		},
 	];
 
 	return (<nav className={classes.wrapper}>

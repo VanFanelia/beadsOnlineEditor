@@ -10,8 +10,7 @@ import { jssSheet, jssClasses } from './utils/propTypes';
 
 import Home from './pages/Home';
 import BeadsEditor from './pages/BeadsEditor';
-import OtherPage from './pages/OtherPage';
-import LogoColorPalette from './pages/LogoColorPalette';
+import About from './pages/About';
 
 const styles = {
 	...globalStyles,
@@ -45,8 +44,7 @@ class App extends React.Component {
 					</div>
 					<Route exact path="/" component={Home} />
 					<Route path="/beads-editor" component={BeadsEditor} />
-					<Route path="/about" component={OtherPage} />
-					<Route path="/logo" component={LogoColorPalette} />
+					<Route path="/about" component={About} />
 				</div>
 			</BrowserRouter>
 		);

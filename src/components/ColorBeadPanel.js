@@ -71,6 +71,7 @@ class ColorBeadPanel extends React.Component {
 	componentDidMount() {
 		const img = new Image();
 		const xml = getBeadPreviewImageSrc(`${this.props.backgroundColor}`);
+		// eslint-disable-next-line comma-spacing
 		img.src = `data:image/svg+xml;charset=utf-8,${xml.replace(/(\r\n|\n|\r)/gm,'')}`;
 		img.onload = () => this.props.connectDragPreview(img, { dropEffect: 'copy', anchorX: 1, anchorY: 0 });
 	}

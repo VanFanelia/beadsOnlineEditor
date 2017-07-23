@@ -15,6 +15,7 @@ export const tooltipBackground = '#e5e3e5';
 export const transparentOverlay = 'rgba(197, 192, 197, 0.85)';
 
 export const lightFontColor = '#eaeaea';
+export const lightBorderColor = '#eaeaea';
 export const darkFontColor = '#333344';
 
 export const errorRed = '#cc0000';
