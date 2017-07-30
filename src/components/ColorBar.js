@@ -18,7 +18,7 @@ const styles = {
 	colorBar: {
 		backgroundColor: lightGrayBackground,
 		position: 'absolute',
-		height: `calc(100% - ${grid('xl + l')})`,
+		height: '100%',
 		marginTop: grid('l'),
 		padding: grid('xs'),
 		paddingTop: grid('s'),
@@ -43,9 +43,9 @@ const styles = {
 	},
 	colorList: {
 		padding: `0 ${grid('s')} 0 0`,
+		height: `calc(100% - ${grid('xl + l')})`,
 		margin: 0,
 		listStyleType: 'none',
-		height: '100%',
 		overflowY: 'auto',
 	},
 	colorFilter: {
