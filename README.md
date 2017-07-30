@@ -27,6 +27,7 @@ You can find the most recent version of this guide [here](https://github.com/fac
 - Insert all possible Hama Colors // DONE
 - Filter colors in color bar // DONE
 - <strike>search for Color in color bar</strike>
-- Save state in session
-- Save canvas Data in URL
-- Write impressium and rest of page
+- Save state in session 
+- Save canvas Data in URL // DONE
+- Write impressum and rest of page // DONE
+- Tooltip for print preview
