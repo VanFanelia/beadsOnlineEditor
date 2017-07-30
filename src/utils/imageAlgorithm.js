@@ -33,7 +33,7 @@ export const removeTransparentBead = (imageHash, x, y, maxX, maxY) => {
 	if (x > maxX || y > maxY || x < 0 || y < 0) {
 		return imageHash;
 	}
-	const current = imageHash[x + (maxX * y)];
+	const current = imageHash[x + ((maxX + 1) * y)];
 
 	// Allready done
 	if (current === NO_BEAD || current !== transparentBead) {
@@ -41,7 +41,7 @@ export const removeTransparentBead = (imageHash, x, y, maxX, maxY) => {
 	}
 
 	let result = imageHash;
-	result[x + (maxX * y)] = NO_BEAD;
+	result[x + ((maxX + 1) * y)] = NO_BEAD;
 
 	result = removeTransparentBead(result, x - 1, y, maxX, maxY); // left
 	result = removeTransparentBead(result, x, y + 1, maxX, maxY); // bottom
@@ -60,7 +60,6 @@ export const removeSurroundingTransparentBeads = (pixels, width, height) => {
 		imageHash = removeTransparentBead(imageHash, 0, n, width - 1, height - 1); // left
 		imageHash = removeTransparentBead(imageHash, width - 1, n, width - 1, height - 1); // right
 	}
-
 	return convertToPixelNotation(imageHash, width, height);
 };
 
