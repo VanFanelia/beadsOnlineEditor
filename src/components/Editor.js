@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import injectSheet from '../utils/injectSheet';
-import { jssSheet, jimpImage } from '../utils/propTypes';
+import { jssSheet, jimpImage, jssClasses } from '../utils/propTypes';
 import grid from '../utils/grid';
 
 import { MODES } from '../reducers/global';
@@ -26,65 +26,98 @@ const styles = {
 	},
 };
 
-const Editor = ({ sheet: { classes }, ...props }) => (
-	<div className={classes.container}>
-		<StartupEditorChooser
-			visible={props.mode === MODES.INIT}
-			onClickCreateCanvas={() => { props.setMode(MODES.EDITOR); }}
-			onClickChoosePicture={() => { props.setMode(MODES.CHOOSE_PICTURE); }}
-		/>
-		<PictureChooser
-			visible={props.mode === MODES.CHOOSE_PICTURE}
-		/>
-		<PicturePreview
-			visible={props.mode === MODES.CHOOSE_PARAMETERS || props.mode === MODES.CONVERSION_FINISHED}
-			linkUrl={props.linkUrl}
-			image={props.image}
-		/>
-		<ConfigureParameterEditor
-			visible={props.mode === MODES.CHOOSE_PARAMETERS || props.mode === MODES.CONVERSION_FINISHED}
-		/>
+class Editor extends React.Component {
 
-		<PicturePreview
-			visible={props.mode === MODES.CONVERSION_FINISHED}
-			linkUrl={props.linkUrl}
-			image={props.convertedImage}
-			resizeImage={false}
-		/>
-		<ActionBar
-			visible={props.mode === MODES.CONVERSION_FINISHED}
-			action={() => {
-				props.usePreviewImageInEditor(
-					props.convertedImage,
-					props.tabletSizeX,
-					props.tabletSizeY,
-				);
-			}}
-		/>
+	constructor(props) {
+		super(props);
+		this.sheet = props.sheet;
+		this.classes = props.classes;
+	}
 
-		<CanvasContainer
-			visible={props.mode === MODES.EDITOR || props.mode === MODES.PRINT_PREVIEW}
-			tabletSizeX={props.tabletSizeX}
-			tabletSizeY={props.tabletSizeY}
-			zoom={props.zoom}
-			setBead={props.setBead}
-			setColorFilter={props.setColorFilter}
-			colorFilter={props.colorFilter}
-			currentCanvasPictureData={props.currentCanvasPictureData}
-			setCurrentCanvasColor={props.setCurrentCanvasBead}
-			currentCanvasBead={props.currentCanvasBead}
-			currentMode={props.mode}
-			blockData={props.blockData}
-		/>
-		<CopyUrlPopup
-			visible={props.showUrlPopup}
-			url={props.imageShareUrl}
-		/>
-	</div>
-);
+	componentWillMount() {
+		if (this.props.presetImage) {
+			console.log(this.props);
+			this.props.useUrlImage(
+				decodeURIComponent(this.props.presetImage),
+				this.props.presetImageWidth,
+				this.props.presetImageHeight,
+			);
+		}
+	}
+
+	render() {
+		return (
+			<div className={this.classes.container}>
+				<StartupEditorChooser
+					visible={this.props.mode === MODES.INIT}
+					onClickCreateCanvas={() => {
+						this.props.setMode(MODES.EDITOR);
+					}}
+					onClickChoosePicture={() => {
+						this.props.setMode(MODES.CHOOSE_PICTURE);
+					}}
+				/>
+				<PictureChooser
+					visible={this.props.mode === MODES.CHOOSE_PICTURE}
+				/>
+				<PicturePreview
+					visible={
+							this.props.mode === MODES.CHOOSE_PARAMETERS ||
+							this.props.mode === MODES.CONVERSION_FINISHED
+						}
+					linkUrl={this.props.linkUrl}
+					image={this.props.image}
+				/>
+				<ConfigureParameterEditor
+					visible={
+						this.props.mode === MODES.CHOOSE_PARAMETERS ||
+						this.props.mode === MODES.CONVERSION_FINISHED
+					}
+				/>
+
+				<PicturePreview
+					visible={this.props.mode === MODES.CONVERSION_FINISHED}
+					linkUrl={this.props.linkUrl}
+					image={this.props.convertedImage}
+					resizeImage={false}
+				/>
+				<ActionBar
+					visible={this.props.mode === MODES.CONVERSION_FINISHED}
+					action={() => {
+						this.props.usePreviewImageInEditor(
+							this.props.convertedImage,
+							this.props.tabletSizeX,
+							this.props.tabletSizeY,
+						);
+					}}
+				/>
+
+				<CanvasContainer
+					visible={this.props.mode === MODES.EDITOR || this.props.mode === MODES.PRINT_PREVIEW}
+					tabletSizeX={this.props.tabletSizeX}
+					tabletSizeY={this.props.tabletSizeY}
+					zoom={this.props.zoom}
+					setBead={this.props.setBead}
+					setColorFilter={this.props.setColorFilter}
+					colorFilter={this.props.colorFilter}
+					currentCanvasPictureData={this.props.currentCanvasPictureData}
+					setCurrentCanvasColor={this.props.setCurrentCanvasBead}
+					currentCanvasBead={this.props.currentCanvasBead}
+					currentMode={this.props.mode}
+					blockData={this.props.blockData}
+				/>
+				<CopyUrlPopup
+					visible={this.props.showUrlPopup}
+					url={this.props.imageShareUrl}
+				/>
+			</div>
+		);
+	}
+}
 
 Editor.propTypes = {
 	sheet: jssSheet.isRequired,
+	classes: jssClasses.isRequired,
 	mode: PropTypes.string.isRequired,
 	currentCanvasPictureData: PropTypes.objectOf(PropTypes.any).isRequired,
 	setBead: PropTypes.func.isRequired,
@@ -103,11 +136,16 @@ Editor.propTypes = {
 	convertedImage: jimpImage,
 	showUrlPopup: PropTypes.bool.isRequired,
 	imageShareUrl: PropTypes.string.isRequired,
+	presetImage: PropTypes.string,
+	useUrlImage: PropTypes.func.isRequired,
+	presetImageWidth: PropTypes.number.isRequired,
+	presetImageHeight: PropTypes.number.isRequired,
 };
 
 Editor.defaultProps = {
 	image: null,
 	convertedImage: null,
+	presetImage: '',
 };
 
 export default injectSheet(styles)(Editor);

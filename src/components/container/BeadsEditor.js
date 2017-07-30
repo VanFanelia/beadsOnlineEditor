@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
-import { setBead, setCurrentCanvasBead, transferPreviewImageInToEditor, removeSurroundingTransparentBeadsAction, setColorFilter } from '../../reducers/canvas';
+import { setBead, setCurrentCanvasBead, transferPreviewImageInToEditor, removeSurroundingTransparentBeadsAction, setColorFilter, generateJimpImageAndsetPresetImageOnSuccess } from '../../reducers/canvas';
 import { setMode } from '../../reducers/global';
 import { blockBuilder } from '../../utils/blockBuilder';
 
@@ -41,6 +41,9 @@ const mapDispatchToProps = dispatch => ({
 	usePreviewImageInEditor: (image, tabletSizeX, tabletSizeY) => {
 		dispatch(transferPreviewImageInToEditor(image, tabletSizeX, tabletSizeY));
 		dispatch(removeSurroundingTransparentBeadsAction(image));
+	},
+	useUrlImage: (base64image, width, height) => {
+		dispatch(generateJimpImageAndsetPresetImageOnSuccess(base64image, width, height));
 	},
 	setColorFilter: (category) => {
 		dispatch(setColorFilter(category));

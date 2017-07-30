@@ -43,7 +43,8 @@ class App extends React.Component {
 						{this.children}
 					</div>
 					<Route exact path="/" component={Home} />
-					<Route path="/beads-editor" component={BeadsEditor} />
+					<Route exact path="/beads-editor" component={BeadsEditor} />
+					<Route path="/beads-editor/:width/:height/:img" component={BeadsEditor} />
 					<Route path="/about" component={About} />
 				</div>
 			</BrowserRouter>

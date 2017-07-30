@@ -1,7 +1,7 @@
 import Jimp from 'jimp';
 import { defaultBead, getBeadByColor, NO_BEAD, transparentBead } from '../utils/beadColors';
 import { removeSurroundingTransparentBeads } from '../utils/imageAlgorithm';
-import { calculateBase64Image } from '../utils/calculateBase64Image';
+import { calculateBase64Image, calculateImageFromBase64String } from '../utils/calculateBase64Image';
 
 const CHANGE_TABLET_SIZE = 'CHANGE_TABLET_SIZE';
 const CHANGE_ZOOM = 'CHANGE_ZOOM';
@@ -71,10 +71,12 @@ export const setColorFilter = category => ({
 	colorFilter: category,
 });
 
-export const showUrlPopup = imageBase64 => ({
+export const showUrlPopup = (imageBase64, width, height) => ({
 	type: SHOW_URL_POPUP,
 	showUrlPopup: true,
 	imageUrl: imageBase64,
+	width,
+	height,
 });
 
 export const hideUrlPopup = () => ({
@@ -85,11 +87,34 @@ export const hideUrlPopup = () => ({
 export const generateUrlAndShowPopup = (pixels, sizeX, sizeY) => (
 	dispatch => (
 		calculateBase64Image(pixels, sizeX, sizeY).then(
-			image => dispatch(showUrlPopup(image)),
-			error => dispatch(showUrlPopup(`An Error occured: ${error}`)),
+			image => dispatch(showUrlPopup(image, sizeX, sizeY)),
+			error => console.error(`An Error occured: ${error}`),
 		)
 	)
 );
+
+export const generateJimpImageAndsetPresetImageOnSuccess = (imageBase64, width, height) => (
+	dispatch => (
+		calculateImageFromBase64String(imageBase64, width, height).then(
+			(image) => {
+				dispatch(changeTabletSize(
+					Math.ceil(image.width / 29),
+					Math.ceil(image.height / 29),
+				));
+				dispatch(
+					transferPreviewImageInToEditor(
+						image,
+						Math.ceil(image.width / 29),
+						Math.ceil(image.height / 29),
+					),
+				);
+				dispatch(removeSurroundingTransparentBeadsAction(image));
+			},
+			error => console.error(`An Error occured: ${error}`),
+		)
+	)
+);
+
 
 /** *******************
  * Reducer
@@ -183,7 +208,7 @@ const canvas = (state = defaultCanvasState, action) => {
 	}
 
 	case SHOW_URL_POPUP: {
-		const link = `${window.location.href}?img=${
+		const link = `${window.location.href}/${action.width}/${action.height}/${
 			encodeURIComponent(action.imageUrl)
 		}`;
 
