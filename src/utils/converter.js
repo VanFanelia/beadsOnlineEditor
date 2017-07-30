@@ -88,7 +88,7 @@ export const getNearestColor = (color, availableColors) => {
 		return beadList.H19;
 	}
 
-	if (color.alpha === 0) {
+	if (color.alpha !== 255) {
 		return beadList.H19;
 	}
 
