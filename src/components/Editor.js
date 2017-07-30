@@ -36,7 +36,6 @@ class Editor extends React.Component {
 
 	componentWillMount() {
 		if (this.props.presetImage) {
-			console.log(this.props);
 			this.props.useUrlImage(
 				decodeURIComponent(this.props.presetImage),
 				this.props.presetImageWidth,

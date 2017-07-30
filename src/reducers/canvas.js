@@ -88,6 +88,7 @@ export const generateUrlAndShowPopup = (pixels, sizeX, sizeY) => (
 	dispatch => (
 		calculateBase64Image(pixels, sizeX, sizeY).then(
 			image => dispatch(showUrlPopup(image, sizeX, sizeY)),
+			// eslint-disable-next-line no-console
 			error => console.error(`An Error occured: ${error}`),
 		)
 	)
@@ -110,6 +111,7 @@ export const generateJimpImageAndsetPresetImageOnSuccess = (imageBase64, width, 
 				);
 				dispatch(removeSurroundingTransparentBeadsAction(image));
 			},
+			// eslint-disable-next-line no-console
 			error => console.error(`An Error occured: ${error}`),
 		)
 	)

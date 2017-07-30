@@ -7,7 +7,7 @@ const BeadsEditorContainer = (routeParams) => {
 	const width = routeParams.match.params.width;
 	const height = routeParams.match.params.height;
 	return (<BeadsEditor
-		presetImage={presetImage ? presetImage : ''}
+		presetImage={presetImage}
 		presetImageWidth={width ? parseInt(width, 10) : 0}
 		presetImageHeight={height ? parseInt(height, 10) : 0}
 	/>);
