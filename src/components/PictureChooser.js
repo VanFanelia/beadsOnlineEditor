@@ -16,6 +16,8 @@ import { setMode, MODES } from '../reducers/global';
 import { lightGrayBackground, inputErrorColor } from '../style/colors';
 import { jssSheet, jssClasses } from '../utils/propTypes';
 
+import { calculateImageFromBase64String } from '../utils/calculateBase64Image';
+
 const styles = {
 	container: {
 		backgroundColor: lightGrayBackground,
@@ -39,8 +41,7 @@ const styles = {
 		width: '50%',
 	},
 	previewImage: {
-		width: grid('xxxl + xxxl'),
-		height: 'auto',
+		maxWidth: grid('xxxl + xxxl'),
 	},
 	ImageSourceContainer: {
 		width: '50%',
@@ -54,19 +55,47 @@ class PictureChooser extends React.Component {
 		this.sheet = props.sheet;
 		this.classes = props.classes;
 		this.state = {
+			mode: 'link',
 			invalidLink: false,
 			linkUrl: props.linkUrl,
 			error: undefined,
-			image: undefined,
+			tempImage: undefined,
+			uploadDimensions: { width: 0, height: 0 },
+			uploadedJimpImage: undefined,
 		};
 		this.updateLinkUrl = this.updateLinkUrl.bind(this);
 		this.chooseImage = this.chooseImage.bind(this);
 		this.handleLinkChange = this.handleLinkChange.bind(this);
 		this.handleLinkError = this.handleLinkError.bind(this);
+		this.onTempImgLoad = this.onTempImgLoad.bind(this);
+	}
+
+	onTempImgLoad({ target: img }) {
+		calculateImageFromBase64String(this.state.tempImage, img.offsetWidth, img.offsetHeight)
+		.then(result => this.setState({
+			uploadDimensions: { width: img.offsetWidth, height: img.offsetHeight },
+			uploadedJimpImage: result }))
+		.catch(
+			() => {
+				this.handleLinkError();
+			});
+	}
+
+	handleImageUploadChange(event) {
+		event.preventDefault();
+
+		const reader = new FileReader();
+		const file = event.target.files[0];
+
+		reader.onloadend = () => {
+			this.setState({ tempImage: reader.result, mode: 'upload' });
+		};
+
+		reader.readAsDataURL(file);
 	}
 
 	handleLinkChange(event) {
-		this.setState({ linkUrl: event.target.value });
+		this.setState({ linkUrl: event.target.value, mode: 'link' });
 	}
 
 	updateLinkUrl(e) {
@@ -77,7 +106,7 @@ class PictureChooser extends React.Component {
 				if (error || resp.statusCode !== 200) {
 					this.handleLinkError();
 				} else {
-					that.setState({ linkUrl: url, error: false, invalidLink: false });
+					that.setState({ linkUrl: url, error: false, invalidLink: false, mode: 'link' });
 					that.props.setLinkUrl(url);
 				}
 			});
@@ -93,14 +122,18 @@ class PictureChooser extends React.Component {
 
 	chooseImage() {
 		const that = this;
-		jimp.read(this.state.linkUrl, (err, image) => {
-			if (err !== null && err !== undefined) {
-				that.setState({ error: true });
-			} else {
-				that.setState({ error: false });
-				that.props.onClickChooseImageFromPreview(image);
-			}
-		});
+		if (this.state.mode === 'link') {
+			jimp.read(this.state.linkUrl, (err, image) => {
+				if (err !== null && err !== undefined) {
+					that.setState({ error: true });
+				} else {
+					that.setState({ error: false });
+					that.props.onClickChooseImageFromPreview(image);
+				}
+			});
+		} else {
+			this.props.onClickChooseImageFromPreview(this.state.uploadedJimpImage);
+		}
 	}
 
 	render() {
@@ -129,6 +162,7 @@ class PictureChooser extends React.Component {
 					<input
 						type="file"
 						name="UploadedFile"
+						onChange={e => this.handleImageUploadChange(e)}
 					/>
 				</div>
 				<div className={this.classes.preview} >
@@ -142,7 +176,16 @@ class PictureChooser extends React.Component {
 					<img
 						className={classNames({
 							[this.classes.previewImage]: true,
-							[this.classes.hide]: this.props.linkUrl === '' || this.state.error === true || this.state.invalidLink === true,
+							[this.classes.hide]: this.state.mode !== 'upload' || this.state.tempImage === undefined,
+						})}
+						src={this.state.tempImage}
+						onLoad={this.onTempImgLoad}
+						alt="preview"
+					/>
+					<img
+						className={classNames({
+							[this.classes.previewImage]: true,
+							[this.classes.hide]: this.state.mode !== 'link' || this.props.linkUrl === '' || this.state.error === true || this.state.invalidLink === true,
 						})}
 						src={this.props.linkUrl}
 						alt="preview"
@@ -160,6 +203,7 @@ PictureChooser.propTypes = {
 	visible: PropTypes.bool.isRequired,
 	linkUrl: PropTypes.string.isRequired,
 	setLinkUrl: PropTypes.func.isRequired,
+	onClickChooseImageFromPreview: PropTypes.func.isRequired,
 	classes: jssClasses.isRequired,
 	sheet: jssSheet.isRequired,
 };
