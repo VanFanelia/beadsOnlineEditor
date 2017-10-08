@@ -104,7 +104,7 @@ class ConfigureParameterEditor extends React.Component {
 	}
 
 	handleMaxWidthChange(changeEvent) {
-		const newValue = changeEvent.target.value;
+		const newValue = parseInt(changeEvent.target.value, 10);
 		if (newValue >= 1 && newValue <= 5) {
 			this.setState({
 				maxWidth: newValue,
@@ -121,7 +121,7 @@ class ConfigureParameterEditor extends React.Component {
 	}
 
 	handleMaxHeightChange(changeEvent) {
-		const newValue = changeEvent.target.value;
+		const newValue = parseInt(changeEvent.target.value, 10);
 		if (newValue >= 1 && newValue <= 5) {
 			this.setState({
 				maxHeight: newValue,
